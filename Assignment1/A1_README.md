@@ -1,4 +1,7 @@
 # Assignment 1: Initial Thoughts and Design
+## Google Docs Access
+[COSC4353-Assignment1](https://docs.google.com/document/d/1AG9fZw5grquC_g9CxATE-KBDg5_MBhaYtp79YZ-JX6w/edit?usp=sharing) *(Provide email for editor access)*
+
 ## Description
 In this assignment we will come up with initial design for a software application that you will build in this semester.
 
