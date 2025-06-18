@@ -1,108 +1,73 @@
 <mxfile host="65bd71144e">
     <diagram id="OOGeuDpNiOZ6lB6-GOxb" name="Concept_1">
-        <mxGraphModel dx="805" dy="528" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+        <mxGraphModel dx="542" dy="255" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0" adaptiveColors="auto">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="137" value="generates" style="edgeStyle=elbowEdgeStyle;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#FF7100);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#FF7100);labelBackgroundColor=none;fontSize=15;jumpStyle=arc;jumpSize=12;" edge="1" parent="1" source="64" target="63">
-                    <mxGeometry x="0.4043" y="10" relative="1" as="geometry">
-                        <mxPoint x="600" y="160" as="sourcePoint"/>
-                        <mxPoint x="690" y="160" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="570" y="240"/>
-                        </Array>
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
+                <mxCell id="32" value="&gt; The language of the datatypes are in SQL.&#xa;&gt; Both Volunteers and Admins can accept an Event/Task.&#xa;&gt; However, only Admins can create those Events/Tasks." style="text;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#000000);" parent="1" vertex="1">
+                    <mxGeometry x="240" y="240" width="330" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="32" value="&lt;ul&gt;&lt;li&gt;&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(0, 0, 0));&quot; face=&quot;Calibri&quot;&gt;The language of the datatypes are in SQL.&lt;/font&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="40" y="40" width="270" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="69" value="" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);labelBackgroundColor=none;jumpStyle=arc;jumpSize=12;" parent="1" source="60" target="62" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="60" value="VOLUNTEER" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);fontSize=24;fontStyle=1;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="120" width="160" height="60" as="geometry"/>
-                </mxCell>
-                <mxCell id="62" value="ADMIN" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#00F3FF);fontSize=24;fontStyle=1;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="400" y="40" width="100" height="60" as="geometry"/>
+                <mxCell id="60" value="USER" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);fontSize=24;fontStyle=1;align=center;labelBorderColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="60" y="120" width="180" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="63" value="VOLUNTEER_HIST" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#9300FF);fontSize=24;fontStyle=1;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="910" y="280" width="200" height="60" as="geometry"/>
+                    <mxGeometry x="360" y="200" width="200" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="64" value="EVENT" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#FF7100);fontSize=24;fontStyle=1;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="510" y="120" width="80" height="60" as="geometry"/>
+                    <mxGeometry x="360" y="40" width="80" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="65" value="TASK" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#FFC600);fontSize=24;fontStyle=1;align=center;" parent="1" vertex="1">
-                    <mxGeometry x="680" y="120" width="80" height="60" as="geometry"/>
+                    <mxGeometry x="510" y="40" width="80" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="71" value="is an" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);flowAnimation=0;labelBackgroundColor=none;fontSize=15;jumpStyle=arc;jumpSize=12;" parent="1" source="60" target="64" edge="1">
-                    <mxGeometry x="-0.619" y="98" relative="1" as="geometry">
-                        <mxPoint x="210" y="160" as="sourcePoint"/>
-                        <mxPoint x="320" y="230" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="320" y="150"/>
-                            <mxPoint x="320" y="230"/>
-                            <mxPoint x="530" y="230"/>
-                        </Array>
-                        <mxPoint x="-58" y="-90" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="72" value="generates" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);flowAnimation=0;labelBackgroundColor=none;fontSize=15;jumpStyle=arc;jumpSize=12;" parent="1" source="60" target="63" edge="1">
-                    <mxGeometry x="0.6871" y="-15" relative="1" as="geometry">
+                <mxCell id="72" value="generates" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);flowAnimation=0;labelBackgroundColor=none;fontSize=15;jumpStyle=arc;jumpSize=12;" parent="1" source="60" target="63" edge="1">
+                    <mxGeometry x="0.5" y="-10" relative="1" as="geometry">
                         <mxPoint x="210" y="160" as="sourcePoint"/>
                         <mxPoint x="330" y="280" as="targetPoint"/>
                         <mxPoint as="offset"/>
                         <Array as="points">
-                            <mxPoint x="320" y="150"/>
-                            <mxPoint x="320" y="325"/>
+                            <mxPoint x="280" y="140"/>
+                            <mxPoint x="280" y="220"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="78" value="" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#00F3FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);labelBackgroundColor=none;jumpStyle=arc;jumpSize=12;" parent="1" source="62" target="64" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="210" y="160" as="sourcePoint"/>
+                <mxCell id="78" value="creates" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);labelBackgroundColor=none;jumpStyle=arc;jumpSize=12;fontSize=15;" parent="1" source="60" target="64" edge="1">
+                    <mxGeometry x="0.5" y="-10" relative="1" as="geometry">
+                        <mxPoint x="500" y="70" as="sourcePoint"/>
                         <mxPoint x="330" y="80" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="79" value="creates" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=light-dark(#000000,#00F3FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#00F3FF);labelBackgroundColor=none;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=15;jumpStyle=arc;jumpSize=12;" parent="1" source="62" target="65" edge="1">
-                    <mxGeometry x="-0.7838" y="10" relative="1" as="geometry">
-                        <mxPoint x="610" y="30" as="sourcePoint"/>
-                        <mxPoint x="710" y="120" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="280" y="140"/>
+                            <mxPoint x="280" y="60"/>
+                        </Array>
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="83" value="has" style="edgeStyle=elbowEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#FF7100);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#FF7100);labelBackgroundColor=none;fontSize=15;" parent="1" source="64" target="65" edge="1">
-                    <mxGeometry x="-0.6667" y="10" relative="1" as="geometry">
+                    <mxGeometry x="-0.1429" y="-10" relative="1" as="geometry">
                         <mxPoint x="440" y="240" as="sourcePoint"/>
                         <mxPoint x="720" y="190" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="630" y="150"/>
-                        </Array>
+                        <Array as="points"/>
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="135" value="accepts" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);flowAnimation=0;labelBackgroundColor=none;fontSize=15;jumpStyle=arc;jumpSize=12;" parent="1" source="60" target="65" edge="1">
-                    <mxGeometry x="-0.375" y="10" relative="1" as="geometry">
+                <mxCell id="135" value="accepts" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=light-dark(#000000,#0038FF);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);flowAnimation=0;labelBackgroundColor=none;fontSize=15;jumpStyle=arc;jumpSize=12;" parent="1" source="60" target="142" edge="1">
+                    <mxGeometry x="0.1667" y="-10" relative="1" as="geometry">
                         <mxPoint x="250" y="160" as="sourcePoint"/>
                         <mxPoint x="560" y="190" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="320" y="150"/>
-                            <mxPoint x="320" y="230"/>
-                            <mxPoint x="720" y="230"/>
+                            <mxPoint x="300" y="140"/>
+                            <mxPoint x="300" y="140"/>
                         </Array>
                         <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="136" value="generates" style="edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=light-dark(#000000, #f6c843);strokeWidth=5;fontFamily=Calibri;fontColor=light-dark(#000000,#F6C843);flowAnimation=0;labelBackgroundColor=none;fontSize=15;jumpStyle=arc;entryX=0;entryY=0.25;entryDx=0;entryDy=0;jumpSize=12;" edge="1" parent="1" source="65" target="63">
-                    <mxGeometry x="0.5255" y="15" relative="1" as="geometry">
-                        <mxPoint x="460" y="420" as="sourcePoint"/>
-                        <mxPoint x="880" y="270" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="800" y="150"/>
-                            <mxPoint x="800" y="295"/>
-                        </Array>
-                        <mxPoint as="offset"/>
-                    </mxGeometry>
+                <mxCell id="141" value="&gt; Can either be a:&#xa;    - Volunteer:&#xa;        - Can accept Tasks&#xa;    - Admin:&#xa;        - Can accept Tasks.&#xa;        - Can create Events/Tasks." style="whiteSpace=wrap;fontColor=light-dark(#000000,#0038FF);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#78A3FF);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0" vertex="1" parent="1">
+                    <mxGeometry x="60" y="160" width="180" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" value="TASK_ASSIGNMENT" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#3B6E00,#5DA800);fontSize=24;fontStyle=1;align=center;" vertex="1" parent="1">
+                    <mxGeometry x="360" y="120" width="200" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="If admin..." style="text;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#0038FF);fontStyle=2;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="30" width="62" height="24" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
