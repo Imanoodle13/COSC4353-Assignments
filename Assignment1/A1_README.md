@@ -75,7 +75,7 @@ List who did what within the group. TAs should be able to validate in GitHub, ot
 | Group Member Name | What is your contribution?    | Discussion Notes  |
 |-                  |-                              |-                  |
 |Gian Alfonso       |   |   |
-|Rohan Kancherla    |   |   |
+|Rohan Kancherla    |  Made a basic rough draft of the UML diagram that we used (not the final UML diagram, Justin made the final one), and suggested a development methodology and a backend language, both of which were unanimously accepted. | Technically, we're using two backend languages, and I only suggested one of them. Also, I found both of the third party components we're using.   |
 |Karish Surani      |   |   |
 |Justin Tran        |   |   |
 
