@@ -21,7 +21,9 @@ CREATE TABLE VOLUNTEER(
 			REFERENCES ROLE(ID),
 	First_name		TEXT,
 	Last_name		TEXT,
+	Username		TEXT,
 	Email			TEXT,
+	Password		TEXT,
 	Skill			TEXT[],
 	Location		GEOGRAPHY(POINT,4326),
 	Availability	TEXT[]

@@ -6,7 +6,10 @@
 --		Linux:		`sudo apt install postgis postgresql-14-postgis-3`
 
 -- 2. Run the following queries:
-CREATE EXTENSION postgis;
+CREATE EXTENSION IF NOT EXISTS postgis;
 SELECT postgis_full_version();
 
 -- The `GEOGRAPHY(POINT,4326)` datatype should work.
+
+-- For hashing passwords
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

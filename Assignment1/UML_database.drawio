@@ -1,10 +1,10 @@
 <mxfile host="65bd71144e">
     <diagram id="OOGeuDpNiOZ6lB6-GOxb" name="Concept_1">
-        <mxGraphModel dx="1826" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="1" adaptiveColors="auto">
+        <mxGraphModel dx="2531" dy="958" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="1" adaptiveColors="auto">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="32" value="&gt; The language of the datatypes are in SQL.&#xa;&gt; Both Volunteers and Admins can accept an Event/Task.&#xa;&gt; However, only Admins can create those Events/Tasks." style="text;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#000000);shadow=0;" parent="1" vertex="1">
+                <mxCell id="32" value="&gt; The language of the datatypes are in SQL.&#xa;&gt; Both Volunteers and Admins can accept an Event/Task.&#xa;&gt; However, only Admins can create those Events/Tasks." style="text;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#000000);shadow=0;" parent="1" vertex="1">
                     <mxGeometry x="-400" y="40" width="330" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="60" value="VOLUNTEER" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);fontSize=24;fontStyle=1;align=left;labelBorderColor=none;strokeColor=none;labelBackgroundColor=none;glass=0;shadow=0;" parent="1" vertex="1">
@@ -133,7 +133,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="240" value="VOLUNTEER" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#0038FF);gradientColor=none;swimlaneFillColor=light-dark(#000000,#78A3FF);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
-                    <mxGeometry x="-160" y="680" width="520" height="440.0000000000002" as="geometry"/>
+                    <mxGeometry x="-160" y="680" width="520" height="520.0000000000002" as="geometry"/>
                 </mxCell>
                 <mxCell id="241" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);fontStyle=1" parent="240" vertex="1">
                     <mxGeometry y="40" width="520" height="40" as="geometry"/>
@@ -207,8 +207,26 @@
                         <mxRectangle width="200" height="40" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="253" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="240" vertex="1">
+                <mxCell id="386" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" vertex="1" parent="240">
                     <mxGeometry y="200" width="520" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="387" value="Username" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" vertex="1" parent="386">
+                    <mxGeometry width="120" height="40" as="geometry">
+                        <mxRectangle width="120" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="388" value="TEXT" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);fontStyle=2;align=left;" vertex="1" parent="386">
+                    <mxGeometry x="120" width="200" height="40" as="geometry">
+                        <mxRectangle width="200" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="389" value="&#39;DJhon_Udon&#39;" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" vertex="1" parent="386">
+                    <mxGeometry x="320" width="200" height="40" as="geometry">
+                        <mxRectangle width="200" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="253" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="240" vertex="1">
+                    <mxGeometry y="240" width="520" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="254" value="Email" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="253" vertex="1">
                     <mxGeometry width="120" height="40" as="geometry">
@@ -225,8 +243,26 @@
                         <mxRectangle width="200" height="40" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
+                <mxCell id="390" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" vertex="1" parent="240">
+                    <mxGeometry y="280" width="520" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="391" value="Password" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" vertex="1" parent="390">
+                    <mxGeometry width="120" height="40" as="geometry">
+                        <mxRectangle width="120" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="392" value="TEXT" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);fontStyle=2;align=left;" vertex="1" parent="390">
+                    <mxGeometry x="120" width="200" height="40" as="geometry">
+                        <mxRectangle width="200" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="393" value="crypt(&#39;plaintext_password&#39;, gen_salt(&#39;bf&#39;))" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" vertex="1" parent="390">
+                    <mxGeometry x="320" width="200" height="40" as="geometry">
+                        <mxRectangle width="200" height="40" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
                 <mxCell id="322" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="240" vertex="1">
-                    <mxGeometry y="240" width="520" height="80" as="geometry"/>
+                    <mxGeometry y="320" width="520" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="323" value="Skill" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="322" vertex="1">
                     <mxGeometry width="120" height="80" as="geometry">
@@ -244,7 +280,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="262" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="240" vertex="1">
-                    <mxGeometry y="320" width="520" height="40" as="geometry"/>
+                    <mxGeometry y="400" width="520" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="263" value="Location" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="262" vertex="1">
                     <mxGeometry width="120" height="40" as="geometry">
@@ -262,7 +298,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="359" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="240" vertex="1">
-                    <mxGeometry y="360" width="520" height="80" as="geometry"/>
+                    <mxGeometry y="440" width="520" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="360" value="Availability" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="359" vertex="1">
                     <mxGeometry width="120" height="80" as="geometry">
@@ -682,6 +718,9 @@
                         </Array>
                         <mxPoint as="offset"/>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="394" value="&gt; For hashing passwords:&#xa;INSERT INTO VOLUNTEER (Email, Password) VALUES&#xa;    (&#39;sample@email.com&#39;, crypt(&#39;plaintext_password&#39;,gen_salt(&#39;bf&#39;)));&#xa;&#xa;&gt; For verifying:&#xa;SELECT * FROM VOLUNTEER&#xa;    WHERE &#xa;        Email = &#39;sample@email.com&#39; AND&#xa;        Password = crypt(&#39;input_password&#39;, Password)" style="text;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#000000);shadow=0;" vertex="1" parent="1">
+                    <mxGeometry x="-160" y="1215" width="380" height="140" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

@@ -1,0 +1,7 @@
+-- Deleting in reverse order of dependencies to avoid foreign key conflicts
+DELETE FROM VOLUNTEER_HIST;
+DELETE FROM VOLUNTEER_TASK;
+DELETE FROM TASK;
+DELETE FROM EVENT;
+DELETE FROM VOLUNTEER;
+DELETE FROM ROLE;
