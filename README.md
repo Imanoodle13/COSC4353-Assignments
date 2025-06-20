@@ -1,7 +1,7 @@
 # COSC4353-Assignments
 |Member         |Discord        |Email|
 |-              |-              |-|
-|Gian Alfonso   |*@ImperialUdon*||
-|Rohan Kancherla|*@45C3ND1NG*   ||
-|Karish Surani  |*@waterlee*    ||
-|Justin Tran    |*@dobs*        ||
+|Gian Alfonso   |*@ImperialUdon*|*gianalfonso8252@gmail.com*|
+|Rohan Kancherla|*@45C3ND1NG*   |*rohan360k@gmail.com*|
+|Karish Surani  |*@waterlee*    |*Karishsurani10@gmail.com*|
+|Justin Tran    |*@dobs*        |*justinhtran04@gmail.com*|

@@ -1,19 +1,19 @@
 <mxfile host="65bd71144e">
     <diagram id="OOGeuDpNiOZ6lB6-GOxb" name="Concept_1">
-        <mxGraphModel dx="1572" dy="766" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="1" adaptiveColors="auto">
+        <mxGraphModel dx="1826" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="1" adaptiveColors="auto">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="32" value="&gt; The language of the datatypes are in SQL.&#xa;&gt; Both Volunteers and Admins can accept an Event/Task.&#xa;&gt; However, only Admins can create those Events/Tasks." style="text;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#000000);shadow=0;" parent="1" vertex="1">
                     <mxGeometry x="-400" y="40" width="330" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="60" value="USER_" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);fontSize=24;fontStyle=1;align=left;labelBorderColor=none;strokeColor=none;labelBackgroundColor=none;glass=0;shadow=0;" parent="1" vertex="1">
-                    <mxGeometry x="-160" y="120" width="80" height="40" as="geometry"/>
+                <mxCell id="60" value="VOLUNTEER" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#0038FF);fontSize=24;fontStyle=1;align=left;labelBorderColor=none;strokeColor=none;labelBackgroundColor=none;glass=0;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="-160" y="120" width="160" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="63" value="VOLUNTEER_HIST" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#9300FF);fontSize=24;fontStyle=1;align=left;strokeColor=none;shadow=0;" parent="1" vertex="1">
-                    <mxGeometry x="440" y="360" width="200" height="40" as="geometry"/>
+                    <mxGeometry x="480" y="360" width="200" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="64" value="EVENT_" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#FF0000);fontSize=24;fontStyle=1;align=left;strokeColor=none;shadow=0;" parent="1" vertex="1">
+                <mxCell id="64" value="EVENT" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#FF0000);fontSize=24;fontStyle=1;align=left;strokeColor=none;shadow=0;" parent="1" vertex="1">
                     <mxGeometry x="160" y="120" width="80" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="65" value="TASK" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#000000,#FFC600);fontSize=24;fontStyle=1;align=left;strokeColor=none;shadow=0;" parent="1" vertex="1">
@@ -56,8 +56,8 @@
                 <mxCell id="141" value="&gt; Privileges include:&#xa;    - Volunteer:&#xa;        - Can accept Tasks&#xa;    - Admin:&#xa;        - Can accept Tasks.&#xa;        - Can create Events/Tasks." style="whiteSpace=wrap;fontColor=light-dark(#000000,#0038FF);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#78A3FF);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
                     <mxGeometry x="-160" y="160" width="160" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="142" value="USER_TASK" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#3B6E00,#5DA800);fontSize=24;fontStyle=1;align=left;strokeColor=none;shadow=0;" parent="1" vertex="1">
-                    <mxGeometry x="160" y="360" width="120" height="40" as="geometry"/>
+                <mxCell id="142" value="VOLUNTEER_TASK" style="whiteSpace=wrap;fillColor=none;fontFamily=Calibri;fontColor=light-dark(#3B6E00,#5DA800);fontSize=24;fontStyle=1;align=left;strokeColor=none;shadow=0;" parent="1" vertex="1">
+                    <mxGeometry x="160" y="360" width="200" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="143" value="If admin..." style="text;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=light-dark(#000000,#0038FF);fontStyle=2;fontSize=10;shadow=0;" parent="1" vertex="1">
                     <mxGeometry x="60" y="110" width="62" height="24" as="geometry"/>
@@ -76,13 +76,13 @@
                 <mxCell id="150" value="&gt; Lists out all possible roles in this organizarion.&#xa;&#xa;So far, the only roles are:&#xa;&gt; Volunteer (Default)&#xa;&gt; Administrator" style="whiteSpace=wrap;fontColor=light-dark(#000000,#FF66B3);labelBackgroundColor=none;fillColor=light-dark(#FFB0DB,#FFB0DB);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;shadow=0;strokeColor=none;swimlaneFillColor=light-dark(default, #f3b3d9);" parent="1" vertex="1">
                     <mxGeometry x="-400" y="160" width="160" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="154" value="&gt; Links USER and TASK.&#xa;&gt; My current plan, in a database perspective, is that once the user selects a certain task, the link between the user and the event should be implied." style="whiteSpace=wrap;fontColor=light-dark(#000000,#6FA630);labelBackgroundColor=none;fillColor=light-dark(#C9FC98,#C9FC98);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;glass=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
+                <mxCell id="154" value="&gt; Links VOLUNTEER and TASK.&#xa;&gt; My current plan, in a database perspective, is that once the volunteer selects a certain task, the link between the volunteer and the event should be implied." style="whiteSpace=wrap;fontColor=light-dark(#000000,#6FA630);labelBackgroundColor=none;fillColor=light-dark(#C9FC98,#C9FC98);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;glass=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
                     <mxGeometry x="160" y="400" width="160" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="155" value="&gt; An extention of USER_TASK that includes the duration a user has worked on a task (once completed)." style="whiteSpace=wrap;fontColor=light-dark(#000000,#8619F5);labelBackgroundColor=none;fillColor=light-dark(#B885F5,#B885F5);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="440" y="400" width="160" height="80" as="geometry"/>
+                <mxCell id="155" value="&gt; An extention of VOLUNTEER_TASK that includes the duration a VOLUNTEER has worked on a task (once completed)." style="whiteSpace=wrap;fontColor=light-dark(#000000,#8619F5);labelBackgroundColor=none;fillColor=light-dark(#B885F5,#B885F5);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="400" width="160" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="157" value="&gt; Lists events created by the admin.&#xa;&gt; The link between USER and EVENT shoud only be applied via creations.&#xa;&gt; User/Task linkage is handled via the USER_TASK table." style="whiteSpace=wrap;fontColor=light-dark(#000000,#FF0000);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#FF9F9F);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;glass=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
+                <mxCell id="157" value="&gt; Lists events created by the admin.&#xa;&gt; The link between VOLUNTEER and EVENT shoud only be applied via creations.&#xa;&gt; VOLUNTEER/Task linkage is handled via the VOLUNTEER_TASK table." style="whiteSpace=wrap;fontColor=light-dark(#000000,#FF0000);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#FF9F9F);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;glass=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
                     <mxGeometry x="160" y="160" width="160" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="159" value="&gt; Links Events with a Task." style="whiteSpace=wrap;fontColor=light-dark(#000000,#F6C843);labelBackgroundColor=none;fillColor=light-dark(#FFFFFF,#F6E0A8);rounded=1;fontFamily=Calibri;align=left;verticalAlign=top;fontStyle=0;shadow=0;strokeColor=none;" parent="1" vertex="1">
@@ -132,7 +132,7 @@
                         <mxPoint x="-200" y="780" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="240" value="USER_" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#0038FF);gradientColor=none;swimlaneFillColor=light-dark(#000000,#78A3FF);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="240" value="VOLUNTEER" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#0038FF);gradientColor=none;swimlaneFillColor=light-dark(#000000,#78A3FF);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="-160" y="680" width="520" height="440.0000000000002" as="geometry"/>
                 </mxCell>
                 <mxCell id="241" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);fontStyle=1" parent="240" vertex="1">
@@ -279,7 +279,7 @@
                         <mxRectangle width="200" height="80" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="266" value="EVENT_" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#FF0000);gradientColor=none;swimlaneFillColor=light-dark(#000000,#FF9F9F);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="266" value="EVENT" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#FF0000);gradientColor=none;swimlaneFillColor=light-dark(#000000,#FF9F9F);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="520" y="680" width="520" height="280" as="geometry"/>
                 </mxCell>
                 <mxCell id="267" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);fontStyle=1" parent="266" vertex="1">
@@ -331,7 +331,7 @@
                         <mxRectangle width="200" height="40" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="278" value="FK: USER_.ID" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" parent="275" vertex="1">
+                <mxCell id="278" value="FK: VOLUNTEER.ID" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" parent="275" vertex="1">
                     <mxGeometry x="320" width="200" height="40" as="geometry">
                         <mxRectangle width="200" height="40" as="alternateBounds"/>
                     </mxGeometry>
@@ -481,7 +481,7 @@
                         <mxPoint x="1090" y="1070" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="327" value="USER_TASK" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#6FA630);gradientColor=none;swimlaneFillColor=light-dark(#000000,#C9FC98);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="327" value="VOLUNTEER_TASK" style="shape=table;startSize=40;container=1;collapsible=0;childLayout=tableLayout;strokeColor=none;fontSize=25;rounded=1;fillColor=light-dark(#FFFFFF,#6FA630);gradientColor=none;swimlaneFillColor=light-dark(#000000,#C9FC98);fontColor=light-dark(#000000,#000000);fontFamily=Calibri;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="520" y="1040" width="400" height="200" as="geometry"/>
                 </mxCell>
                 <mxCell id="328" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);fontStyle=1" parent="327" vertex="1">
@@ -523,7 +523,7 @@
                 <mxCell id="332" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="327" vertex="1">
                     <mxGeometry y="120" width="400" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="333" value="User_ID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="332" vertex="1">
+                <mxCell id="333" value="Volunteer_ID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="332" vertex="1">
                     <mxGeometry width="120" height="40" as="geometry">
                         <mxRectangle width="120" height="40" as="alternateBounds"/>
                     </mxGeometry>
@@ -533,7 +533,7 @@
                         <mxRectangle width="120" height="40" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="335" value="FK:USER_.ID" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" parent="332" vertex="1">
+                <mxCell id="335" value="FK:VOLUNTEER_.ID" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" parent="332" vertex="1">
                     <mxGeometry x="240" width="160" height="40" as="geometry">
                         <mxRectangle width="160" height="40" as="alternateBounds"/>
                     </mxGeometry>
@@ -602,7 +602,7 @@
                 <mxCell id="351" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;strokeColor=inherit;top=0;left=0;bottom=0;right=0;collapsible=0;dropTarget=0;fillColor=none;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="346" vertex="1">
                     <mxGeometry y="80" width="400" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="352" value="U_Task_ID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="351" vertex="1">
+                <mxCell id="352" value="V_Task_ID" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#000000);" parent="351" vertex="1">
                     <mxGeometry width="120" height="40" as="geometry">
                         <mxRectangle width="120" height="40" as="alternateBounds"/>
                     </mxGeometry>
@@ -612,7 +612,7 @@
                         <mxRectangle width="120" height="40" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="354" value="FK: USER_TASK.ID" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" parent="351" vertex="1">
+                <mxCell id="354" value="FK: VOLUNTEER_TASK.ID" style="shape=partialRectangle;whiteSpace=wrap;connectable=0;strokeColor=inherit;overflow=hidden;fillColor=none;top=0;left=0;bottom=0;right=0;pointerEvents=1;fontSize=16;fontFamily=Calibri;fontColor=light-dark(#000000,#006600);align=left;" parent="351" vertex="1">
                     <mxGeometry x="240" width="160" height="40" as="geometry">
                         <mxRectangle width="160" height="40" as="alternateBounds"/>
                     </mxGeometry>
