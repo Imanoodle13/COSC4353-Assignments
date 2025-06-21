@@ -74,10 +74,10 @@ List who did what within the group. TAs should be able to validate in GitHub, ot
 
 | Group Member Name | What is your contribution?    | Discussion Notes  |
 |-                  |-                              |-                  |
-|Gian Alfonso       |   |   |
+|Gian Alfonso       |  Made diagrams for database structure, which served as the base for the application architecture, and answered most of question 3 |   |
 |Rohan Kancherla    |  Made a basic rough draft of the UML diagram that we used (not the final UML diagram, Justin made the final one), and suggested a development methodology and a backend language, both of which were unanimously accepted. | Technically, we're using two backend languages, and I only suggested one of them. Also, I found both of the third party components we're using.   |
-|Karish Surani      |   |   |
-|Justin Tran        |   |   |
+|Karish Surani      | Wrote the sections for initial thoughts  |   |
+|Justin Tran        |  Completed the UML diagram for the application structure |   |
 
 ## What to turn in
 - Only soft copy uploaded to Canvas or GitHub before due date.
