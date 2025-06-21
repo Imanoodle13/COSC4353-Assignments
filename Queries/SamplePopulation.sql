@@ -1,3 +1,16 @@
+/*
+20 Volunteers:
+	15 regular volunteers (Role_ID = 1)
+	5 admins (Role_ID = 2)
+
+Admin Event Distribution:
+	Maria (Admin): Moderating 3 events (most active)
+	James (Admin): Moderating 2 events
+	Lisa (Admin): Moderating 1 event
+	Daniel (Admin): Moderating 1 event
+	Rachel (Admin): No events yet (available for future assignments)
+*/
+
 -- Insert roles
 INSERT INTO ROLE (Name) VALUES 
 ('Volunteer'),
