@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <title>Volunteer Central</title>
+</head>
+
+<header>
+    <div class="navbar">
+        <span>Volunteer Central</span>
+        <nav>
+            <ul>
+                <li><a href="/HomePage.html">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/login">Log In</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<body>
+    <div class="loginPage">
+        <form action="/auth" method="POST">
+            <div class="login-box">
+                <h2>Log In</h2>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" for="username" id="username" placeholder="Username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" for="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="loginButton" onclick="login()">Log In</button>
+                <p class="signupLink">Don't have an account yet? <a href="/signup">Register!</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</body>
+
+</html>
