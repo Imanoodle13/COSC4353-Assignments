@@ -21,43 +21,51 @@
     </div>
 </header>
 <body>
-<div class="form-container" style="margin-bottom: 30px">
-    <h3>Event Creator</h3>
-    <div class="form-group">
-        <label for="eventName">Event Name</label>
-        <input type="text" id="eventName" placeholder="New Event">
-    </div>
-    <div class="form-group">
-        <label for="location">Location</label>
-        <select name="features" id="features">
-            <option value="feature1">Address</option>
-            <option value="feature2">Coordinates</option>
-        </select>
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const features = document.getElementById('features');
-            const locationInput = document.getElementById('location');
+    <div class="form-container">
+        <form>
+            <div class="form-group">
+                <h2>Event Creator</h2>
+                <div>
+                    <!-- Event Name -->
+                    <label for="eventName">Event Name</label>
+                    <input type="text" id="eventName" placeholder="New Event">
+                </div>
+                <div>
+                    <!-- Location -->
+                    <label for="location">Location</label>
+                    <select name="features" id="features">
+                        <option value="feature1">Address</option>
+                        <option value="feature2">Coordinates</option>
+                    </select>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const features = document.getElementById('features');
+                        const locationInput = document.getElementById('location');
 
-            features.addEventListener('change', function() {
-                if (features.value === 'feature1') {
-                    locationInput.placeholder = 'Address';
-                } else if (features.value === 'feature2') {
-                    locationInput.placeholder = 'Latitude, Longitude';
-                }
-            });
-        });
-        </script>
-        <input type="text" id="location" placeholder="Address">
+                        features.addEventListener('change', function() {
+                            if (features.value === 'feature1') {
+                                locationInput.placeholder = 'Address';
+                            } else if (features.value === 'feature2') {
+                                locationInput.placeholder = 'Latitude, Longitude';
+                            }
+                        });
+                    });
+                    </script><br>
+                    <input type="text" id="location" placeholder="Address">
+                </div>
+                <div>
+                    <!-- Description -->
+                    <label for="description">Description</label>
+                    <input type="text" id="description" placeholder="Describe your event">
+                </div>
+                <div>
+                    <!-- Date and Time -->
+                    <label for="dateTime">Date and Time</label>
+                    <input type="datetime-local" id="dateTime">
+                </div>
+                <button onclick="">Publish Event</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" id="description" placeholder="Describe your event">
-    </div>
-    <div>
-        <label for="dateTime">Date and Time</label>
-        <input type="datetime-local" id="dateTime">
-    </div>
-    <button onclick="">Publish Event</button>
-</div>
 </body>
 </html>
