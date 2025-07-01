@@ -1,10 +1,10 @@
 * {
     font-family: 'Work Sans', sans-serif;
-    /* text-transform: uppercase; */
 }
 
 
 header {
+    text-transform: uppercase;
     background-color: #124E66;
     color: #D3D9D4;
     display: flex;
@@ -204,7 +204,7 @@ a:active {
     background: #d7e6ec;
     box-shadow: 0 2px 8px rgba(18, 78, 102, 0.08);
     min-width: 800px;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
 }
 
