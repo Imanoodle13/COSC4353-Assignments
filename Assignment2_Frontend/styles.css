@@ -118,7 +118,7 @@ header nav a:hover::before {
     background-color: #748D92;
 }
 
-/* Link color management */
+/* Link color management ----------     ----------     ----------     ----------*/
 a {
     color: #092936; /* Default color for all links */
     text-decoration: none; /* Removes underline */
@@ -138,7 +138,7 @@ a:active {
     color: #a6ccdb; /* Changes color when clicked */
 }
 
-/* Event Creator */
+/* Event Creator ----------     ----------     ----------     ----------*/
 .form-container {
     height: 100vh;
     display: flex;
@@ -147,7 +147,7 @@ a:active {
 }
 
 .form-group {
-    width: 600px;
+    width: 450px;
     height: 450px;
     background-color: #124E66;
     border-radius: 20px;
@@ -187,4 +187,40 @@ a:active {
 .form-group select:hover{
     background-color: #748D92;
     color: white;
+}
+
+/* Event Creator ----------     ----------     ----------     ----------*/
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 10px; /* Space from the top */
+    min-height: 30vh; /* Ensures some vertical space */
+}
+
+.eventTable {
+    border-collapse: collapse;
+    background: #a6ccdb;
+    box-shadow: 0 2px 8px rgba(18, 78, 102, 0.08);
+    min-width: 800px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.eventTable th,
+.eventTable td {
+    border: 1px solid #124E66;
+    padding: 12px 18px;
+    text-align: left;
+}
+
+.eventTable th {
+    background-color: #124E66;
+    color: #D3D9D4;
+    font-weight: 600;
+}
+
+.eventTable tr:nth-child(even) {
+    background-color: #f2f6f8;
 }
