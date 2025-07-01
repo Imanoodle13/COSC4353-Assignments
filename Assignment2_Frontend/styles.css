@@ -128,10 +128,11 @@ a:hover {
     color: #568ea4; /* Changes color on hover */
     text-decoration: underline; /* Adds underline on hover */
 }
-
+/*
 a:visited {
-    color: purple; /* Changes color for visited links */
+    color: purple; /* Changes color for visited links
 }
+*/
 
 a:active {
     color: #a6ccdb; /* Changes color when clicked */
@@ -155,6 +156,7 @@ a:active {
     justify-content: center;
     align-items: center;
     color: #D3D9D4;
+    flex: 1;
 }
 
 .form-group label {
@@ -162,8 +164,7 @@ a:active {
     margin: 2px;
 }
 
-.form-group input[type="text"],
-.form-group input[type="password"] {
+.form-group input[type="text"]{
     width: 300px;
     height: 40px;
     border-radius: 10px;
@@ -181,4 +182,9 @@ a:active {
 
 .form-group button:hover {
     background-color: #748D92;
+}
+
+.form-group select:hover{
+    background-color: #748D92;
+    color: white;
 }

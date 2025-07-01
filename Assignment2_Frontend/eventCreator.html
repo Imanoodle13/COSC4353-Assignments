@@ -28,7 +28,7 @@
                 <div>
                     <!-- Event Name -->
                     <label for="eventName">Event Name</label>
-                    <input type="text" id="eventName" placeholder="New Event">
+                    <input type="text" id="eventName" placeholder="New Event" required>
                 </div>
                 <div>
                     <!-- Location -->
@@ -46,22 +46,22 @@
                             if (features.value === 'feature1') {
                                 locationInput.placeholder = 'Address';
                             } else if (features.value === 'feature2') {
-                                locationInput.placeholder = 'Latitude, Longitude';
+                                locationInput.placeholder = '0.00000, 0.00000 for approx. 1m precision';
                             }
                         });
                     });
                     </script><br>
-                    <input type="text" id="location" placeholder="Address">
+                    <input type="text" id="location" placeholder="Address" required>
                 </div>
                 <div>
                     <!-- Description -->
                     <label for="description">Description</label>
-                    <input type="text" id="description" placeholder="Describe your event">
+                    <input type="text" id="description" placeholder="Describe your event (Optional but recommended)">
                 </div>
                 <div>
                     <!-- Date and Time -->
                     <label for="dateTime">Date and Time</label>
-                    <input type="datetime-local" id="dateTime">
+                    <input type="datetime-local" id="dateTime" required>
                 </div>
                 <button onclick="">Publish Event</button>
             </div>
