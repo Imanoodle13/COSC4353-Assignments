@@ -148,7 +148,7 @@ a:active {
 
 .form-group {
     width: 450px;
-    height: 450px;
+    height: 525px;
     background-color: #124E66;
     border-radius: 20px;
     display: flex;
@@ -168,6 +168,9 @@ a:active {
     width: 300px;
     height: 40px;
     border-radius: 10px;
+}
+.form-group input[id="description"]{
+    height: 120px;
 }
 
 .form-group button {
@@ -189,7 +192,7 @@ a:active {
     color: white;
 }
 
-/* Event Creator ----------     ----------     ----------     ----------*/
+/* Event Matcher ----------     ----------     ----------     ----------*/
 .table-container {
     display: flex;
     justify-content: center;
@@ -197,6 +200,52 @@ a:active {
     flex-direction: column;
     margin-top: 10px; /* Space from the top */
     min-height: 30vh; /* Ensures some vertical space */
+}
+.table-container input{
+    border-radius: 10px;
+    height: 40px;
+}
+.table-container input[type="search"]{
+    border-radius: 10px;
+    height: 40px;
+    width: 600px;
+}
+
+.table-container button{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    transform: all 300ms ease;
+    border: none;
+    cursor: pointer;
+}
+
+#checkbox {
+  display: none;
+}
+.switch {
+  position: relative;
+  width: fit-content;
+  padding: 10px 20px;
+  background-color: #748D92;
+  border-radius: 50px;
+  z-index: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: white;
+  font-size: 0.9em;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-bottom: 5px;
+  margin-top: -5px;
+}
+#checkbox:checked + .switch {
+  background-color: #124E66;
 }
 
 .eventTable {

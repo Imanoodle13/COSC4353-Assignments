@@ -24,6 +24,15 @@
 <section>
 <h2>Event Matcher</h2>
 <div class="table-container">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <label for="event-search" style="margin-bottom: 0;">Search event: </label>
+        <input type="search" id="event-search" placeholder="🔍">
+        <button>Search</button>
+        <input type="checkbox" id="checkbox" style="margin-left: 16px;" />
+        <label for="checkbox" class="switch" style="margin-bottom: 0; margin-left: 4px;">
+        Show most related to my skills first
+        </label>
+    </div>
     <table class="eventTable">
         <thead>
             <th>Event Name</th>
@@ -136,7 +145,7 @@
                     <span>...</span>
                 </td>
                 <td>
-                    <span>---/---/--- ---:--- ---</span>
+                    <span>DD/MM/YYYY HH:MM --</span>
                 </td>
             </tr>
         </tbody>
