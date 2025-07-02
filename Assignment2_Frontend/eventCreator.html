@@ -64,8 +64,8 @@
                     <input type="datetime-local" id="dateTime" required>
                 </div>
                 <div class="publish-buttons">
-                    <button onclick="publishAndView()">Publish event</button>
-                    <button type="button" onclick="publishAndView()">Publish and view</button>
+                    <button onclick="publish()">Publish event</button>
+                    <button onclick="publishAndView()">Publish and view</button>
                 </div>
             </div>
         </form>
@@ -75,9 +75,17 @@ function publishAndView() {
     const eventName = document.getElementById('eventName').value.trim();
     const location = document.getElementById('location').value.trim();
     const dateTime = document.getElementById('dateTime').value.trim();
-    if (eventName && location && dateTime) {
-        window.location.href = 'eventMatcher.html';
+    if (!(eventName && location && dateTime)) {
+        alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
     } else {
+        window.location.href = 'eventMatcher.html';
+    }
+}
+function publish() {
+    const eventName = document.getElementById('eventName').value.trim();
+    const location = document.getElementById('location').value.trim();
+    const dateTime = document.getElementById('dateTime').value.trim();
+    if (!(eventName && location && dateTime)) {
         alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
     }
 }
