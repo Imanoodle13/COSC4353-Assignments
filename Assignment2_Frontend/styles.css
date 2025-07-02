@@ -120,13 +120,13 @@ header nav a:hover::before {
 
 /* Link color management ----------     ----------     ----------     ----------*/
 a {
-    color: #092936; /* Default color for all links */
-    text-decoration: none; /* Removes underline */
+    color: #092936;
+    text-decoration: none;
 }
 
 a:hover {
-    color: #568ea4; /* Changes color on hover */
-    text-decoration: underline; /* Adds underline on hover */
+    color: #568ea4; 
+    text-decoration: underline; 
 }
 /*
 a:visited {
@@ -187,6 +187,9 @@ a:active {
     background-color: #748D92;
 }
 
+.form-group select {
+    border-radius: 10px;
+}
 .form-group select:hover{
     background-color: #748D92;
     color: white;
@@ -221,6 +224,9 @@ a:active {
     border: none;
     cursor: pointer;
 }
+.table-container button:hover {
+    background-color: #748D92;
+}
 
 #checkbox {
   display: none;
@@ -229,7 +235,7 @@ a:active {
   position: relative;
   width: fit-content;
   padding: 10px 20px;
-  background-color: #748D92;
+  background-color: #d7e6ec;
   border-radius: 50px;
   z-index: 1;
   cursor: pointer;
@@ -237,21 +243,26 @@ a:active {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: white;
+  color: #000000;
   font-size: 0.9em;
   font-weight: 600;
   transition: all 0.3s;
   margin-bottom: 5px;
   margin-top: -5px;
 }
+.switch:hover {
+    background-color: #748D92;
+    color: #ffffff;
+}
 #checkbox:checked + .switch {
   background-color: #124E66;
+  color: #ffffff;
 }
 
 .eventTable {
     border-collapse: collapse;
     background: #d7e6ec;
-    box-shadow: 0 2px 8px rgba(18, 78, 102, 0.08);
+    box-shadow: 0 2px 8px #124e6614;
     min-width: 800px;
     border-radius: 20px;
     overflow: hidden;
