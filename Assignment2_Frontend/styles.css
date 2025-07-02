@@ -175,7 +175,8 @@ a:active {
 
 .form-group button {
     margin-top: 20px;
-    width: 300px;
+    margin-bottom: 20px;
+    width: 150px;
     height: 40px;
     border-radius: 20px;
     transform: all 300ms ease;

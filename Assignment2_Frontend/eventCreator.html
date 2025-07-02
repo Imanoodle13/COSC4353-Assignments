@@ -63,9 +63,24 @@
                     <label for="dateTime">Date and Time</label>
                     <input type="datetime-local" id="dateTime" required>
                 </div>
-                <button onclick="">Publish Event</button>
+                <div class="publish-buttons">
+                    <button onclick="publishAndView()">Publish event</button>
+                    <button type="button" onclick="publishAndView()">Publish and view</button>
+                </div>
             </div>
         </form>
     </div>
+    <script>
+function publishAndView() {
+    const eventName = document.getElementById('eventName').value.trim();
+    const location = document.getElementById('location').value.trim();
+    const dateTime = document.getElementById('dateTime').value.trim();
+    if (eventName && location && dateTime) {
+        window.location.href = 'eventMatcher.html';
+    } else {
+        alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
+    }
+}
+</script>
 </body>
 </html>
