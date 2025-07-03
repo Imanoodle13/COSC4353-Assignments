@@ -1,7 +1,10 @@
 * {
     font-family: 'Work Sans', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* Nav Bar ----------     ----------     ----------     ----------*/
 
 header {
     text-transform: uppercase;
@@ -73,6 +76,55 @@ header nav a:hover::before {
     width: 100%;
 }
 
+/* Home Page ----------     ----------     ----------     ----------*/
+.fullscreencontainer img {
+    width: 100%;
+    height: auto;
+    filter: brightness(70%);
+}
+
+.fullscreencontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.imgcentered-text {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    ;
+    text-align: center;
+}
+
+.aboutus {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.aboutus h2 {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.aboutus h3 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.aboutus p {
+    margin-bottom: 30px;
+}
+
+.aboutus hr {
+    margin-bottom: 30px;
+}
+
+/* Log in Page ----------     ----------     ----------     ----------*/
 .loginPage {
     height: 100vh;
     display: flex;
