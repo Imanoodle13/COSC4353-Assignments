@@ -285,3 +285,7 @@ a:active {
 .eventTable tr:nth-child(even) {
     background-color: #f2f6f8;
 }
+
+.event-tasks {
+    display: table;
+}
