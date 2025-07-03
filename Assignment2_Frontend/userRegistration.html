@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <span>User Registration</span>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="loginPage">
+        <form>
+            <div class="login-box">
+                <h2>Sign Up</h2>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required style="width:300px; height:40px; border-radius:10px;">
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required />
+                </div>
+                <button type="submit" class="loginButton">Register</button>
+                <p class="signupLink">Already have an account? <a href="login.html">Log In!</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
