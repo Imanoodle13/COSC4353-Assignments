@@ -7,6 +7,27 @@
     <link href="styles.css" rel="stylesheet" type="text/css">
     <meta charset="UTF-8">
     <title>Volunteer Central | Event Creator</title>
+<script>
+    function publishAndView() {
+        const eventName = document.getElementById('eventName').value.trim();
+        const locat     = document.getElementById('location').value.trim();
+        const dateTime  = document.getElementById('dateTime').value.trim();
+        if (!(eventName && locat && dateTime)) {
+            alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
+        } else {
+            window.location.href = 'eventMatcher.html';
+        }
+    }
+
+    function publish() {
+        const eventName = document.getElementById('eventName').value.trim();
+        const locat     = document.getElementById('location').value.trim();
+        const dateTime  = document.getElementById('dateTime').value.trim();
+        if (!(eventName && locat && dateTime)) {
+            alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
+        }
+    }
+</script>
 </head>
 <header>
     <div class="navbar">
@@ -63,31 +84,11 @@
                     <input type="datetime-local" id="dateTime" required>
                 </div>
                 <div class="publish-buttons">
-                    <button onclick="publish()">Publish event</button>
-                    <button onclick="publishAndView()">Publish and view</button>
+                    <button type="button" onclick="publish()">Publish event</button>
+                    <button type="button" onclick="publishAndView()">Publish and view</button>
                 </div>
             </div>
         </form>
     </div>
-    <script>
-function publishAndView() {
-    const eventName = document.getElementById('eventName').value.trim();
-    const location = document.getElementById('location').value.trim();
-    const dateTime = document.getElementById('dateTime').value.trim();
-    if (!(eventName && location && dateTime)) {
-        alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
-    } else {
-        window.location.href = 'eventMatcher.html';
-    }
-}
-function publish() {
-    const eventName = document.getElementById('eventName').value.trim();
-    const location = document.getElementById('location').value.trim();
-    const dateTime = document.getElementById('dateTime').value.trim();
-    if (!(eventName && location && dateTime)) {
-        alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
-    }
-}
-</script>
 </body>
 </html>
