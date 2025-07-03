@@ -254,8 +254,10 @@ a:active {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    margin-top: 10px; /* Space from the top */
-    min-height: 30vh; /* Ensures some vertical space */
+    margin-top: 10px;
+    min-height: 30vh;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 .table-container input{
     border-radius: 10px;
