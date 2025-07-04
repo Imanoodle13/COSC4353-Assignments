@@ -340,6 +340,33 @@ a:active {
     background-color: #f2f6f8;
 }
 
-.event-tasks {
-    display: table;
+.grid-container {
+    display: grid;
 }
+
+.eventTaskTable {
+    border-collapse: collapse;
+    background: #d7e6ec;
+    box-shadow: 0 2px 8px #124e6614;
+    border-radius: 20px;
+    overflow: hidden;
+    row-gap: 20px;
+}
+
+.eventTaskTable th,
+.eventTaskTable td {
+    border: 1px solid #124E66;
+    padding: 12px 18px;
+    text-align: center;
+}
+
+.eventTaskTable th {
+    background-color: #124E66;
+    color: #D3D9D4;
+    font-weight: 600;
+}
+
+.eventTaskTable tr:nth-child(even) {
+    background-color: #f2f6f8;
+}
+
