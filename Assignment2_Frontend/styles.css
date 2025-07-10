@@ -249,7 +249,7 @@ a:active {
 }
 
 /* Event Matcher ----------     ----------     ----------     ----------*/
-.table-container {
+.eMatcher-table-container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -259,27 +259,27 @@ a:active {
     margin-left: 50px;
     margin-right: 50px;
 }
-.table-container input{
+.eMatcher-table-container input{
     border-radius: 10px;
     height: 40px;
 }
-.table-container input[type="search"]{
+.eMatcher-table-container input[type="search"]{
     border-radius: 10px;
     height: 40px;
     width: 600px;
 }
 
-.table-container button{
+.eMatcher-table-container button{
     margin-top: 5px;
     margin-bottom: 10px;
-    width: 150px;
+    width: 40px;
     height: 40px;
     border-radius: 20px;
     transform: all 300ms ease;
     border: none;
     cursor: pointer;
 }
-.table-container button:hover {
+.eMatcher-table-container button:hover {
     background-color: #748D92;
 }
 
@@ -370,3 +370,37 @@ a:active {
     background-color: #f2f6f8;
 }
 
+/* Event Tasks ----------     ----------     ----------     ----------*/
+.eTasks-table-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 10px;
+    min-height: 30vh;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.eTasks-table-container input{
+    border-radius: 10px;
+    height: 40px;
+}
+.eTasks-table-container input[type="search"]{
+    border-radius: 10px;
+    height: 40px;
+    width: 600px;
+}
+
+.eTasks-table-container button{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    transform: all 300ms ease;
+    border: none;
+    cursor: pointer;
+}
+.eTasks-table-container button:hover {
+    background-color: #748D92;
+}
