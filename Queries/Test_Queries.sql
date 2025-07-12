@@ -9,3 +9,5 @@ SELECT
     (Password = '$2a$06$jjp0bZF7iRq8kSxQ8qt7iOjJxdJOGucsvedYbI8XYE0vDwMChhBSe') AS password_correct
 FROM VOLUNTEER 
 WHERE Username = 'sarah_admin';
+
+SELECT * FROM VOLUNTEER;
