@@ -1,0 +1,74 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+        link(href='/styles.css', rel='stylesheet', type='text/css')
+        title Volunteer Central | Event Matcher
+    script.
+        function publishAndView() {
+            const eventName = document.getElementById('eventName').value.trim();
+            const locat     = document.getElementById('location').value.trim();
+            const dateTime  = document.getElementById('dateTime').value.trim();
+            if (!(eventName && locat && dateTime)) {
+                alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
+            } else {
+                window.location.href = 'eventMatcher.html';
+            }
+        }
+
+        function publish() {
+            const eventName = document.getElementById('eventName').value.trim();
+            const locat     = document.getElementById('location').value.trim();
+            const dateTime  = document.getElementById('dateTime').value.trim();
+            if (!(eventName && locat && dateTime)) {
+                alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
+            }
+        }
+    header
+        div.navbar
+            span Volunteer Central
+            nav
+                ul
+                li: a(href='homepage.html') Home
+                    li: a(href='login.html') Login
+    body
+        div.form-group
+            h2 Event Creator 
+            div 
+                // Event Name
+                label(for='eventName') Event Name 
+                input#eventName(type='text',placeholder='New Event',required)
+            div 
+                // Location
+                label(for='location') Location 
+                select#features(name="features")
+                    option(value="feature1") Address
+                    option(value="feature2") Coordinates 
+                script.
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const features = document.getElementById('features');
+                        const locationInput = document.getElementById('location');
+
+                        features.addEventListener('change', function() {
+                            if (features.value === 'feature1') {
+                                locationInput.placeholder = 'Address';
+                            } else if (features.value === 'feature2') {
+                                locationInput.placeholder = '0.00000, 0.00000 for approx. 1m precision';
+                            }
+                        });
+                    });
+                br
+                input#location(type="text",placeholder='Address',required)
+            div 
+                // Description
+                label(for="description") Description
+                input#description(type="text",placeholder='Optional but recommended.')
+            div 
+                // Date and Time
+                label(for="dateTime") Date and Time 
+                input#dateTime(type="datetime-local",required)
+            div.publish-buttons
+                button(type='button',onclick="publish()") Publish Event
+                button(type='button',onclick="publishAndView()") Publish and View
