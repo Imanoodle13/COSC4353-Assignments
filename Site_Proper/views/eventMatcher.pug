@@ -1,0 +1,81 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+    link(href='/styles.css', rel='stylesheet', type='text/css')
+    title Volunteer Central | Event Matcher
+  body
+    header
+      div.navbar
+        span Volunteer Central
+        nav
+          ul
+            li
+              a(href='/homepage.html') Home
+            li
+              a(href='/login') Log In
+    section
+      div.eMatcher-table-container
+        h2 Event Matcher
+        div(style='display: flex; align-items: center; gap: 12px; flex-wrap: wrap;')
+          input(type='search', id='event-search', placeholder='Search events here')
+          button 🔍
+          input(type='checkbox', id='checkbox', style='margin-left: 16px;')
+          label(for='checkbox', class='switch', style='margin-bottom: 0; margin-left: 4px;') Show events with related skills
+        table.eventTable
+          thead
+            tr
+              th Event Name
+              th Moderated by
+              th Location
+              th Skills
+              th Description
+              th Date
+          tbody
+            tr
+                td
+                    a(href='/eventTasks') Triage Center
+                td
+                    em Gian Alfonso
+                td 1000 Bellaire Dr
+                td Health, Companionship
+                td Assist patients and offer administrative help.
+                td 7/1/2025 10:00 AM
+            tr
+                td
+                    a(href='/eventTasks') UH Run Club Supplier
+                td
+                    em Rohan Kancherla
+                td 4300 University Dr
+                td Manual Labor, Health, Organization
+                td Offer food and beverages to runners and walkers participating in the Resilient Running Event.
+                td 7/12/2025 6:00 AM
+            tr
+                td
+                    a(href='/eventTasks') Houston Food Bank Collaboration
+                td
+                    em Karish Surani
+                td 535 Portwall St
+                td First Aid, Education, Customer Service
+                td A joint volunteering event offering food and drinks to low-income schools and neighborhoods in metropilitan Houston.
+                td 7/20/2025 12:00 PM
+            tr
+                td
+                    a(href='/eventTasks') HCC Flea Market
+                td
+                    em Justin Tran
+                td 1300 Holman St
+                td Customer Service, Planning, Communication
+                td Flea market celebration.
+                td 7/25/2025 2:00 PM
+            tr
+                td
+                    a(href='/eventTasks') ...
+                td
+                    em ...
+                td ...
+                td ...
+                td ...
+                td ...
