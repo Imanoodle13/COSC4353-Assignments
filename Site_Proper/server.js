@@ -13,12 +13,19 @@ app.get('/', function(req, res) {
 	res.render('index')
 });
 
+// http://localhost:8080/homepage.html
 app.get('/homepage.html', function(req, res) {
 	res.render('homepage')
 });
 
+// http://localhost:8080/eventmatcher.html
 app.get(['/eventMatcher', '/eventmatcher.html'], (req, res) => {
   res.render('eventMatcher');
+});
+
+// http://localhost:8080/eventcreator.html
+app.get(['/eventCreator', '/eventCreator.html'], (req,res) => {
+	res.render('eventCreator');
 });
 
 app.listen(8080, () => {

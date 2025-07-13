@@ -20,10 +20,10 @@ html
       div.eMatcher-table-container
         h2 Event Matcher
         div(style='display: flex; align-items: center; gap: 12px; flex-wrap: wrap;')
-          input(type='search', id='event-search', placeholder='Search events here')
+          input#event-search(type='search', placeholder='Search events here')
           button 🔍
-          input(type='checkbox', id='checkbox', style='margin-left: 16px;')
-          label(for='checkbox', class='switch', style='margin-bottom: 0; margin-left: 4px;') Show events with related skills
+          input#checkbox(type='checkbox', style='margin-left: 16px;')
+          label.switch(for='checkbox', style='margin-bottom: 0; margin-left: 4px;') Show events with related skills
         table.eventTable
           thead
             tr

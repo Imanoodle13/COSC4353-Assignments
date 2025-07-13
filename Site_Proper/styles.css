@@ -203,6 +203,7 @@ a:active {
     height: 525px;
     background-color: #124E66;
     border-radius: 20px;
+    margin: 40px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -278,6 +279,7 @@ a:active {
     transform: all 300ms ease;
     border: none;
     cursor: pointer;
+    background-color: #d7e6ec;
 }
 .eMatcher-table-container button:hover {
     background-color: #748D92;
@@ -310,8 +312,9 @@ a:active {
     color: #ffffff;
 }
 #checkbox:checked + .switch {
-  background-color: #124E66;
-  color: #ffffff;
+  background-color: #00f7ff; /* #124E66 */
+  box-shadow: 0px 0px 40px #00f7ff43;
+  color: #000000;
 }
 
 .eventTable {
