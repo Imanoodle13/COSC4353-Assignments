@@ -18,6 +18,6 @@ app.get('/homepage.html', function(req, res) {
 });
 
 
-app.listen(8080, () => {
-	console.log("listening")
+const serv = app.listen(8080, '0.0.0.0', () => {
+	console.log("listening on ", serv.address())
 });

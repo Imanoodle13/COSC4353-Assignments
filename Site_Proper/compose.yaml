@@ -1,0 +1,34 @@
+services:
+  app:
+    image: node:24
+    container_name: server
+    restart: always
+    command: sh -c "npm install && node ./server.js"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: curl -f http://localhost:8080/ || exit 1
+      interval: 5s
+      retries: 10
+  caddy:
+    image: caddy:2
+    container_name: rev_proxy
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - $PWD/conf:/etc/caddy
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
