@@ -20,8 +20,11 @@ app.get('/homepage.html', function(req, res) {
 
 app.get('/login.html', function(req, res) {
 	res.render('login')
-	res.on(
 });
+
+app.post('/auth', (req, res) => {
+	// The login function
+})
 
 // http://localhost:8080/eventmatcher.html
 app.get(['/eventMatcher', '/eventmatcher.html'], (req, res) => {
