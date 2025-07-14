@@ -1,7 +1,7 @@
 # 🔁 HTML to Pug Guide
 ## 1. Basic Structure
 ### 🔠 HTML:
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,7 +14,7 @@
 </html>
 ```
 ### 🐶 Pug:
-```
+```pug
 doctype html
 html(lang="en")
   head
@@ -25,28 +25,28 @@ html(lang="en")
 ```
 ## 2. Classes and IDs
 ### 🔠 HTML:
-```
+```html
 <div id="main" class="container">
   <p class="text">Hello World</p>
 </div>
 ```
 ### 🐶 Pug:
-```
+```pug
 div#main.container
   p.text Hello World
 ```
 ## 3. Attributes
 ### 🔠 HTML:
-```
+```html
 <input type="text" placeholder="Enter your name" />
 ```
 ### 🐶 Pug:
-```
+```pug
 input(type="text", placeholder="Enter your name")
 ```
 ## 4. Loops and Conditionals
 ### 🔠 HTML:
-```
+```html
 <ul>
   <% for(var i=0; i<items.length; i++) { %>
     <li><%= items[i] %></li>
@@ -54,7 +54,7 @@ input(type="text", placeholder="Enter your name")
 </ul>
 ```
 ### 🐶 Pug:
-```
+```pug
 ul
   each item in items
     li= item

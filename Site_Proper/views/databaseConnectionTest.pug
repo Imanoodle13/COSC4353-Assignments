@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+    link(href='/styles.css', rel='stylesheet', type='text/css')
+    title VC | Database Connection Test
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Events loaded.')
+        });
+    header
+      div.navbar
+        span Volunteer Central
+        nav
+          ul
+            li
+              a(href='/homepage.html') Home
+            li
+              a(href='/login') Log In
+  body
+    h1 Database Test 
+    p.
+      Database connection successful! 
+      Current time from database: #{time} 
+    

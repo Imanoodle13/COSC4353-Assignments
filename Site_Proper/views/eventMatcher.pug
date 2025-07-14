@@ -6,7 +6,10 @@ html
     link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
     link(href='/styles.css', rel='stylesheet', type='text/css')
     title Volunteer Central | Event Matcher
-  body
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Events loaded.')
+        });
     header
       div.navbar
         span Volunteer Central
@@ -16,6 +19,7 @@ html
               a(href='/homepage.html') Home
             li
               a(href='/login') Log In
+  body
     section
       div.eMatcher-table-container
         h2 Event Matcher
