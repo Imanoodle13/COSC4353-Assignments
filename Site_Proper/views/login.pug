@@ -8,11 +8,10 @@ head
 	title Volunteer Central
 header
 	div.navbar
-		span Volunteer Central
+		span Login
 		nav
 			ul
-			li: a(href='homepage.html') Home
-				li: a(href='login.html') Login
+				li: a(href='homepage.html') Home
 body
 	div.loginPage
 		form(action='/auth', method='POST')
@@ -27,4 +26,4 @@ body
 				button.loginButton(type='submit', onclick='login()') Log In
 				p.signupLink
 					| Don't have an account yet?
-					a(href='/signup') Register!
+					a(href='/signup.html') Register!

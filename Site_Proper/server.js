@@ -20,7 +20,10 @@ app.get('/homepage.html', function(req, res) {
 
 app.get('/login.html', function(req, res) {
 	res.render('login')
-	res.on(
+});
+
+app.get('/signup.html', (req, res) => {
+	res.render('signup')
 });
 
 // http://localhost:8080/eventmatcher.html
