@@ -5,25 +5,17 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
         link(href='/styles.css', rel='stylesheet', type='text/css')
-        title Volunteer Central | Event Matcher
+        title Volunteer Central | Event Creator
     script.
-        function publishAndView() {
+        function publishAndConfirm() {
             const eventName = document.getElementById('eventName').value.trim();
             const locat     = document.getElementById('location').value.trim();
             const dateTime  = document.getElementById('dateTime').value.trim();
             if (!(eventName && locat && dateTime)) {
                 alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
             } else {
-                window.location.href = 'eventMatcher.html';
-            }
-        }
-
-        function publish() {
-            const eventName = document.getElementById('eventName').value.trim();
-            const locat     = document.getElementById('location').value.trim();
-            const dateTime  = document.getElementById('dateTime').value.trim();
-            if (!(eventName && locat && dateTime)) {
-                alert('Please fill in all required fields: Event Name, Location, and Date and Time.');
+                // INSERT into 'EVENT' from the database 'Volunteer'
+                window.location.href = 'eventConfirm.html';
             }
         }
     header
@@ -70,5 +62,4 @@ html
                 label(for="dateTime") Date and Time 
                 input#dateTime(type="datetime-local",required)
             div.publish-buttons
-                button(type='button',onclick="publish()") Publish Event
-                button(type='button',onclick="publishAndView()") Publish and View
+                button(type='button',onclick="publishAndConfirm()") Publish Event

@@ -2,12 +2,17 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
+const db = require('./database');
+
+const port    = 8080;
+const address = '0.0.0.0';
+const PORT = process.env.PORT || port;
 
 const app = express();
 app.set('view engine', 'pug');
-app.set('views', './views');
+app.set('views', path.join(__dirname,'views'));
 
-app.use(express.static(__dirname));
+//* app.use(express.static(path.join(__dirname,'public')));
 
 app.get('/', function(req, res) {
 	res.render('index')
@@ -19,15 +24,32 @@ app.get('/homepage.html', function(req, res) {
 });
 
 // http://localhost:8080/eventmatcher.html
-app.get(['/eventMatcher', '/eventmatcher.html'], (req, res) => {
+app.get(['/eventMatcher', '/eventmatcher.html'], function(req, res) {
   res.render('eventMatcher');
 });
 
 // http://localhost:8080/eventcreator.html
-app.get(['/eventCreator', '/eventCreator.html'], (req,res) => {
+app.get(['/eventCreator', '/eventCreator.html'], function(req, res) {
 	res.render('eventCreator');
 });
 
-const serv = app.listen(8080, '0.0.0.0', () => {
-	console.log("listening on ", serv.address())
+// http://localhost:8080/eventconfirm.html
+app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
+	res.render('eventConfirm');
+});
+
+/* ---------- Test Pages ------------------------*/
+// http://localhost:8080/databaseConnectionTest.html
+app.get('/database-test', async (req,res) => {
+	try {
+		const result = await db.query('SELECT NOW();');
+		res.render('databaseConnectionTest', {time: result.rows[0].now});
+	} catch (err) {
+		console.error('Database query error:',err);
+		res.status(500).send('Database connection failed.');
+	}
+});
+
+const serv = app.listen(port, address, () => {
+	console.log("listening on", serv.address())
 });
