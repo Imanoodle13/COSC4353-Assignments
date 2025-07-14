@@ -18,6 +18,11 @@ app.get('/homepage.html', function(req, res) {
 	res.render('homepage')
 });
 
+app.get('/login.html', function(req, res) {
+	res.render('login')
+	res.on(
+});
+
 // http://localhost:8080/eventmatcher.html
 app.get(['/eventMatcher', '/eventmatcher.html'], (req, res) => {
   res.render('eventMatcher');

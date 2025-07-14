@@ -1,0 +1,30 @@
+doctype html
+head
+	meta(charset='UTF-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+	link(href='styles.css', rel='stylesheet', type='text/css')
+	meta(charset='UTF-8')
+	title Volunteer Central
+header
+	div.navbar
+		span Volunteer Central
+		nav
+			ul
+			li: a(href='homepage.html') Home
+				li: a(href='login.html') Login
+body
+	div.loginPage
+		form(action='/auth', method='POST')
+			div.login-box
+				h2 Log In
+				div
+					label(for='username') Username:
+					input#username(type='text', placeholder='Username', required='')
+				div
+					label(for='password') Password:
+					input#password(type='password', placeholder='Password', required='')
+				button.loginButton(type='submit', onclick='login()') Log In
+				p.signupLink
+					| Don't have an account yet?
+					a(href='/signup') Register!
