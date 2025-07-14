@@ -1,4 +1,4 @@
-require('dotnev').config();
+require('dotenv').config();
 const { text } = require('express');
 const { Pool } = require('pg');
 
