@@ -22,8 +22,9 @@ app.get('/homepage.html', function(req, res) {
 	res.render('homepage')
 });
 
-app.get('/login.html', function(req, res) {
-	res.render('login')
+// http://localhost:8080/login.html
+app.get(['/login', '/login.html'], function(req, res) {
+	res.render('login');
 });
 
 app.get('/signup.html', (req, res) => {
@@ -34,27 +35,33 @@ app.post('/auth', (req, res) => {
 	// The login function
 })
 
-// http://localhost:8080/eventmatcher.html
-app.get(['/eventMatcher', '/eventmatcher.html'], function(req, res) {
-  res.render('eventMatcher');
+// http://localhost:8080/eventmatcher
+app.get('/eventMatcher', async function(req, res) {
+  try {
+		const result = await db.query('SELECT name,moderator,location FROM EVENT;');
+		res.render('databaseConnectionTest', { events: result && result.rows ? result.rows : [] });
+	} catch (err) {
+		console.error('Database query error:',err);
+		res.status(500).send('Database connection failed.');
+	}
 });
 
-// http://localhost:8080/eventcreator.html
+// http://localhost:8080/eventcreator
 app.get(['/eventCreator', '/eventCreator.html'], function(req, res) {
 	res.render('eventCreator');
 });
 
-// http://localhost:8080/eventconfirm.html
+// http://localhost:8080/eventconfirm
 app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
 	res.render('eventConfirm');
 });
 
 /* ---------- Test Pages ------------------------*/
-// http://localhost:8080/databaseConnectionTest.html
-app.get('/database-test', async (req,res) => {
+// http://localhost:8080/databaseConnectionTest
+app.get(['/databaseConnectionTest', '/databaseConnectionTest.html'], async (req,res) => {
 	try {
-		const result = await db.query('SELECT NOW();');
-		res.render('databaseConnectionTest', {time: result.rows[0].now});
+		const result = await db.query('SELECT name,moderator,location FROM EVENT;');
+		res.render('databaseConnectionTest', { events: result && result.rows ? result.rows : [] });
 	} catch (err) {
 		console.error('Database query error:',err);
 		res.status(500).send('Database connection failed.');
