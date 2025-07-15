@@ -83,56 +83,56 @@ INSERT INTO VOLUNTEER (Role_ID, First_name, Last_name, Username, Email, Password
 -- Insert events with varying moderator assignments
 -- Maria (ID 16) - moderating multiple events
 INSERT INTO EVENT (Name, Moderator, Location, Description, Date) VALUES
-('Houston Food Drive', 16, ST_GeogFromText('POINT(-95.3698 29.7604)'), 'Community food collection for local food banks', '2024-12-15 09:00:00'),
-('Holiday Toy Distribution', 16, ST_GeogFromText('POINT(-95.4194 29.7752)'), 'Distributing toys to families in need during holidays', '2024-12-20 14:00:00'),
-('New Year Community Cleanup', 16, ST_GeogFromText('POINT(-95.3892 29.7372)'), 'Neighborhood cleanup initiative for the new year', '2025-01-05 08:00:00'),
+('Houston Food Drive', 16, ST_GeogFromText('POINT(-95.3698 29.7604)'), 'Community food collection for local food banks.', '2024-12-15 09:00:00'),
+('Holiday Toy Distribution', 16, ST_GeogFromText('POINT(-95.4194 29.7752)'), 'Distributing toys to families in need during holidays.', '2024-12-20 14:00:00'),
+('New Year Community Cleanup', 16, ST_GeogFromText('POINT(-95.3892 29.7372)'), 'Neighborhood cleanup initiative for the new year.', '2025-01-05 08:00:00'),
 
 -- James (ID 17) - moderating multiple events
-('Senior Citizens Support', 17, ST_GeogFromText('POINT(-95.2688 29.6947)'), 'Assistance program for elderly community members', '2024-12-18 10:00:00'),
-('Youth Mentorship Program', 17, ST_GeogFromText('POINT(-95.5588 29.7869)'), 'Pairing volunteers with local youth for mentoring', '2025-01-12 15:00:00'),
+('Senior Citizens Support', 17, ST_GeogFromText('POINT(-95.2688 29.6947)'), 'Assistance program for elderly community members.', '2024-12-18 10:00:00'),
+('Youth Mentorship Program', 17, ST_GeogFromText('POINT(-95.5588 29.7869)'), 'Pairing volunteers with local youth for mentoring.', '2025-01-12 15:00:00'),
 
 -- Lisa (ID 18) - moderating one event
-('Community Garden Project', 18, ST_GeogFromText('POINT(-95.4431 29.6616)'), 'Building and maintaining community gardens', '2025-01-08 11:00:00'),
+('Community Garden Project', 18, ST_GeogFromText('POINT(-95.4431 29.6616)'), 'Building and maintaining community gardens.', '2025-01-08 11:00:00'),
 
 -- Daniel (ID 19) - moderating one event
-('Disaster Preparedness Workshop', 19, ST_GeogFromText('POINT(-95.1743 29.7321)'), 'Teaching community disaster preparedness skills', '2025-01-15 13:00:00');
+('Disaster Preparedness Workshop', 19, ST_GeogFromText('POINT(-95.1743 29.7321)'), 'Teaching community disaster preparedness skills.', '2025-01-15 13:00:00');
 
 -- Rachel (ID 20) - has not moderated any events yet (no entries)
 
 -- Insert tasks for each event
 -- Event 1: Houston Food Drive (Event ID 1)
 INSERT INTO TASK (Event_ID, Skill, Description) VALUES
-(1, ARRAY['Manual Labor', 'Transportation'], 'Loading and transporting food donations'),
-(1, ARRAY['Communication', 'Customer Service'], 'Greeting donors and managing donation intake'),
-(1, ARRAY['Organization', 'Logistics'], 'Sorting and organizing collected food items'),
+(1, ARRAY['Manual Labor', 'Transportation'], 'Loading and transporting food donations.'),
+(1, ARRAY['Communication', 'Customer Service'], 'Greeting donors and managing donation intake.'),
+(1, ARRAY['Organization', 'Logistics'], 'Sorting and organizing collected food items.'),
 
 -- Event 2: Holiday Toy Distribution (Event ID 2)
-(2, ARRAY['Childcare', 'Entertainment'], 'Entertaining children while parents register'),
-(2, ARRAY['Organization', 'Customer Service'], 'Managing toy distribution and family registration'),
+(2, ARRAY['Childcare', 'Entertainment'], 'Entertaining children while parents register.'),
+(2, ARRAY['Organization', 'Customer Service'], 'Managing toy distribution and family registration.'),
 
 -- Event 3: New Year Community Cleanup (Event ID 3)
-(3, ARRAY['Manual Labor', 'Environment'], 'Picking up litter and debris'),
-(3, ARRAY['Leadership', 'Coordination'], 'Coordinating cleanup teams and supplies'),
+(3, ARRAY['Manual Labor', 'Environment'], 'Picking up litter and debris.'),
+(3, ARRAY['Leadership', 'Coordination'], 'Coordinating cleanup teams and supplies.'),
 
 -- Event 4: Senior Citizens Support (Event ID 4)
-(4, ARRAY['Transportation', 'Customer Service'], 'Providing transportation for seniors'),
-(4, ARRAY['Health', 'Companionship'], 'Visiting and providing companionship to seniors'),
-(4, ARRAY['Technology', 'Teaching'], 'Teaching technology skills to seniors'),
+(4, ARRAY['Transportation', 'Customer Service'], 'Providing transportation for seniors.'),
+(4, ARRAY['Health', 'Companionship'], 'Visiting and providing companionship to seniors.'),
+(4, ARRAY['Technology', 'Teaching'], 'Teaching technology skills to seniors.'),
 
 -- Event 5: Youth Mentorship Program (Event ID 5)
-(5, ARRAY['Education', 'Mentoring'], 'One-on-one mentoring sessions with youth'),
-(5, ARRAY['Sports', 'Recreation'], 'Organizing recreational activities'),
-(5, ARRAY['Arts', 'Creativity'], 'Leading creative workshops and activities'),
+(5, ARRAY['Education', 'Mentoring'], 'One-on-one mentoring sessions with youth.'),
+(5, ARRAY['Sports', 'Recreation'], 'Organizing recreational activities.'),
+(5, ARRAY['Arts', 'Creativity'], 'Leading creative workshops and activities.'),
 
 -- Event 6: Community Garden Project (Event ID 6)
-(6, ARRAY['Gardening', 'Manual Labor'], 'Planting and maintaining garden beds'),
-(6, ARRAY['Construction', 'Tools'], 'Building garden infrastructure'),
-(6, ARRAY['Education', 'Environment'], 'Teaching sustainable gardening practices'),
+(6, ARRAY['Gardening', 'Manual Labor'], 'Planting and maintaining garden beds.'),
+(6, ARRAY['Construction', 'Tools'], 'Building garden infrastructure.'),
+(6, ARRAY['Education', 'Environment'], 'Teaching sustainable gardening practices.'),
 
 -- Event 7: Disaster Preparedness Workshop (Event ID 7)
-(7, ARRAY['First Aid', 'Emergency Response'], 'Teaching first aid and emergency response'),
-(7, ARRAY['Communication', 'Public Speaking'], 'Presenting preparedness information'),
-(7, ARRAY['Organization', 'Planning'], 'Organizing workshop materials and schedule');
+(7, ARRAY['First Aid', 'Emergency Response'], 'Teaching first aid and emergency response.'),
+(7, ARRAY['Communication', 'Public Speaking'], 'Presenting preparedness information.'),
+(7, ARRAY['Organization', 'Planning'], 'Organizing workshop materials and schedule.');
 
 -- Insert volunteer task assignments (volunteers accepting tasks)
 INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
