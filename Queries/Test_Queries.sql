@@ -11,3 +11,5 @@ FROM VOLUNTEER
 WHERE Username = 'sarah_admin';
 
 SELECT * FROM EVENT;
+
+SELECT NOW();

@@ -36,9 +36,15 @@ app.post('/auth', (req, res) => {
 })
 
 // http://localhost:8080/eventmatcher
-app.get('/eventMatcher', async function(req, res) {
+app.get('/eventMatcher', async (req, res) => {
   try {
-		const result = await db.query('SELECT name,moderator,location FROM EVENT;');
+		const query = 
+		`SELECT 
+			name,
+			moderator,
+			ST_AsText(location) AS location
+		FROM EVENT;`;
+		const result = await db.query(query);
 		res.render('databaseConnectionTest', { events: result && result.rows ? result.rows : [] });
 	} catch (err) {
 		console.error('Database query error:',err);

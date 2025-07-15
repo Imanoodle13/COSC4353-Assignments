@@ -20,19 +20,21 @@ html
             li
               a(href='/login') Log In
   body
-    h1 Database Test 
-    table 
-      tr 
-        th Name
-        th Moderator
-        th Location
-      tbody 
-        if events && events.length
-          each event in events
+    section
+    div.eMatcher-table-container
+      h1 Database Test 
+      table.eventTable
+        tr 
+          th Name
+          th Moderator
+          th Location
+        tbody 
+          if events && events.length
+            each event in events
+              tr
+                td= event.name
+                td= event.moderator
+                td= event.location
+          else
             tr
-              td= event.name
-              td= event.moderator
-              td= event.location
-        else
-          tr
-            td(colspan="3") No events found.
+              td(colspan="3") No events found.
