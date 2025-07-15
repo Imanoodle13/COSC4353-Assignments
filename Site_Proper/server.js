@@ -35,17 +35,58 @@ app.post('/auth', (req, res) => {
 	// The login function
 })
 
+app.post('/auth/register', async (req, res) => {
+    // The register function
+    const client = await pool.connect();
+    let {username, password} = req.body;
+    try {
+        await client.query('BEGIN')
+
+        // Checks if username exists already
+        const check = await client.query(
+            'SELECT * FROM volunteer WHERE username = $1',
+            [username]
+        );
+
+        // If username found then returns error
+        if (check.rows.length > 0) {
+            await client.query('ROLLBACK')
+            return res.status(409).json({error: 'Username already exists'})
+        }
+        await client.query(
+            // Insert into database
+            "INSERT INTO volunteer (username, password) VALUES ($1, $2))",
+            [username, password]
+        );
+        await client.query('COMMIT');
+        res.sendStatus(201) //success
+    } catch(err){
+        await client.query('ROLLBACK');
+        console.error(err.message);
+        res.sendStatus(500);
+    } finally {
+        client.release()
+    }
+})
+
 // http://localhost:8080/eventmatcher
-app.get('/eventMatcher', async (req, res) => {
+app.get(['/eventMatcher','/eventMatcher.html'], async (req, res) => {
   try {
 		const query = 
 		`SELECT 
-			name,
-			moderator,
-			ST_AsText(location) AS location
-		FROM EVENT;`;
+			E.name,
+			V.Username AS moderator,
+			ST_AsText(E.location) AS location,
+			E.description,
+			to_char(E.date, 'YYYY-MM-DD HH24:MI:SS') AS date
+		FROM 
+			EVENT AS E
+		LEFT JOIN
+			VOLUNTEER AS V
+		ON
+			E.moderator = V.id;`;
 		const result = await db.query(query);
-		res.render('databaseConnectionTest', { events: result && result.rows ? result.rows : [] });
+		res.render('eventMatcher', { events: result && result.rows ? result.rows : [] });
 	} catch (err) {
 		console.error('Database query error:',err);
 		res.status(500).send('Database connection failed.');

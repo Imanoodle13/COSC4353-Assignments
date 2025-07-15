@@ -1,53 +1,56 @@
 doctype html
 html
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
-    link(href='/styles.css', rel='stylesheet', type='text/css')
-    title Volunteer Central | Event Matcher
-    script.
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Events loaded.')
-        });
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+        link(href='/styles.css', rel='stylesheet', type='text/css')
+        title Volunteer Central | Event Matcher
+        script.
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('Events loaded.')
+            });
     header
-      div.navbar
-        span Volunteer Central
-        nav
-          ul
-            li
-              a(href='/homepage.html') Home
-            li
-              a(href='/login') Log In
-  body
-    section
-      div.eMatcher-table-container
-        h2 Event Matcher
-        
-        div(style='display: flex; align-items: center; gap: 12px; flex-wrap: wrap;')
-          input#event-search(type='search', placeholder='Search events here')
-          button 🔍
-          input#checkbox(type='checkbox', style='margin-left: 16px;')
-          label.switch(for='checkbox', style='margin-bottom: 0; margin-left: 4px;') Show events with related skills
-        table.eventTable
-          thead
-            tr
-              th Event Name
-              th Moderated by
-              th Location
-          tbody
-            // events - All rows.
-            // event  - One row.
-            if events && events.length 
-              each event in events 
-                tr 
-                  td= event.name 
-                  td= event.moderator 
-                  td= event.location
-            else 
-              tr 
-                td(colspan="3") No events found.
-            tr
-                td ...
-                td ...
-                td ...
+        div.navbar
+            span Volunteer Central
+            nav
+                ul
+                    li
+                        a(href='/homepage.html') Home
+                    li
+                        a(href='/login') Log In
+    body
+        section
+            div.eMatcher-table-container
+                h2 Event Matcher
+                div(style='display: flex; align-items: center; gap: 12px; flex-wrap: wrap;')
+                    input#event-search(type='search', placeholder='Search events here')
+                    button 🔍
+                    input#checkbox(type='checkbox', style='margin-left: 16px;')
+                    label.switch(for='checkbox', style='margin-bottom: 0; margin-left: 4px;') Show events with related skills
+                table.eventTable
+                    thead
+                        tr
+                            th Event Name
+                            th Moderated by
+                            th Location
+                            th Description 
+                            th Date
+                    tbody
+                        // events - All rows.
+                        // event  - One row.
+                        if events && events.length 
+                            each event in events 
+                                tr 
+                                    td= event.name 
+                                    td= event.moderator 
+                                    td= event.location
+                                    td= event.description
+                                    td= event.date
+                        else 
+                            tr 
+                                td(colspan="3") No events found.
+                            tr
+                                td ...
+                                td ...
+                                td ...
