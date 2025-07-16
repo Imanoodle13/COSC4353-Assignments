@@ -200,7 +200,7 @@ a:active {
 
 .form-group {
     width: 450px;
-    height: 525px;
+    height: 550px;
     background-color: #124E66;
     border-radius: 20px;
     margin: 40px auto;
@@ -224,6 +224,9 @@ a:active {
 }
 .form-group input[id="description"]{
     height: 120px;
+    align-items: flex-start;
+    align-content: flex-start;
+    align-self: flex-start;
 }
 
 .form-group button {
