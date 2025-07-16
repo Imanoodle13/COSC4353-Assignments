@@ -43,6 +43,10 @@ app.post('/signup', express.urlencoded({extended: true}), async (req, res) => {
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher','/eventMatcher.html'], async (req, res) => {
   try {
+		// Planning on adding functionality to allow user to order table by either:
+		// 1. Name
+		// 2. Moderator
+		// 3. Date
 		const query = 
 		`
 		SELECT 

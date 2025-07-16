@@ -10,7 +10,7 @@ SELECT
 FROM VOLUNTEER 
 WHERE Username = 'sarah_admin';
 
-SELECT * FROM VOLUNTEER;
+SELECT * FROM EVENT;
 
 SELECT NOW();
 
@@ -31,4 +31,29 @@ LEFT JOIN
 LEFT JOIN
     LATERAL unnest(T.Skill) AS s(skill) ON TRUE
 GROUP BY
-    E.ID, E.name, V.Username, E.location, E.description, E.date;
+    E.ID, E.name, V.Username, E.location, E.description, E.date
+ORDER BY
+	name;
+
+-- Order by skill
+SELECT 
+    E.name,
+    V.Username AS moderator,
+    ST_AsText(E.location) AS location,
+	ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
+    E.description,
+    to_char(E.date, 'YYYY-MM-DD HH24:MI:SS') AS date
+FROM 
+    EVENT AS E
+LEFT JOIN
+    VOLUNTEER AS V ON E.moderator = V.id
+LEFT JOIN
+    TASK AS T ON T.Event_ID = E.ID
+LEFT JOIN
+    LATERAL unnest(T.Skill) AS s(skill) ON TRUE
+GROUP BY
+    E.ID, E.name, V.Username, E.location, E.description, E.date
+HAVING 
+	'Communication' = ANY (ARRAY_AGG(DISTINCT s.skill))
+ORDER BY
+	E.date;
