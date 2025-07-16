@@ -9,6 +9,7 @@ const address = '0.0.0.0';
 const PORT = process.env.PORT || port;
 
 const app = express();
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname,'views'));
 app.use(express.static(path.join(__dirname,'public')));
@@ -35,38 +36,8 @@ app.post('/auth', (req, res) => {
 	// The login function
 })
 
-app.post('/auth/register', async (req, res) => {
-    // The register function
-    const client = await pool.connect();
-    let {username, password} = req.body;
-    try {
-        await client.query('BEGIN')
-
-        // Checks if username exists already
-        const check = await client.query(
-            'SELECT * FROM volunteer WHERE username = $1',
-            [username]
-        );
-
-        // If username found then returns error
-        if (check.rows.length > 0) {
-            await client.query('ROLLBACK')
-            return res.status(409).json({error: 'Username already exists'})
-        }
-        await client.query(
-            // Insert into database
-            "INSERT INTO volunteer (username, password) VALUES ($1, $2))",
-            [username, password]
-        );
-        await client.query('COMMIT');
-        res.sendStatus(201) //success
-    } catch(err){
-        await client.query('ROLLBACK');
-        console.error(err.message);
-        res.sendStatus(500);
-    } finally {
-        client.release()
-    }
+app.post('/signup', express.urlencoded({extended: true}), async (req, res) => {
+	console.log(req.body)
 })
 
 // http://localhost:8080/eventmatcher
