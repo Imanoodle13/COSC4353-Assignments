@@ -1,34 +1,34 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title VC | User Registration
-    link(href="https://fonts.googleapis.com/css?family=Work+Sans:400", rel="stylesheet")
-    link(rel="stylesheet", href="styles.css")
-  
-  body
-    header
-      .navbar
-        span User Registration
-        nav
-          ul
-            li
-              a(href="homepage.html") Home
-            li
-              a(href="#") Logout
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		title VC | User Registration
+		link(href="https://fonts.googleapis.com/css?family=Work+Sans:400", rel="stylesheet")
+		link(rel="stylesheet", href="styles.css")
+	
+	body
+		header
+			.navbar
+				span User Registration
+				nav
+					ul
+						li
+							a(href="homepage.html") Home
+						li
+							a(href="#") Logout
 
-    .loginPage
-      form(method="POST", action="/register")
-        .login-box
-          h2 Sign Up
-          div
-            label(for="email") Email:
-            input#email(type="email", name="email", placeholder="Enter your email", required, style="width:300px; height:40px; border-radius:10px;")
-          div
-            label(for="password") Password:
-            input#password(type="password", name="password", placeholder="Create a password", required)
-          button.loginButton(type="submit") Register
-          p.signupLink
-            | Already have an account?
-            a(href="login.html") Log In!
+		.loginPage
+			form(method="POST", action="/register")
+				.login-box
+					h2 Sign Up
+					div
+						label(for="email") Email:
+						input#email(type="email", name="email", placeholder="Enter your email", required, style="width:300px; height:40px; border-radius:10px;")
+					div
+						label(for="password") Password:
+						input#password(type="password", name="password", placeholder="Create a password", required)
+					button.loginButton(type="submit") Register
+					p.signupLink
+						| Already have an account?
+						a(href="login.html") Log In!

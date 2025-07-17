@@ -82,22 +82,27 @@ app.get(['/eventCreator', '/eventCreator.html'], function(req, res) {
 
 app.post('/publish', express.urlencoded({extended: true}), async (req, res) => {
 	try {
-		const { name, moderator, location, description, date } = req.body;
+		const body = req.body
+		const { name, mod, type, loc, desc, date } = Object.values(req.body)
 		// Validate fields
 		if (!name || !moderator || !location || !description || !date) {
-			return alert('An unexpected error occurred.');
+			//return alert('An unexpected error occurred.');
+			console.error(name, moderator, loctype, location, description, date)
+			console.log(req.body)
+			return;
 		}
 
 		// Parse location input
 		let locationPoint;
-		if (location.inlcudes(',')){
+		if (type=='coords'){
 			const [lat,lang] = location.split(',').map(coord => parseFloat(coord.trim()));
 			if (isNaN(lat) || isNaN(lang)) {
 				return res.status(400).send('Invalid location format. Use "latitude,longitude".');
 			}
 			locationPoint = `SRID=4326;POINT(${lang} ${lat})`;
 		}else{
-			return res.status(400).send('Invalid location format. Use "latitude,longitude".');
+			//return res.status(400).send('Invalid location format. Use "latitude,longitude".');
+			//We should have a way of accounting for address formats and converting them to coordinates
 		}
 
 		const query = `
