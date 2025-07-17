@@ -3,13 +3,15 @@ const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 const db = require('./database');
-const session = require('express-session')
+const session = require('express-session');
 
 const port = 8080;
 const address = '0.0.0.0';
 const PORT = process.env.PORT || port;
 
 const app = express();
+
+const USERS_FILE = path.join(__dirname, 'users.json');
 
 // Middleware setup
 app.use(session({
@@ -19,7 +21,7 @@ app.use(session({
 	cookie: {
 		maxAge: 3600000 // Max 1 hour 
 	}
-}))
+}));
 
 const users = [];
 
@@ -46,32 +48,59 @@ app.get('/signup.html', (req, res) => {
 	res.render('signup')
 });
 
+function getUsers() {
+	try {
+		// If the file is empty it will return empty array
+		if (!fs.existsSync(USERS_FILE)) {
+			fs.writeFileSync(USERS_FILE, '[]', 'utf-8');
+			return [];
+		}
+
+		const data = fs.readFileSync(USERS_FILE, 'utf-8');
+		// If its empty then it returns empty array otherwise returns JSON
+		return data.trim() === '' ? [] : JSON.parse(data);
+	} catch {
+		console.error('Retrieving User error:', err);
+		throw err;
+	}
+}
+
 app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 	try {
 		const { email, password } = req.body;
-		res.redirect('/homepage.html');
-		/*if (user) {
-			res.session.user = { email };
-			res.redirect('/homepage.html');
+		const users = getUsers();
+		const user = users.find(u => u.email === email && u.password === password);
+
+		if (user) {
+			req.session.user = { email };
+			return res.redirect('/homepage.html');
 		}
-		else {
-			console.log('User not found in Users array');
-			res.redirect('/homepage.html');
-		}*/
+
+		res.redirect('/login.html?error=1');
 	} catch (err) {
-		console.error('Register error:', err);
-		res.status(500).send('Server error during registration');
+		console.error('Log In error:', err);
+		res.status(500).send('Server error during Log In');
 	}
 });
 
 app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
 		const { email, password } = req.body;
+
+		// Reads the file and parses into json
+		const users = getUsers();
+
+		// If the email is found then error
+		if (users.some(u => u.email === email)) {
+			return res.redirect('/signup.html?error=1')
+		}
+
 		users.push({ email, password });
-		console.log(users);
+		fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+		res.redirect('/login.html?success=1')
 	} catch (err) {
 		console.error('Register error:', err);
-		res.status(500).send('Server error during registration')
+		res.status(500).send('Server error during registration');
 	}
 });
 
