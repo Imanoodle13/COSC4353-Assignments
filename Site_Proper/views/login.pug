@@ -5,25 +5,39 @@ head
 	link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
 	link(href='styles.css', rel='stylesheet', type='text/css')
 	meta(charset='UTF-8')
-	title Volunteer Central
 header
 	div.navbar
-		span Login
+		span Log In
 		nav
 			ul
 				li: a(href='homepage.html') Home
 body
 	div.loginPage
-		form(action='/auth', method='POST', enctype='application/x-www-form-urlencoded')
+		form(action='/login', method='POST', enctype='application/x-www-form-urlencoded')
 			div.login-box
-				h2 Log In
+				h2 Log in
 				div
-					label(for='username') Username:
-					input#username(type='text', placeholder='Username', required='')
+					label(for='email') Email:
+					input#email(
+						type='email'
+						name='email'
+						placeholder='Enter your email'
+						style={
+							width:'300px',
+							height:'40px',
+							'border-radius':'10px'
+						} 
+						required=''
+					)
 				div
 					label(for='password') Password:
-					input#password(type='password', placeholder='Password', required='')
-				button.loginButton(type='submit', onclick='login()') Log In
+					input#password(
+						type='password'
+						name='password'
+						placeholder='Enter your password'
+						required=''
+					)
+				button.loginButton(type='submit') Log In
 				p.signupLink
-					| Don't have an account yet?
-					a(href='/signup.html') Register!
+					| Already have an account?
+					a(href='/login.html') Log In!
