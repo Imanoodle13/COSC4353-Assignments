@@ -1,122 +1,122 @@
 doctype html
 html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title User Profile Management
-    link(href="https://fonts.googleapis.com/css?family=Work+Sans:400", rel="stylesheet")
-    link(rel="stylesheet", href="styles.css")
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		title User Profile Management
+		link(href="https://fonts.googleapis.com/css?family=Work+Sans:400", rel="stylesheet")
+		link(rel="stylesheet", href="styles.css")
 
-  body
-    header
-      .navbar
-        span User Profile Management
-        nav
-          ul
-            li: a(href="#") Home
-            li: a(href="#") About Us
-            li: a(href="#") Logout
+	body
+		header
+			.navbar
+				span User Profile Management
+				nav
+					ul
+						li: a(href="#") Home
+						li: a(href="#") About Us
+						li: a(href="#") Logout
 
-    .form-container
-      form
-        .form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 20px;")
-          h2(style="margin-bottom: 20px;") Complete Your Profile
+		.form-container
+			form(method="POST", action="/complete-profile")
+				.form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 20px;")
+					h2(style="margin-bottom: 20px;") Complete Your Profile
 
-          div
-            label(for="fullname") Full Name
-            input#fullname(type="text", name="fullname", maxlength="50", required)
+					div
+						label(for="fullname") Full Name
+						input#fullname(type="text", name="fullname", maxlength="50", required)
 
-          div
-            label(for="address1") Address 1
-            input#address1(type="text", name="address1", maxlength="100", required)
+					div
+						label(for="address1") Address 1
+						input#address1(type="text", name="address1", maxlength="100", required)
 
-          div
-            label(for="address2") Address 2
-            input#address2(type="text", name="address2", maxlength="100")
+					div
+						label(for="address2") Address 2
+						input#address2(type="text", name="address2", maxlength="100")
 
-          div
-            label(for="city") City
-            input#city(type="text", name="city", maxlength="100", required)
+					div
+						label(for="city") City
+						input#city(type="text", name="city", maxlength="100", required)
 
-          div
-            label(for="state") State
-            select#state(name="state", required)
-              option(value="") Select a state
-              option(value="AL") Alabama
-              option(value="AK") Alaska
-              option(value="AZ") Arizona
-              option(value="AR") Arkansas
-              option(value="CA") California
-              option(value="CO") Colorado
-              option(value="CT") Connecticut
-              option(value="DE") Delaware
-              option(value="FL") Florida
-              option(value="GA") Georgia
-              option(value="HI") Hawaii
-              option(value="ID") Idaho
-              option(value="IL") Illinois
-              option(value="IN") Indiana
-              option(value="IA") Iowa
-              option(value="KS") Kansas
-              option(value="KY") Kentucky
-              option(value="LA") Louisiana
-              option(value="ME") Maine
-              option(value="MD") Maryland
-              option(value="MA") Massachusetts
-              option(value="MI") Michigan
-              option(value="MN") Minnesota
-              option(value="MS") Mississippi
-              option(value="MO") Missouri
-              option(value="MT") Montana
-              option(value="NE") Nebraska
-              option(value="NV") Nevada
-              option(value="NH") New Hampshire
-              option(value="NJ") New Jersey
-              option(value="NM") New Mexico
-              option(value="NY") New York
-              option(value="NC") North Carolina
-              option(value="ND") North Dakota
-              option(value="OH") Ohio
-              option(value="OK") Oklahoma
-              option(value="OR") Oregon
-              option(value="PA") Pennsylvania
-              option(value="RI") Rhode Island
-              option(value="SC") South Carolina
-              option(value="SD") South Dakota
-              option(value="TN") Tennessee
-              option(value="TX") Texas
-              option(value="UT") Utah
-              option(value="VT") Vermont
-              option(value="VA") Virginia
-              option(value="WA") Washington
-              option(value="WV") West Virginia
-              option(value="WI") Wisconsin
-              option(value="WY") Wyoming
+					div
+						label(for="state") State
+						select#state(name="state", required)
+							option(value="") Select a state
+							option(value="AL") Alabama
+							option(value="AK") Alaska
+							option(value="AZ") Arizona
+							option(value="AR") Arkansas
+							option(value="CA") California
+							option(value="CO") Colorado
+							option(value="CT") Connecticut
+							option(value="DE") Delaware
+							option(value="FL") Florida
+							option(value="GA") Georgia
+							option(value="HI") Hawaii
+							option(value="ID") Idaho
+							option(value="IL") Illinois
+							option(value="IN") Indiana
+							option(value="IA") Iowa
+							option(value="KS") Kansas
+							option(value="KY") Kentucky
+							option(value="LA") Louisiana
+							option(value="ME") Maine
+							option(value="MD") Maryland
+							option(value="MA") Massachusetts
+							option(value="MI") Michigan
+							option(value="MN") Minnesota
+							option(value="MS") Mississippi
+							option(value="MO") Missouri
+							option(value="MT") Montana
+							option(value="NE") Nebraska
+							option(value="NV") Nevada
+							option(value="NH") New Hampshire
+							option(value="NJ") New Jersey
+							option(value="NM") New Mexico
+							option(value="NY") New York
+							option(value="NC") North Carolina
+							option(value="ND") North Dakota
+							option(value="OH") Ohio
+							option(value="OK") Oklahoma
+							option(value="OR") Oregon
+							option(value="PA") Pennsylvania
+							option(value="RI") Rhode Island
+							option(value="SC") South Carolina
+							option(value="SD") South Dakota
+							option(value="TN") Tennessee
+							option(value="TX") Texas
+							option(value="UT") Utah
+							option(value="VT") Vermont
+							option(value="VA") Virginia
+							option(value="WA") Washington
+							option(value="WV") West Virginia
+							option(value="WI") Wisconsin
+							option(value="WY") Wyoming
 
-          div
-            label(for="zipcode") Zip Code
-            input#zipcode(type="text", name="zipcode", minlength="5", maxlength="9", required)
+					div
+						label(for="zipcode") Zip Code
+						input#zipcode(type="text", name="zipcode", minlength="5", maxlength="9", required)
 
-          div
-            label(for="skills") Skills
-            select#skills(name="skills[]" multiple required style="height: 100px; overflow-y: auto;")
-              option(value="teaching") Teaching
-              option(value="event_planning") Event Planning
-              option(value="first_aid") First Aid
-              option(value="cooking") Cooking
-              option(value="graphic_design") Graphic Design
-              option(value="technology") Technology
+					div
+						label(for="skills") Skills
+						select#skills(name="skills[]" multiple required style="height: 100px; overflow-y: auto;")
+							option(value="teaching") Teaching
+							option(value="event_planning") Event Planning
+							option(value="first_aid") First Aid
+							option(value="cooking") Cooking
+							option(value="graphic_design") Graphic Design
+							option(value="technology") Technology
 
-          div
-            label(for="preferences") Preferences
-            textarea#preferences(name="preferences", rows="3")
+					div
+						label(for="preferences") Preferences
+						textarea#preferences(name="preferences", rows="3")
 
-          div
-            label(for="availability1") Availability Date 1:
-            input#availability1(type="date", name="availability[]", required)
-            label(for="availability2") Availability Date 2:
-            input#availability2(type="date", name="availability[]")
+					div
+						label(for="availability1") Availability Date 1:
+						input#availability1(type="date", name="availability[]", required)
+						label(for="availability2") Availability Date 2:
+						input#availability2(type="date", name="availability[]")
 
-          div(style="margin-top: 20px; display: flex; gap: 20px;")
-            button(type="submit") Submit
-            button(type="reset") Clear Form
+					div(style="margin-top: 20px; display: flex; gap: 20px;")
+						button(type="submit") Submit
+						button(type="reset") Clear Form

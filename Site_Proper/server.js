@@ -140,6 +140,46 @@ app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
 	res.render('eventCreator');
 });
 
+app.post('/publish', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		const body = req.body
+		const { name, mod, type, loc, desc, date } = Object.values(req.body)
+		// Validate fields
+		if (!name || !moderator || !location || !description || !date) {
+			//return alert('An unexpected error occurred.');
+			console.error(name, moderator, loctype, location, description, date)
+			console.log(req.body)
+			return;
+		}
+
+		// Parse location input
+		let locationPoint;
+		if (type == 'coords') {
+			const [lat, lang] = location.split(',').map(coord => parseFloat(coord.trim()));
+			if (isNaN(lat) || isNaN(lang)) {
+				return res.status(400).send('Invalid location format. Use "latitude,longitude".');
+			}
+			locationPoint = `SRID=4326;POINT(${lang} ${lat})`;
+		} else {
+			//return res.status(400).send('Invalid location format. Use "latitude,longitude".');
+			//We should have a way of accounting for address formats and converting them to coordinates
+		}
+
+		const query = `
+			INSERT INTO EVENT (name, moderator, location, description, date) VALUES
+			($1, $2, ST_GeogFromText($3), $4, $5, $6)
+			RETURNING id;
+		`;
+		const params = [name, moderator, location, description, date];
+		const result = await db.query(query, params);
+		const eventId = result.rows[0].id;
+		res.redirect(`/eventconfirm?id=${eventId}`);
+	} catch (err) {
+		console.error('Database insert error:', err);
+		res.status(500).send('Failed to create event.');
+	}
+});
+
 // http://localhost:8080/eventconfirm
 app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
 	res.render('eventConfirm');
