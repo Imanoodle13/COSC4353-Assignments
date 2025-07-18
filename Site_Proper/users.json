@@ -2,11 +2,15 @@
   {
     "email": "justinhtran04@gmail.com",
     "password": "Password",
-    "isAdmin": true
+    "username": "waterlee",
+    "isAdmin": true,
+    "ID": 1
   },
   {
     "email": "rohan360k@gmail.com",
     "password": "Pass",
-    "isAdmin": true
+    "username": "45C3ND1NG",
+    "isAdmin": true,
+    "ID": 2
   }
 ]

@@ -29,14 +29,12 @@ html
 		div.form-group
 			form(action='/publish', method='POST', enctype='application/x-www-form-urlencoded')
 				h2 Event Creator 
+				p Moderating as #[strong #{username}] #[small #[i (ID: #{u_id})]]
+
 				div 
 					// Event Name
 					label(for='name') Event Name 
 					input#name(type='text',name='name', placeholder='New Event',required)
-				div 
-					// Moderator
-					label(for='moderator') Moderated by
-					input#moderator(type='text',name='moderator', placeholder='Username',required)
 				div 
 					// Location
 					label(for='location') Location 

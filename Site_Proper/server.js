@@ -12,6 +12,7 @@ const PORT = process.env.PORT || port;
 const app = express();
 
 const USERS_FILE = path.join(__dirname, 'users.json');
+const EVENTS_FILE = path.join(__dirname, 'eventInsert.json');
 
 // Middleware setup
 app.use(session({
@@ -140,52 +141,56 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 
 // http://localhost:8080/eventcreator
 app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
-	res.render('eventCreator');
+	let username = 'Guest';
+	let u_id = null;
+	if (req.session.user) {
+		const user = getUsers().find(u => u.email === req.session.user.email);
+		if (user) {
+			username = user.username;
+			u_id = user.ID;
+		}
+	}
+	if (!u_id) {
+		return res.redirect('/login.html?error=1');
+	}
+	res.render('eventCreator', { username, u_id });
 });
 
 app.post('/publish', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		const body = req.body
-		const { name, mod, type, loc, desc, date } = Object.values(req.body)
-		// Validate fields
-		if (!name || !moderator || !location || !description || !date) {
-			//return alert('An unexpected error occurred.');
-			console.error(name, moderator, loctype, location, description, date)
-			console.log(req.body)
-			return;
+		const { name, location, description, dateTime } = req.body;
+		let events = [];
+
+		if (fs.existsSync(EVENTS_FILE)) {
+			const data = fs.readFileSync(EVENTS_FILE, `utf-8`);
+			events = data.trim() === ''
+				? []
+				: JSON.parse(data);
 		}
 
-		// Parse location input
-		let locationPoint;
-		if (type == 'coords') {
-			const [lat, lang] = location.split(',').map(coord => parseFloat(coord.trim()));
-			if (isNaN(lat) || isNaN(lang)) {
-				return res.status(400).send('Invalid location format. Use "latitude,longitude".');
-			}
-			locationPoint = `SRID=4326;POINT(${lang} ${lat})`;
-		} else {
-			//return res.status(400).send('Invalid location format. Use "latitude,longitude".');
-			//We should have a way of accounting for address formats and converting them to coordinates
-		}
+		const newEvent = {
+			name,
+			location,
+			description,
+			date: dataTime
+		};
 
-		const query = `
-			INSERT INTO EVENT (name, moderator, location, description, date) VALUES
-			($1, $2, ST_GeogFromText($3), $4, $5, $6)
-			RETURNING id;
-		`;
-		const params = [name, moderator, location, description, date];
-		const result = await db.query(query, params);
-		const eventId = result.rows[0].id;
-		res.redirect(`/eventconfirm?id=${eventId}`);
+		events.push(newEvent);
+		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
+
+		const params = new URLSearchParams(newEvent).toString();
+
+		res.redirect(`/eventconfirm?${params}`);
 	} catch (err) {
-		console.error('Database insert error:', err);
-		res.status(500).send('Failed to create event.');
+		console.error('Event creation error:', err);
+		res.status(500).send('Server error during publish.');
 	}
 });
 
 // http://localhost:8080/eventconfirm
 app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
-	res.render('eventConfirm');
+	const { name, location, description, date } = req.query;
+	res.render('eventConfirm', { name, location, description, date });
 });
 
 /* ---------- Test Pages ------------------------*/
