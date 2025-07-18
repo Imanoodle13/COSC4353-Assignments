@@ -1,36 +1,36 @@
 doctype html
 html
-	head
-		meta(charset='UTF-8')
-		meta(name='viewport', content='width=device-width, initial-scale=1.0')
-		link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
-		link(href='/styles.css', rel='stylesheet', type='text/css')
-		title VC | Event Creator
-	script.
-		document.addEventListener('DOMContentLoaded', function() {
-			console.log('Event has been published.')
-		});
-		function viewEvents() {
-			window.location.href = 'eventMatcher.html';
-		}
-	header
-		div.navbar
-			span Volunteer Central
-			nav
-				ul
-				li: a(href='homepage.html') Home
-					li: a(href='login.html') Login
-	body 
-		div.form-group
-			h2 Event Creator
-			p.
-				Your event has been submitted!
-			if name
-				p Event Name: #{name}
-			if location
-				p Location: #{location}
-			if description
-				p Description: #{description}
-			if date
-				p Date: #{date}
-			button(type='button',onclick='viewEvents()') View Events
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+        link(href='/styles.css', rel='stylesheet', type='text/css')
+        title VC | Event Creator
+    script.
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Event has been published.')
+        });
+        function viewEvents() {
+            window.location.href = 'eventMatcher.html';
+        }
+    header
+        div.navbar
+            span Volunteer Central
+            nav
+                ul
+                li: a(href='homepage.html') Home
+                    li: a(href='login.html') Login
+    body 
+        div.form-group
+            h2 Event Creator
+            p.
+                Your event has been submitted!
+            if name
+                p #[strong Event Name:] #{name}
+            if location
+                p #[strong Location:] #{location}
+            if description
+                p #[strong Description:] #{description}
+            if date
+                p #[strong Date:] #{date}
+            button(type='button',onclick='viewEvents()') View Events
