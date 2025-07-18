@@ -1,6 +1,7 @@
 [
   {
     "email": "justinhtran04@gmail.com",
-    "password": "Password"
+    "password": "Password",
+    "isAdmin": true
   }
 ]

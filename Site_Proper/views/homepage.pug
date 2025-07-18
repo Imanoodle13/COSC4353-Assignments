@@ -11,6 +11,9 @@ header
 		span Volunteer Central
 		nav
 			ul
+				li: a(href='eventMatcher.html') View Events
+				if isAdmin
+					li: a(href='eventCreator.html') Create Event
 				li: a(href='homepage.html') Home
 				li: a(href='login.html') Login
 body

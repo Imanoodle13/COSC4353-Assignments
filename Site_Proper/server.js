@@ -35,7 +35,10 @@ app.get('/', function (req, res) {
 
 // http://localhost:8080/homepage.html
 app.get('/homepage.html', function (req, res) {
-	res.render('homepage')
+	const isAdmin = req.session.user
+		? getUsers().find(u => u.email === req.session.user.email)?.isAdmin
+		: false;
+	res.render('homepage', { isAdmin });
 });
 
 // http://localhost:8080/login.html
