@@ -3,5 +3,10 @@
     "email": "justinhtran04@gmail.com",
     "password": "Password",
     "isAdmin": true
+  },
+  {
+    "email": "rohan360k@gmail.com",
+    "password": "Pass",
+    "isAdmin": true
   }
 ]
