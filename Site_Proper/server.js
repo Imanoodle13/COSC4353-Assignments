@@ -110,7 +110,7 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
-	try {
+	/*try {
 		const query =
 			`
 		SELECT 
@@ -136,7 +136,21 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 	} catch (err) {
 		console.error('Database query error:', err);
 		res.status(500).send('Database connection failed.');
+	}*/
+	let username = 'Guest';
+	let u_id = null;
+	if (req.session.user) {
+		const user = getUsers().find(u => u.email === req.session.user.email);
+		if (user) {
+			username = user.username;
+			u_id = user.ID;
+		}
 	}
+	if (!u_id) {
+		return res.redirect('/login.html?error=1');
+	}
+	res.render('eventMatcher', { username, u_id });
+
 });
 
 // http://localhost:8080/eventcreator
@@ -172,7 +186,7 @@ app.post('/publish', express.urlencoded({ extended: true }), async (req, res) =>
 			name,
 			location,
 			description,
-			date: dataTime
+			date: dateTime
 		};
 
 		events.push(newEvent);

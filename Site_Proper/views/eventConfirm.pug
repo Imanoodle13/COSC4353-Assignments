@@ -25,12 +25,12 @@ html
 			h2 Event Creator
 			p.
 				Your event has been submitted!
-            if name
-                p Event Name: #{name}
-            if location
-                p Location: #{location}
-            if description
-                p Description: #{description}
-            if date
-                p Date: #{date}
+			if name
+				p Event Name: #{name}
+			if location
+				p Location: #{location}
+			if description
+				p Description: #{description}
+			if date
+				p Date: #{date}
 			button(type='button',onclick='viewEvents()') View Events
