@@ -139,17 +139,19 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 	}*/
 	let username = 'Guest';
 	let u_id = null;
+	let events = []
 	if (req.session.user) {
 		const user = getUsers().find(u => u.email === req.session.user.email);
 		if (user) {
 			username = user.username;
 			u_id = user.ID;
+			events = JSON.parse(fs.readFileSync(EVENTS_FILE, 'utf-8')) ?? []
 		}
 	}
 	if (!u_id) {
 		return res.redirect('/login.html?error=1');
 	}
-	res.render('eventMatcher', { username, u_id });
+	res.render('eventMatcher', { username, u_id , events});
 
 });
 
