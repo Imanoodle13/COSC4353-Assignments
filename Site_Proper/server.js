@@ -110,6 +110,7 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
+	/*
 	try {
 		const query =
 			`
@@ -139,8 +140,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 	} catch (err) {
 		console.error('Database query error:', err);
 		res.status(500).send('Database connection failed.');
-	}
-	/*
+	}*/
 	let username = 'Guest';
 	let u_id = null;
 	let events = []
@@ -156,7 +156,6 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		return res.redirect('/login.html?error=1');
 	}
 	res.render('eventMatcher', { username, u_id , events});
-	*/
 });
 
 // http://localhost:8080/eventcreator
@@ -178,7 +177,7 @@ app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
 
 app.post('/publish', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		const { name, location, description, dateTime } = req.body;
+		const { name, location, description, priority, dateTime } = req.body;
 		let events = [];
 
 		if (fs.existsSync(EVENTS_FILE)) {
@@ -192,6 +191,7 @@ app.post('/publish', express.urlencoded({ extended: true }), async (req, res) =>
 			name,
 			location,
 			description,
+			priority: parseInt(priority, 10) || 0, // Ensure priority is a number
 			date: dateTime
 		};
 
@@ -209,8 +209,8 @@ app.post('/publish', express.urlencoded({ extended: true }), async (req, res) =>
 
 // http://localhost:8080/eventconfirm
 app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
-	const { name, location, description, date } = req.query;
-	res.render('eventConfirm', { name, location, description, date });
+	const { name, location, description, priority, date } = req.query;
+	res.render('eventConfirm', { name, location, description, priority, date });
 });
 
 /* ---------- Test Pages ------------------------*/
