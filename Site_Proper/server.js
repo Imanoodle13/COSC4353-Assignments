@@ -110,7 +110,7 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
-	/*try {
+	try {
 		const query =
 			`
 		SELECT 
@@ -119,6 +119,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 			ST_AsText(E.location) AS location,
 			ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
 			E.description,
+			E.priority,
 			to_char(E.date, 'YYYY-MM-DD HH24:MI:SS') AS date
 		FROM 
 			EVENT AS E
@@ -129,14 +130,17 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		LEFT JOIN
 			LATERAL unnest(T.Skill) AS s(skill) ON TRUE
 		GROUP BY
-			E.ID, E.name, V.Username, E.location, E.description, E.date;
+			E.ID, E.name, V.Username, E.location, E.description, E.date
+		ORDER BY
+			priority;
 		`;
 		const result = await db.query(query);
 		res.render('eventMatcher', { events: result && result.rows ? result.rows : [] });
 	} catch (err) {
 		console.error('Database query error:', err);
 		res.status(500).send('Database connection failed.');
-	}*/
+	}
+	/*
 	let username = 'Guest';
 	let u_id = null;
 	let events = []
@@ -152,7 +156,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		return res.redirect('/login.html?error=1');
 	}
 	res.render('eventMatcher', { username, u_id , events});
-
+	*/
 });
 
 // http://localhost:8080/eventcreator

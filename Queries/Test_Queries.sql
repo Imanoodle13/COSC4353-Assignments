@@ -21,6 +21,7 @@ SELECT
     ST_AsText(E.location) AS location,
 	ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
     E.description,
+	E.priority,
     to_char(E.date, 'YYYY-MM-DD HH24:MI:SS') AS date
 FROM 
     EVENT AS E
@@ -33,7 +34,7 @@ LEFT JOIN
 GROUP BY
     E.ID, E.name, V.Username, E.location, E.description, E.date
 ORDER BY
-	name;
+	priority;
 
 -- Order by skill
 SELECT 

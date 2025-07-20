@@ -1,186 +1,163 @@
-/*
-20 Volunteers:
-	15 regular volunteers (Role_ID = 1)
-	5 admins (Role_ID = 2)
-
-Admin Event Distribution:
-	Maria (Admin): Moderating 3 events (most active)
-	James (Admin): Moderating 2 events
-	Lisa (Admin): Moderating 1 event
-	Daniel (Admin): Moderating 1 event
-	Rachel (Admin): No events yet (available for future assignments)
-*/
-
--- Insert roles
 INSERT INTO ROLE (Name) VALUES 
-('Volunteer'),
-('Admin');
+('Admin'),
+('Volunteer');
 
--- Insert volunteers (15 regular volunteers + 5 admins = 20 total)
--- Regular Volunteers (Role_ID = 1)
-INSERT INTO VOLUNTEER (Role_ID, First_name, Last_name, Username, Email, Password, Skill, Location, Availability) VALUES
-(1, 'Sarah', 'Johnson', 'sarahj', 'sarah.johnson@email.com', crypt('password123', gen_salt('bf')), 
- ARRAY['Communication', 'Event Planning'], ST_GeogFromText('POINT(-95.3698 29.7604)'), ARRAY['Monday', 'Wednesday', 'Friday']),
+-- 5 Admins
+INSERT INTO VOLUNTEER (Role_ID, First_name, Last_name, Username, Email, Password, Skill, Location, Availability)
+VALUES 
+(1, 'Alice',   'Nguyen', 'alice_ng', 'alice@example.com', crypt('alice123', gen_salt('bf')), ARRAY['Leadership'], ST_GeogFromText('SRID=4326;POINT(-95.3698 29.7604)'), ARRAY['Mon', 'Wed']),
+(1, 'Bob',     'Smith',  'bob_s',    'bob@example.com',   crypt('bob123', gen_salt('bf')),   ARRAY['Planning'],   ST_GeogFromText('SRID=4326;POINT(-95.3633 29.7633)'), ARRAY['Tue']),
+(1, 'Carla',   'Jones',  'cjones',   'carla@example.com', crypt('carla123', gen_salt('bf')), ARRAY['Finance'],    ST_GeogFromText('SRID=4326;POINT(-95.3910 29.7370)'), ARRAY['Fri']),
+(1, 'David',   'Lee',    'dlee',     'david@example.com', crypt('david123', gen_salt('bf')), ARRAY['Tech'],       ST_GeogFromText('SRID=4326;POINT(-95.3332 29.7842)'), ARRAY['Mon', 'Thu']),
+(1, 'Ella',    'White',  'ewhite',   'ella@example.com',  crypt('ella123', gen_salt('bf')),  ARRAY['Logistics'],  ST_GeogFromText('SRID=4326;POINT(-95.3640 29.7690)'), ARRAY['Sun']);
 
-(1, 'Michael', 'Chen', 'mikec', 'michael.chen@email.com', crypt('securepass', gen_salt('bf')), 
- ARRAY['Technology', 'Photography'], ST_GeogFromText('POINT(-95.4194 29.7752)'), ARRAY['Tuesday', 'Thursday', 'Saturday']),
+-- 15 Regular Volunteers
+INSERT INTO VOLUNTEER (Role_ID, First_name, Last_name, Username, Email, Password, Skill, Location, Availability)
+VALUES
+(2, 'Frank',   'Taylor',   'ftaylor',  'frank@example.com',  crypt('frank123', gen_salt('bf')), ARRAY['Logistics'],  ST_GeogFromText('SRID=4326;POINT(-95.3621 29.7522)'), ARRAY['Sat', 'Sun']),
+(2, 'Grace',   'Morris',   'gmorris',  'grace@example.com',  crypt('grace123', gen_salt('bf')), ARRAY['Medical'],     ST_GeogFromText('SRID=4326;POINT(-95.3901 29.7410)'), ARRAY['Fri']),
+(2, 'Henry',   'Clark',    'hclark',   'henry@example.com',  crypt('henry123', gen_salt('bf')), ARRAY['First Aid'],   ST_GeogFromText('SRID=4326;POINT(-95.3500 29.7500)'), ARRAY['Thu']),
+(2, 'Isla',    'Diaz',     'idiaz',    'isla@example.com',   crypt('isla123', gen_salt('bf')),  ARRAY['Cooking'],     ST_GeogFromText('SRID=4326;POINT(-95.3700 29.7800)'), ARRAY['Wed']),
+(2, 'Jack',    'Evans',    'jevans',   'jack@example.com',   crypt('jack123', gen_salt('bf')),  ARRAY['Driving'],     ST_GeogFromText('SRID=4326;POINT(-95.3300 29.7600)'), ARRAY['Tue']),
+(2, 'Kara',    'Flores',   'kflores',  'kara@example.com',   crypt('kara123', gen_salt('bf')),  ARRAY['Setup'],       ST_GeogFromText('SRID=4326;POINT(-95.3690 29.7550)'), ARRAY['Mon']),
+(2, 'Leo',     'Gomez',    'lgomez',   'leo@example.com',    crypt('leo123', gen_salt('bf')),   ARRAY['Security'],    ST_GeogFromText('SRID=4326;POINT(-95.3650 29.7580)'), ARRAY['Sun']),
+(2, 'Mia',     'Hall',     'mhall',    'mia@example.com',    crypt('mia123', gen_salt('bf')),   ARRAY['Medical'],     ST_GeogFromText('SRID=4326;POINT(-95.3580 29.7490)'), ARRAY['Mon']),
+(2, 'Noah',    'Ibrahim',  'nibrahim', 'noah@example.com',   crypt('noah123', gen_salt('bf')),  ARRAY['Rescue'],      ST_GeogFromText('SRID=4326;POINT(-95.3900 29.7700)'), ARRAY['Tue']),
+(2, 'Olivia',  'Jackson',  'ojackson', 'olivia@example.com', crypt('olivia123', gen_salt('bf')),ARRAY['Teaching'],    ST_GeogFromText('SRID=4326;POINT(-95.3770 29.7400)'), ARRAY['Thu']),
+(2, 'Paul',    'Kim',      'pkim',     'paul@example.com',   crypt('paul123', gen_salt('bf')),  ARRAY['Tech'],        ST_GeogFromText('SRID=4326;POINT(-95.3440 29.7470)'), ARRAY['Sat']),
+(2, 'Quinn',   'Lopez',    'qlopez',   'quinn@example.com',  crypt('quinn123', gen_salt('bf')), ARRAY['First Aid'],   ST_GeogFromText('SRID=4326;POINT(-95.3550 29.7650)'), ARRAY['Fri']),
+(2, 'Ruby',    'Martin',   'rmartin',  'ruby@example.com',   crypt('ruby123', gen_salt('bf')),  ARRAY['Logistics'],   ST_GeogFromText('SRID=4326;POINT(-95.3590 29.7590)'), ARRAY['Tue']),
+(2, 'Sam',     'Nguyen',   'snguyen',  'sam@example.com',    crypt('sam123', gen_salt('bf')),   ARRAY['Medical'],     ST_GeogFromText('SRID=4326;POINT(-95.3390 29.7450)'), ARRAY['Wed']),
+(2, 'Tina',    'Ortiz',    'tortiz',   'tina@example.com',   crypt('tina123', gen_salt('bf')),  ARRAY['Security'],    ST_GeogFromText('SRID=4326;POINT(-95.3705 29.7655)'), ARRAY['Mon', 'Wed']);
 
-(1, 'Emily', 'Rodriguez', 'emilyr', 'emily.rodriguez@email.com', crypt('mypassword', gen_salt('bf')), 
- ARRAY['Teaching', 'Translation'], ST_GeogFromText('POINT(-95.3892 29.7372)'), ARRAY['Monday', 'Tuesday', 'Sunday']),
+-- Admin: Alice -> 3 Events
+INSERT INTO EVENT (Name, Moderator, Location, Description, Priority, Date) VALUES
+('Community Clean-up', 1, ST_GeogFromText('SRID=4326;POINT(-95.3598 29.7620)'), 'Clean up the local park', 2, '2025-08-05 09:00'),
+('Food Drive',         1, ST_GeogFromText('SRID=4326;POINT(-95.3652 29.7635)'), 'Distribute food to families', 3, '2025-08-12 10:00'),
+('Blood Donation',     1, ST_GeogFromText('SRID=4326;POINT(-95.3684 29.7504)'), 'Organize blood donors and stations', 4, '2025-08-18 08:00');
 
-(1, 'David', 'Thompson', 'davidt', 'david.thompson@email.com', crypt('volunteer1', gen_salt('bf')), 
- ARRAY['Construction', 'Manual Labor'], ST_GeogFromText('POINT(-95.2688 29.6947)'), ARRAY['Saturday', 'Sunday']),
+-- Admin: Bob -> 2 Events
+INSERT INTO EVENT (Name, Moderator, Location, Description, Priority, Date) VALUES
+('Tree Planting',      2, ST_GeogFromText('SRID=4326;POINT(-95.3702 29.7699)'), 'Plant trees near schools', 2, '2025-08-10 09:00'),
+('Tech Literacy Day',  2, ST_GeogFromText('SRID=4326;POINT(-95.3644 29.7602)'), 'Teach tech to seniors', 1, '2025-08-15 13:00');
 
-(1, 'Jessica', 'Martinez', 'jessicam', 'jessica.martinez@email.com', crypt('helper123', gen_salt('bf')), 
- ARRAY['Cooking', 'Event Planning'], ST_GeogFromText('POINT(-95.5588 29.7869)'), ARRAY['Wednesday', 'Friday', 'Saturday']),
+-- Admin: Carla -> 1 Event
+INSERT INTO EVENT (Name, Moderator, Location, Description, Priority, Date) VALUES
+('Emergency Prep Workshop', 3, ST_GeogFromText('SRID=4326;POINT(-95.3688 29.7658)'), 'Emergency procedures and kits', 5, '2025-08-20 11:00');
 
-(1, 'Robert', 'Wilson', 'robertw', 'robert.wilson@email.com', crypt('volunteer2', gen_salt('bf')), 
- ARRAY['First Aid', 'Sports'], ST_GeogFromText('POINT(-95.4431 29.6616)'), ARRAY['Thursday', 'Friday', 'Sunday']),
+-- Admin: David -> 0 Events
+-- Admin: Ella -> 0 Events
 
-(1, 'Amanda', 'Brown', 'amandab', 'amanda.brown@email.com', crypt('brownbear', gen_salt('bf')), 
- ARRAY['Art', 'Crafts'], ST_GeogFromText('POINT(-95.1743 29.7321)'), ARRAY['Monday', 'Saturday']),
-
-(1, 'Christopher', 'Garcia', 'chrisg', 'chris.garcia@email.com', crypt('garcia456', gen_salt('bf')), 
- ARRAY['Music', 'Entertainment'], ST_GeogFromText('POINT(-95.4895 29.8174)'), ARRAY['Tuesday', 'Wednesday', 'Thursday']),
-
-(1, 'Michelle', 'Davis', 'michelled', 'michelle.davis@email.com', crypt('davis789', gen_salt('bf')), 
- ARRAY['Childcare', 'Education'], ST_GeogFromText('POINT(-95.2077 29.6836)'), ARRAY['Monday', 'Friday']),
-
-(1, 'Anthony', 'Miller', 'anthonym', 'anthony.miller@email.com', crypt('miller321', gen_salt('bf')), 
- ARRAY['Transportation', 'Logistics'], ST_GeogFromText('POINT(-95.6379 29.7328)'), ARRAY['Saturday', 'Sunday']),
-
-(1, 'Lauren', 'Anderson', 'laurena', 'lauren.anderson@email.com', crypt('anderson1', gen_salt('bf')), 
- ARRAY['Social Media', 'Marketing'], ST_GeogFromText('POINT(-95.3273 29.8077)'), ARRAY['Tuesday', 'Thursday']),
-
-(1, 'Kevin', 'Taylor', 'kevint', 'kevin.taylor@email.com', crypt('taylor123', gen_salt('bf')), 
- ARRAY['Fundraising', 'Sales'], ST_GeogFromText('POINT(-95.5179 29.6458)'), ARRAY['Wednesday', 'Saturday', 'Sunday']),
-
-(1, 'Nicole', 'Thomas', 'nicolet', 'nicole.thomas@email.com', crypt('thomas456', gen_salt('bf')), 
- ARRAY['Writing', 'Documentation'], ST_GeogFromText('POINT(-95.2943 29.7397)'), ARRAY['Monday', 'Tuesday', 'Friday']),
-
-(1, 'Brandon', 'Jackson', 'brandonj', 'brandon.jackson@email.com', crypt('jackson789', gen_salt('bf')), 
- ARRAY['Security', 'Crowd Control'], ST_GeogFromText('POINT(-95.4688 29.7102)'), ARRAY['Thursday', 'Friday', 'Saturday']),
-
-(1, 'Stephanie', 'White', 'stephw', 'stephanie.white@email.com', crypt('white321', gen_salt('bf')), 
- ARRAY['Health', 'Wellness'], ST_GeogFromText('POINT(-95.3955 29.6644)'), ARRAY['Sunday', 'Monday', 'Wednesday']),
-
--- Admin Volunteers (Role_ID = 2)
-(2, 'Maria', 'Gonzalez', 'mariag', 'maria.gonzalez@email.com', crypt('admin123', gen_salt('bf')), 
- ARRAY['Leadership', 'Project Management'], ST_GeogFromText('POINT(-95.3698 29.7604)'), ARRAY['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
-
-(2, 'James', 'Lee', 'jamesl', 'james.lee@email.com', crypt('adminpass', gen_salt('bf')), 
- ARRAY['Administration', 'Finance'], ST_GeogFromText('POINT(-95.4017 29.7755)'), ARRAY['Monday', 'Wednesday', 'Friday', 'Saturday']),
-
-(2, 'Lisa', 'Harris', 'lisah', 'lisa.harris@email.com', crypt('harris456', gen_salt('bf')), 
- ARRAY['HR', 'Coordination'], ST_GeogFromText('POINT(-95.3365 29.7282)'), ARRAY['Tuesday', 'Thursday', 'Saturday', 'Sunday']),
-
-(2, 'Daniel', 'Clark', 'danielc', 'daniel.clark@email.com', crypt('clark789', gen_salt('bf')), 
- ARRAY['Operations', 'Logistics'], ST_GeogFromText('POINT(-95.4715 29.6947)'), ARRAY['Monday', 'Tuesday', 'Friday', 'Sunday']),
-
-(2, 'Rachel', 'Lewis', 'rachell', 'rachel.lewis@email.com', crypt('lewis321', gen_salt('bf')), 
- ARRAY['Communications', 'Public Relations'], ST_GeogFromText('POINT(-95.2943 29.8077)'), ARRAY['Wednesday', 'Thursday', 'Friday', 'Saturday']);
-
--- Insert events with varying moderator assignments
--- Maria (ID 16) - moderating multiple events
-INSERT INTO EVENT (Name, Moderator, Location, Description, Date) VALUES
-('Houston Food Drive', 16, ST_GeogFromText('POINT(-95.3698 29.7604)'), 'Community food collection for local food banks.', '2024-12-15 09:00:00'),
-('Holiday Toy Distribution', 16, ST_GeogFromText('POINT(-95.4194 29.7752)'), 'Distributing toys to families in need during holidays.', '2024-12-20 14:00:00'),
-('New Year Community Cleanup', 16, ST_GeogFromText('POINT(-95.3892 29.7372)'), 'Neighborhood cleanup initiative for the new year.', '2025-01-05 08:00:00'),
-
--- James (ID 17) - moderating multiple events
-('Senior Citizens Support', 17, ST_GeogFromText('POINT(-95.2688 29.6947)'), 'Assistance program for elderly community members.', '2024-12-18 10:00:00'),
-('Youth Mentorship Program', 17, ST_GeogFromText('POINT(-95.5588 29.7869)'), 'Pairing volunteers with local youth for mentoring.', '2025-01-12 15:00:00'),
-
--- Lisa (ID 18) - moderating one event
-('Community Garden Project', 18, ST_GeogFromText('POINT(-95.4431 29.6616)'), 'Building and maintaining community gardens.', '2025-01-08 11:00:00'),
-
--- Daniel (ID 19) - moderating one event
-('Disaster Preparedness Workshop', 19, ST_GeogFromText('POINT(-95.1743 29.7321)'), 'Teaching community disaster preparedness skills.', '2025-01-15 13:00:00');
-
--- Rachel (ID 20) - has not moderated any events yet (no entries)
-
--- Insert tasks for each event
--- Event 1: Houston Food Drive (Event ID 1)
+-- Tasks for 'Community Clean-up'
 INSERT INTO TASK (Event_ID, Skill, Description) VALUES
-(1, ARRAY['Manual Labor', 'Transportation'], 'Loading and transporting food donations.'),
-(1, ARRAY['Communication', 'Customer Service'], 'Greeting donors and managing donation intake.'),
-(1, ARRAY['Organization', 'Logistics'], 'Sorting and organizing collected food items.'),
+(1, ARRAY['Logistics'], 'Set up waste bins and organize teams'),
+(1, ARRAY['Driving'],   'Drive collected waste to depot'),
+(1, ARRAY['First Aid'], 'Monitor volunteer health during cleanup');
 
--- Event 2: Holiday Toy Distribution (Event ID 2)
-(2, ARRAY['Childcare', 'Entertainment'], 'Entertaining children while parents register.'),
-(2, ARRAY['Organization', 'Customer Service'], 'Managing toy distribution and family registration.'),
+-- Tasks for 'Food Drive'
+INSERT INTO TASK (Event_ID, Skill, Description) VALUES
+(2, ARRAY['Logistics'], 'Organize canned goods by category'),
+(2, ARRAY['Driving'],   'Deliver food packages to assigned areas');
 
--- Event 3: New Year Community Cleanup (Event ID 3)
-(3, ARRAY['Manual Labor', 'Environment'], 'Picking up litter and debris.'),
-(3, ARRAY['Leadership', 'Coordination'], 'Coordinating cleanup teams and supplies.'),
+-- Tasks for 'Blood Donation'
+INSERT INTO TASK (Event_ID, Skill, Description) VALUES
+(3, ARRAY['Medical'],   'Assist donors during blood draw'),
+(3, ARRAY['Tech'],      'Register participants digitally');
 
--- Event 4: Senior Citizens Support (Event ID 4)
-(4, ARRAY['Transportation', 'Customer Service'], 'Providing transportation for seniors.'),
-(4, ARRAY['Health', 'Companionship'], 'Visiting and providing companionship to seniors.'),
-(4, ARRAY['Technology', 'Teaching'], 'Teaching technology skills to seniors.'),
+-- Tasks for 'Tree Planting'
+INSERT INTO TASK (Event_ID, Skill, Description) VALUES
+(4, ARRAY['Rescue'],    'Clear planting space'),
+(4, ARRAY['Teaching'],  'Teach students proper planting techniques');
 
--- Event 5: Youth Mentorship Program (Event ID 5)
-(5, ARRAY['Education', 'Mentoring'], 'One-on-one mentoring sessions with youth.'),
-(5, ARRAY['Sports', 'Recreation'], 'Organizing recreational activities.'),
-(5, ARRAY['Arts', 'Creativity'], 'Leading creative workshops and activities.'),
+-- Tasks for 'Tech Literacy Day'
+INSERT INTO TASK (Event_ID, Skill, Description) VALUES
+(5, ARRAY['Tech'],      'Guide seniors on basic smartphone use'),
+(5, ARRAY['Teaching'],  'Present simple tutorials');
 
--- Event 6: Community Garden Project (Event ID 6)
-(6, ARRAY['Gardening', 'Manual Labor'], 'Planting and maintaining garden beds.'),
-(6, ARRAY['Construction', 'Tools'], 'Building garden infrastructure.'),
-(6, ARRAY['Education', 'Environment'], 'Teaching sustainable gardening practices.'),
+-- Tasks for 'Emergency Prep Workshop'
+INSERT INTO TASK (Event_ID, Skill, Description) VALUES
+(6, ARRAY['Logistics'], 'Set up booths and materials'),
+(6, ARRAY['Medical'],   'Explain first aid procedures');
 
--- Event 7: Disaster Preparedness Workshop (Event ID 7)
-(7, ARRAY['First Aid', 'Emergency Response'], 'Teaching first aid and emergency response.'),
-(7, ARRAY['Communication', 'Public Speaking'], 'Presenting preparedness information.'),
-(7, ARRAY['Organization', 'Planning'], 'Organizing workshop materials and schedule.');
+-- Get Volunteer IDs manually if needed (e.g., SELECT ID, Username FROM VOLUNTEER;)
+-- Assume IDs 6-20 are non-admin volunteers
 
--- Insert volunteer task assignments (volunteers accepting tasks)
+-- Assignments for Task 1 (Set up waste bins...)
 INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
--- Food Drive assignments
-(1, 4, '2024-12-10 14:30:00'),  -- David for loading/transport
-(1, 10, '2024-12-10 16:45:00'), -- Anthony for loading/transport
-(2, 1, '2024-12-11 09:15:00'),  -- Sarah for donor greeting
-(2, 11, '2024-12-11 10:30:00'), -- Lauren for donor greeting
-(3, 3, '2024-12-12 11:20:00'),  -- Emily for sorting
+(1, 6, '2025-07-15'),
+(1, 7, '2025-07-15');
 
--- Holiday Toy Distribution assignments
-(4, 9, '2024-12-15 13:45:00'),  -- Michelle for childcare
-(4, 8, '2024-12-15 14:20:00'),  -- Christopher for entertainment
-(5, 5, '2024-12-16 08:30:00'),  -- Jessica for distribution
+-- Task 2 (Drive collected waste...)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(2, 8, '2025-07-15'),
+(2, 9, '2025-07-15');
 
--- Community Cleanup assignments
-(6, 4, '2024-12-20 07:45:00'),  -- David for manual labor
-(6, 14, '2024-12-20 08:15:00'), -- Brandon for manual labor
-(7, 16, '2024-12-21 10:00:00'), -- Maria for coordination
+-- Task 3 (Monitor health)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(3, 10, '2025-07-15'),
+(3, 11, '2025-07-15');
 
--- Senior Citizens Support assignments
-(8, 10, '2024-12-12 15:30:00'), -- Anthony for transportation
-(9, 15, '2024-12-13 09:45:00'), -- Stephanie for companionship
-(10, 2, '2024-12-13 14:20:00'), -- Michael for technology teaching
+-- Task 4 (Organize canned goods)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(4, 12, '2025-07-16'),
+(4, 13, '2025-07-16');
 
--- Youth Mentorship assignments
-(11, 3, '2024-12-18 11:00:00'), -- Emily for mentoring
-(11, 9, '2024-12-18 13:30:00'), -- Michelle for mentoring
-(12, 6, '2024-12-19 10:15:00'), -- Robert for sports
-(13, 7, '2024-12-19 16:45:00'), -- Amanda for arts
+-- Task 5 (Deliver food)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(5, 14, '2025-07-16'),
+(5, 15, '2025-07-16');
 
--- Community Garden assignments
-(14, 4, '2024-12-22 08:30:00'), -- David for gardening
-(15, 4, '2024-12-22 09:00:00'), -- David also for construction
-(16, 3, '2024-12-23 11:15:00'), -- Emily for teaching
+-- Task 6 (Assist donors)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(6, 16, '2025-07-17'),
+(6, 17, '2025-07-17');
 
--- Disaster Preparedness assignments
-(17, 6, '2024-12-28 14:00:00'), -- Robert for first aid
-(18, 1, '2024-12-28 15:30:00'), -- Sarah for presenting
-(19, 12, '2024-12-29 09:45:00'); -- Kevin for organizing
+-- Task 7 (Register participants)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(7, 18, '2025-07-17'),
+(7, 19, '2025-07-17');
 
--- Insert some completed volunteer history
-INSERT INTO VOLUNTEER_HIST (V_task_ID, Start_time, End_Time) VALUES
--- Completed assignments from previous events
-(1, '2024-12-15 09:00:00', '2024-12-15 12:30:00'),  -- David's transport task
-(2, '2024-12-15 09:00:00', '2024-12-15 13:00:00'),  -- Sarah's greeting task
-(3, '2024-12-15 13:30:00', '2024-12-15 16:00:00'),  -- Emily's sorting task
-(4, '2024-12-20 14:00:00', '2024-12-20 16:30:00'),  -- Michelle's childcare
-(5, '2024-12-20 14:00:00', '2024-12-20 17:00:00'),  -- Jessica's distribution
-(8, '2024-12-18 10:00:00', '2024-12-18 15:00:00'),  -- Anthony's transportation
-(9, '2024-12-18 10:30:00', '2024-12-18 14:30:00');  -- Stephanie's companionship
+-- Task 8 (Clear planting space)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(8, 20, '2025-07-18'),
+(8, 6,  '2025-07-18');
+
+-- Task 9 (Teach planting)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(9, 7,  '2025-07-18'),
+(9, 8,  '2025-07-18');
+
+-- Task 10 (Teach smartphone use)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(10, 9,  '2025-07-18'),
+(10, 10, '2025-07-18');
+
+-- Task 11 (Present tutorials)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(11, 11, '2025-07-18'),
+(11, 12, '2025-07-18');
+
+-- Task 12 (Set up booths)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(12, 13, '2025-07-19'),
+(12, 14, '2025-07-19');
+
+-- Task 13 (Explain first aid)
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted) VALUES
+(13, 15, '2025-07-19'),
+(13, 16, '2025-07-19');
+
+-- Add history for task 1 (Volunteer 6)
+INSERT INTO VOLUNTEER_HIST (V_task_ID, Start_time, End_time) VALUES
+(1, '2025-08-05 08:45', '2025-08-05 11:00'),
+(2, '2025-08-05 08:50', '2025-08-05 11:00');
+
+-- Task 2
+INSERT INTO VOLUNTEER_HIST (V_task_ID, Start_time, End_time) VALUES
+(3, '2025-08-05 11:10', '2025-08-05 12:30'),
+(4, '2025-08-05 11:15', '2025-08-05 12:45');
+
+-- Task 4
+INSERT INTO VOLUNTEER_HIST (V_task_ID, Start_time, End_time) VALUES
+(7, '2025-08-12 09:00', '2025-08-12 12:00'),
+(8, '2025-08-12 09:05', '2025-08-12 12:10');

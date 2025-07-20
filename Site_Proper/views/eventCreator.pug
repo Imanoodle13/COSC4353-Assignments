@@ -60,6 +60,15 @@ html
 					// Description
 					label(for="description") Description
 					input#description(type="text",name='description', placeholder='Optional but recommended.')
+				div
+					// Priority
+					label(for="priority") Priority
+					select#priority(name="priority")
+						option(value="1") 1 - Low
+						option(value="2") 2
+						option(value="3") 3 - Medium
+						option(value="4") 4
+						option(value="5") 5 - High
 				div 
 					// Date and Time
 					label(for="dateTime") Date and Time 
