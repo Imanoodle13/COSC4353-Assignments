@@ -1,0 +1,24 @@
+{
+  "name": "v_central",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/TRD159/COSC4353-Assignments#readme",
+  "bugs": {
+    "url": "https://github.com/TRD159/COSC4353-Assignments/issues"
+  },
+  "repository": {
+	"type": "git",
+	"url": "git+https://github.com/TRD159/COSC4353-Assignments.git"
+  },
+  "license": "ISC",
+  "author": "TRD159",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+	"start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "pug": "^3.0.3"
+  }
+}

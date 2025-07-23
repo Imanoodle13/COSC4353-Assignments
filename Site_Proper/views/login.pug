@@ -1,0 +1,43 @@
+doctype html
+head
+	meta(charset='UTF-8')
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+	link(href='styles.css', rel='stylesheet', type='text/css')
+	meta(charset='UTF-8')
+header
+	div.navbar
+		span Log In
+		nav
+			ul
+				li: a(href='homepage.html') Home
+body
+	div.loginPage
+		form(action='/login', method='POST', enctype='application/x-www-form-urlencoded')
+			div.login-box
+				h2 Log in
+				div
+					label(for='email') Email:
+					input#email(
+						type='email'
+						name='email'
+						placeholder='Enter your email'
+						style={
+							width:'300px',
+							height:'40px',
+							'border-radius':'10px'
+						} 
+						required=''
+					)
+				div
+					label(for='password') Password:
+					input#password(
+						type='password'
+						name='password'
+						placeholder='Enter your password'
+						required=''
+					)
+				button.loginButton(type='submit') Log In
+				p.signupLink
+					| Don't have an account?
+					a(href='/signup.html') Register!

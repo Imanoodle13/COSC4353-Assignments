@@ -1,0 +1,69 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
+        link(href='/styles.css', rel='stylesheet', type='text/css')
+        title VC | Event Creator
+    script.
+        function addTask() {
+            const taskName = document.getElementById('taskName').value.trim();
+            const skillsRequired = document.getElementById('skillsRequired').value.trim();
+            const description = document.getElementById('description').value.trim();
+            if (!(taskName && skillsRequired)) {
+                alert('Please fill in all required fields: Task Name and Skills Required.');
+            } else {
+                const taskList = document.getElementById('taskList');
+                const newTask = document.createElement('li');
+                newTask.textContent = `Task: ${taskName}, Skills: ${skillsRequired}, Description: ${description}`;
+                taskList.appendChild(newTask);
+                // Clear input fields after adding the task
+                document.getElementById('taskName').value = '';
+                document.getElementById('skillsRequired').value = '';
+                document.getElementById('description').value = '';
+            }
+        }
+        function publishAndConfirm() {
+            const name = document.getElementById('name').value.trim();
+            const locat     = document.getElementById('location').value.trim();
+            const dateTime  = document.getElementById('dateTime').value.trim();
+            if (!(name && locat && dateTime)) {
+                alert('Please fill in all required fields: Event Name, Moderator, Location, and Date and Time.');
+            } else {
+                // INSERT into 'EVENT' from the database 'Volunteer'
+                window.location.href = 'eventConfirm.html';
+            }
+        }
+    header
+        div.navbar
+            span Volunteer Central
+            nav
+                ul
+                li: a(href='homepage.html') Home
+                    li: a(href='login.html') Login
+    body
+        div.flex-task-container(style='display: flex; gap: 40px; justify-content: center; align-items: flex-start;')
+            div.form-group-task
+                h2 Tasks for #[stong #{eventName}] #[small #[i (ID: #{eventId})]]
+                p Moderating as #[strong #{username}] #[small #[i (ID: #{u_id})]]
+                div 
+                    // Task Name
+                    label(for='taskName') Task Name 
+                    input#taskName(type='text', name='taskName', placeholder='New Task', required)
+                div
+                    // Skills Required
+                    label(for='skillsRequired') Skills Required
+                    input#skillsRequired(type='text', name='skillsRequired', placeholder='e.g., Cooking, Cleaning', required)
+                div
+                    // Task Description
+                    label(for='taskDescription') Task Description 
+                    input#description(type="text",name='description', placeholder='Optional but recommended.')
+                div.publish-buttons
+                    button(type='submit', onclick='appendChild()') Add Task
+                    button(type='button', onclick='publishAndConfirm()') Publish Event
+            div.task-list
+                h2 Task List
+                ul#taskList
+                each item in listItems
+                    li= item

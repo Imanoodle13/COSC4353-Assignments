@@ -55,6 +55,7 @@ CREATE TABLE EVENT(
 			REFERENCES VOLUNTEER(ID),
 	Location	GEOGRAPHY(POINT,4326),
 	Description	TEXT,
+	Priority    INT, -- From 1 to 5
 	Date		TIMESTAMP
 );
 
