@@ -12,5 +12,12 @@
     "username": "45C3ND1NG",
     "isAdmin": true,
     "ID": 2
+  },
+  {
+    "email": "gianalfonso825@gmail.com",
+    "password": "Word",
+    "username": "ImperialUdon",
+    "isAdmin": true,
+    "ID": 3
   }
 ]

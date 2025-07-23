@@ -252,6 +252,75 @@ a:active {
     color: white;
 }
 
+/* Task Creator ----------     ----------     ----------     ----------*/
+.form-group-task {
+    width: 450px;
+    height: 450px;
+    background-color: #124E66;
+    border-radius: 20px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #D3D9D4;
+    flex: 1;
+}
+
+.form-group-task label {
+    display: block;
+    margin: 2px;
+}
+
+.form-group-task input[type="text"]{
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+}
+.form-group-task input[id="description"]{
+    height: 120px;
+    align-items: flex-start;
+    align-content: flex-start;
+    align-self: flex-start;
+}
+
+.form-group-task button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    transform: all 300ms ease;
+    border: none;
+    cursor: pointer;
+}
+
+.form-group-task button:hover {
+    background-color: #748D92;
+}
+
+.form-group-task select {
+    border-radius: 10px;
+}
+.form-group-task select:hover{
+    background-color: #748D92;
+    color: white;
+}
+
+.task-list {
+    width: 450px;
+    height: 450px;
+    background-color: #124E66;
+    border-radius: 20px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #D3D9D4;
+    flex: 1;
+}
+
 /* Event Matcher ----------     ----------     ----------     ----------*/
 .eMatcher-table-container {
     display: flex;

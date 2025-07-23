@@ -69,6 +69,21 @@ function getUsers() {
 	}
 }
 
+function getEvents() {
+	try {
+		if (!fs.existsSync(EVENTS_FILE)) {
+			fs.writeFileSync(EVENTS_FILE, '[]', 'utf-8');
+			return [];
+		}
+
+		const data = fs.readFileSync(EVENTS_FILE, 'utf-8');
+		return data.trim() === '' ? [] : JSON.parse(data);
+	} catch {
+		console.error('Retrieving Event error:', err);
+		throw err;
+	}
+}
+
 app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 	try {
 		const { email, password } = req.body;
@@ -110,7 +125,6 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
-	/*
 	try {
 		const query =
 			`
@@ -140,7 +154,9 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 	} catch (err) {
 		console.error('Database query error:', err);
 		res.status(500).send('Database connection failed.');
-	}*/
+	}
+
+	/*
 	let username = 'Guest';
 	let u_id = null;
 	let events = []
@@ -156,6 +172,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		return res.redirect('/login.html?error=1');
 	}
 	res.render('eventMatcher', { username, u_id , events});
+	*/
 });
 
 // http://localhost:8080/eventcreator
@@ -200,11 +217,51 @@ app.post('/publish', express.urlencoded({ extended: true }), async (req, res) =>
 
 		const params = new URLSearchParams(newEvent).toString();
 
-		res.redirect(`/eventconfirm?${params}`);
+		res.redirect(`/taskcreator?${params}`);
 	} catch (err) {
 		console.error('Event creation error:', err);
 		res.status(500).send('Server error during publish.');
 	}
+});
+
+// http://localhost:8080/taskcreator
+app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
+	// Extract event data from query string FIRST
+	const { name, location, description, priority, date, eventId } = req.query;
+	const listItems = [];
+
+	let username = 'Guest';
+	let u_id     = null;
+	let eventName     = '';
+	let eventLocation = '';
+	let eventDate     = '';
+
+	if (req.session.user) {
+		const user = getUsers().find(u => u.email === req.session.user.email);
+		if (user) {
+			username = user.username;
+			u_id = user.ID;
+		}
+
+		const event = getEvents().find(e => e.name === name);
+		if (event) {
+			eventName = event.name;
+		}
+	}
+	if (!u_id) {
+		return res.redirect('/login.html?error=1');
+	}
+	res.render('taskCreator', {
+		username,
+		u_id,
+		eventName: name,
+		eventId,
+		location,
+		description,
+		priority,
+		date,
+		listItems
+	});
 });
 
 // http://localhost:8080/eventconfirm
