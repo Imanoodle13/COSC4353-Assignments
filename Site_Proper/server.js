@@ -362,3 +362,23 @@ app.get(['/databaseConnectionTest', '/databaseConnectionTest.html'], async (req,
 const serv = app.listen(port, address, () => {
 	console.log("listening on", serv.address())
 });
+
+
+//notification system
+let notifications = [];
+
+app.get('/notificationSystem', (req, res) => {
+	if(!req.session.user) {
+		return res.redirect('/login.html');
+	}
+
+	res.render('notificationSystem', {notifications: notifications});
+});
+
+app.post('/send-notification', express.urlencoded({ extended: true }), (req, res) => {
+	if (!req.session.user) {
+		return res.redirect('/login.html');
+	}
+
+	res.redirect('/notificationSystem');
+});
