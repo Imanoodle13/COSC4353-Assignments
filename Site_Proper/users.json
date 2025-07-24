@@ -4,7 +4,25 @@
     "password": "Password",
     "username": "waterlee",
     "isAdmin": true,
-    "ID": 1
+    "ID": 1,
+    "profile": {
+      "fullname": "Justin Tran",
+      "address": {
+        "address1": "123 Elmo St",
+        "address2": "",
+        "city": "Houston",
+        "state": "TX",
+        "zipcode": "77021"
+      },
+      "skills": [
+        "teaching"
+      ],
+      "preferences": "",
+      "availability": [
+        "2025-08-01",
+        "2025-08-09"
+      ]
+    }
   },
   {
     "email": "rohan360k@gmail.com",

@@ -24,8 +24,6 @@ app.use(session({
 	}
 }));
 
-const users = [];
-
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -49,7 +47,7 @@ app.get('/login.html', (req, res) => {
 
 // http://localhost:8080/signup.html
 app.get('/signup.html', (req, res) => {
-	res.render('signup')
+	res.render('signup');
 });
 
 function getUsers() {
@@ -102,9 +100,29 @@ app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 	}
 });
 
+app.get('/logout', (req, res) => {
+	// if the session doesnt exist then redirect to login
+	if (!req.session.user) {
+		return res.redirect('/login.html?error=2');
+	}
+
+	// Destroy session
+	req.session.destroy(err => {
+		if (err) console.error('Session destruction error:', err);
+
+		res.clearCookie('connect.sid', {
+			path: '/',
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production'
+		});
+
+		res.redirect('/login.html');
+	});
+});
+
 app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		const { email, password } = req.body;
+		const { email, password, role } = req.body;
 
 		// Reads the file and parses into json
 		const users = getUsers();
@@ -114,7 +132,12 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 			return res.redirect('/signup.html?error=1')
 		}
 
-		users.push({ email, password });
+		const isAdmin = false;
+		if (role == "admin") {
+			isAdmin = true;
+		}
+
+		users.push({ email, password, isAdmin });
 		fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
 		res.redirect('/login.html?success=1')
 	} catch (err) {
@@ -231,10 +254,10 @@ app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 	const listItems = [];
 
 	let username = 'Guest';
-	let u_id     = null;
-	let eventName     = '';
+	let u_id = null;
+	let eventName = '';
 	let eventLocation = '';
-	let eventDate     = '';
+	let eventDate = '';
 
 	if (req.session.user) {
 		const user = getUsers().find(u => u.email === req.session.user.email);
@@ -268,6 +291,60 @@ app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
 	const { name, location, description, priority, date } = req.query;
 	res.render('eventConfirm', { name, location, description, priority, date });
+});
+
+app.get(['/userProfile', '/userProfile.html'], function (req, res) {
+	if (!req.session.user) {
+		return res.redirect('/login.html?error=1');
+	}
+
+	const user = getUsers().find(u => u.email === req.session.user.email)
+
+	if (!user) {
+		return res.redirect('/login.html?error=1');
+	}
+
+	// Passes through the profile information
+	res.render('userProfile', { email: req.session.user.email, profile: user.profile || {} });
+});
+
+app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		// If theres no session then redirect to login
+		if (!req.session.user) {
+			return res.redirect('/login.html?error=1');
+		}
+
+		// Get data from body
+		const { fullname, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
+		const users = getUsers();
+		const userIndex = users.findIndex(u => u.email === req.session.user.email);
+
+		// Update information at index
+		users[userIndex] = {
+			...users[userIndex],
+			profile: {
+				fullname,
+				address: {
+					address1,
+					address2,
+					city,
+					state,
+					zipcode
+				},
+				skills: Array.isArray(skills) ? skills : [skills], // Array Edge cases
+				preferences,
+				availability: availability.filter(a => a) // remove empty dates
+			}
+		};
+
+		fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8')
+
+		res.redirect('/homepage.html');
+	} catch (err) {
+		console.error('Profile update error:', err);
+		res.status(500).send('Server error during profile update.');
+	}
 });
 
 /* ---------- Test Pages ------------------------*/

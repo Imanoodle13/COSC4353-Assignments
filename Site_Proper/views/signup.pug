@@ -37,6 +37,23 @@ body
 						placeholder='Create a password'
 						required=''
 					)
+				
+				label Choose your role:
+				div(style="display: flex; align-items: center; gap: 10px;")
+					input(
+						type="radio" 
+						name="role"
+						id="volunteer"
+						value="Volunteer" 
+						checked
+						required)
+					label(for="volunteer") Volunteer
+					input(
+						type="radio" 
+						name="role"
+						id="admin"
+						value="Admin")
+					label(for="admin") Admin
 				button.loginButton(type='submit') Register
 				p.signupLink
 					| Already have an account?

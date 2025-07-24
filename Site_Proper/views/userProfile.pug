@@ -13,30 +13,43 @@ html(lang="en")
 				span User Profile Management
 				nav
 					ul
-						li: a(href="#") Home
-						li: a(href="#") About Us
-						li: a(href="#") Logout
+						li: a(href="/homepage.html") Home
+						li: a(href="/logout") Logout
 
 		.form-container
 			form(method="POST", action="/complete-profile")
 				.form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 20px;")
-					h2(style="margin-bottom: 20px;") Complete Your Profile
+					h2(style="margin-bottom: 20px;") Complete Your Profile for #[strong #{email}]
 
 					div
 						label(for="fullname") Full Name
-						input#fullname(type="text", name="fullname", maxlength="50", required)
+						input#fullname(
+							type="text", 
+							name="fullname", 
+							maxlength="50", 
+							value=profile.fullname || '',
+							 required)
 
 					div
 						label(for="address1") Address 1
-						input#address1(type="text", name="address1", maxlength="100", required)
+						input#address1(
+							type="text", 
+							name="address1", 
+							maxlength="100", 
+							value=profile.address ? profile.address.address1 : '',
+							required)
 
 					div
 						label(for="address2") Address 2
-						input#address2(type="text", name="address2", maxlength="100")
+						input#address2(
+							type="text", 
+							name="address2", 
+							maxlength="100", 
+							value=profile.address ? profile.address.address2 : '')
 
 					div
 						label(for="city") City
-						input#city(type="text", name="city", maxlength="100", required)
+						input#city(type="text", name="city", maxlength="100", value=profile.address ? profile.address.city : '', required)
 
 					div
 						label(for="state") State
@@ -95,7 +108,13 @@ html(lang="en")
 
 					div
 						label(for="zipcode") Zip Code
-						input#zipcode(type="text", name="zipcode", minlength="5", maxlength="9", required)
+						input#zipcode(
+							type="text",
+							name="zipcode",
+							minlength="5", 
+							maxlength="9", 
+							value=profile.address ? profile.address.zipcode : '',
+							required)
 
 					div
 						label(for="skills") Skills
@@ -109,13 +128,20 @@ html(lang="en")
 
 					div
 						label(for="preferences") Preferences
-						textarea#preferences(name="preferences", rows="3")
+						textarea#preferences(name="preferences", rows="3", value=profile.preferences || '',)
 
 					div
 						label(for="availability1") Availability Date 1:
-						input#availability1(type="date", name="availability[]", required)
+						input#availability1(
+							type="date", 
+							name="availability[]", 
+							value=profile.availability ? profile.availability[0] : '', 
+							required)
 						label(for="availability2") Availability Date 2:
-						input#availability2(type="date", name="availability[]")
+						input#availability2(
+							type="date", 
+							name="availability[]", 
+							value=profile.availability ? profile.availability[1] : '')
 
 					div(style="margin-top: 20px; display: flex; gap: 20px;")
 						button(type="submit") Submit

@@ -11,11 +11,14 @@ header
 		span Volunteer Central
 		nav
 			ul
+				li: a(href='homepage.html') Home
 				li: a(href='eventMatcher') View Events
 				if isAdmin
 					li: a(href='eventCreator') Create Event
-				li: a(href='homepage.html') Home
-				li: a(href='login.html') Login
+					li: a(href='userProfile') Complete Profile
+					li: a(href='/logout') Log Out
+				else 
+					li: a(href='login.html') Login
 body
 	div.fullscreencontainer
 		img(src='VolunteerPicture.jpeg', alt='Volunteer Group')
