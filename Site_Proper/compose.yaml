@@ -6,12 +6,40 @@ services:
     container_name: server
     restart: always
     ports:
+<<<<<<< HEAD
       - "80:8080"
+=======
+      - "8080:8080"
+      - "8000:8000"
+>>>>>>> ad87fd3 (Many things were broken today, my spirit included)
     healthcheck:
       test: curl -f http://localhost:8080/ || exit 1
       interval: 5s
       retries: 10
+<<<<<<< HEAD
     working_dir: /home/node/app
+=======
+    depends_on:
+      - db
+  test:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    container_name: test
+    restart: always
+    command: sh -c "npm install && npm test"
+    depends_on:
+      - app
+  caddy:
+    image: caddy:2
+    container_name: rev_proxy
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+>>>>>>> ad87fd3 (Many things were broken today, my spirit included)
     volumes:
       - ./app:./
       - ./views:./views
@@ -31,9 +59,21 @@ services:
     restart: always
     shm_size: 512mb
     env_file: ./.env
+<<<<<<< HEAD
 volumes:
   caddy_data:
   caddy_config:
+=======
+    volumes:
+      - type: bind
+        source: /home/vol4_3/infinityfree.com/if0_39554529/dbstorage
+        target: /var/lib/postgresql/data
+volumes:
+  caddy_data:
+  caddy_config:
+  vol4_3/dbstorage:
+    external: true
+>>>>>>> ad87fd3 (Many things were broken today, my spirit included)
 networks:
   default:
     
