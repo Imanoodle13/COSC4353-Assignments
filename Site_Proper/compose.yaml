@@ -8,10 +8,22 @@ services:
     command: sh -c "npm install && npm start"
     ports:
       - "8080:8080"
+      - "8000:8000"
     healthcheck:
       test: curl -f http://localhost:8080/ || exit 1
       interval: 5s
       retries: 10
+    depends_on:
+      - db
+  test:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    container_name: test
+    restart: always
+    command: sh -c "npm install && npm test"
+    depends_on:
+      - app
   caddy:
     image: caddy:2
     container_name: rev_proxy
@@ -27,7 +39,20 @@ services:
       - caddy_config:/config
     depends_on:
       - app
-
+  db:
+    image: postgres:18
+    restart: always
+    shm_size: 512mb
+    env_file: ./.env
+    volumes:
+      - type: bind
+        source: /home/vol4_3/infinityfree.com/if0_39554529/dbstorage
+        target: /var/lib/postgresql/data
 volumes:
   caddy_data:
   caddy_config:
+  vol4_3/dbstorage:
+    external: true
+networks:
+  default:
+    
