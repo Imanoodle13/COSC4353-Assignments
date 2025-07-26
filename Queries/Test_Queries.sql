@@ -58,3 +58,13 @@ HAVING
 	'Communication' = ANY (ARRAY_AGG(DISTINCT s.skill))
 ORDER BY
 	E.date;
+
+-- Address string to Geocode conversion
+-- Street Number:      1600
+-- Street Name:        Pennsylvania Ave NW
+-- City:               Washington
+-- State Abbreviation: DC
+-- ZIP Code:           20500
+SELECT
+  ST_SetSRID(geomout, 4326)::geography AS location
+FROM geocode('1600 Pennsylvania Ave NW, Washington, DC 20500', 1) AS g;

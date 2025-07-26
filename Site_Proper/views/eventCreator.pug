@@ -37,25 +37,10 @@ html
 					input#name(type='text',name='name', placeholder='New Event',required)
 				div 
 					// Location
-					label(for='location') Location 
-					select#loctype(name="loctype")
-						option(value="address") Address
-						option(value="coords") Coordinates 
-					script.
-						document.addEventListener('DOMContentLoaded', function() {
-							const loctype = document.getElementById('loctype');
-							const locationInput = document.getElementById('location');
-
-							loctype.addEventListener('change', function() {
-								if (loctype.value === 'address') {
-									locationInput.placeholder = 'Address';
-								} else if (loctype.value === 'coords') {
-									locationInput.placeholder = '0.00000, 0.00000 for approx. 1m precision';
-								}
-							});
-						});
-					br
-					input#location(type="text",name='location', placeholder='Address',required)
+					label(for='location') Location
+					p For accuracy, please enter address in the format:
+					p #[small Street_Number Street_Name, City, State_Abbreviation ZIP]
+					input#location(type="text",name='location', placeholder='12345 Street Nm, City, TX 54321',required)
 				div 
 					// Description
 					label(for="description") Description

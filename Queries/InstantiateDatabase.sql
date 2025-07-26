@@ -6,7 +6,10 @@
 --		Linux:		`sudo apt install postgis postgresql-14-postgis-3`
 
 -- 2. Run the following queries:
-CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS postgis;                -- Adds spatial capabilities to PostgreSQL, enabling it to store, query, and analyze geographic and geometric data.
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;          -- Offers functions to determine similarities and differences between strings, useful for approximate matching and handling misspellings.
+CREATE EXTENSION IF NOT EXISTS postgis_tiger_geocoder; -- Provides geocoding capabilities by converting textual addresses into geographic coordinates using U.S. Census TIGER/Line data.
+
 SELECT postgis_full_version();
 
 -- The `GEOGRAPHY(POINT,4326)` datatype should work.
