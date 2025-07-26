@@ -47,6 +47,13 @@ html
             div.form-group-task
                 h2 Tasks for #[stong #{eventName}] #[small #[i (ID: #{eventId})]]
                 p Moderating as #[strong #{username}] #[small #[i (ID: #{u_id})]]
+                div.eventRundown
+                    ul
+                        li #{location ? `${location}` : ''}
+                        li #{description ? `${description}` : ''}
+                        li #{priority ? `Priority level ${priority}` : ''}
+                        li #{date ? `${date}` : ''}
+                    
                 div 
                     // Task Name
                     label(for='taskName') Task Name 

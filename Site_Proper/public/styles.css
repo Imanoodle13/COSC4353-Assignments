@@ -255,7 +255,7 @@ a:active {
 /* Task Creator ----------     ----------     ----------     ----------*/
 .form-group-task {
     width: 450px;
-    height: 450px;
+    height: 600px;
     background-color: #124E66;
     border-radius: 20px;
     margin: 40px auto;
@@ -282,6 +282,11 @@ a:active {
     align-items: flex-start;
     align-content: flex-start;
     align-self: flex-start;
+}
+
+.eventRundown{
+    height: 120px;
+    align-content: flex-start;
 }
 
 .form-group-task button {

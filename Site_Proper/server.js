@@ -41,7 +41,7 @@ app.get('/homepage.html', function (req, res) {
 });
 
 // http://localhost:8080/login.html
-app.get('/login.html', (req, res) => {
+app.get(['/login','/login.html'], (req, res) => {
 	res.render('login');
 });
 
@@ -82,7 +82,7 @@ function getEvents() {
 	}
 }
 
-app.post('/login', express.urlencoded({ extended: true }), (req, res) => {
+app.post(['/login','/login.html'], express.urlencoded({ extended: true }), (req, res) => {
 	try {
 		const { email, password } = req.body;
 		const users = getUsers();
@@ -212,10 +212,51 @@ app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
 	if (!u_id) {
 		return res.redirect('/login.html?error=1');
 	}
-	res.render('eventCreator', { username, u_id });
+	res.render('eventCreator', { username, u_id }); // { username, u_id } to remind the user who is currently logged in/moderating the event.
+});
+
+app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		const { name, location, description, priority, dateTime } = req.body;
+		let events = [];
+
+		if (fs.existsSync(EVENTS_FILE)) {
+			const data = fs.readFileSync(EVENTS_FILE, `utf-8`);
+			events = data.trim() === ''
+				? []
+				: JSON.parse(data);
+		}
+
+		const newEvent = {
+			eventId: events.length + 1, // Simple ID generation
+			name,
+			location,
+			description,
+			priority: parseInt(priority, 10) || 0,
+			date: dateTime,
+			tasks: {}
+		};
+
+		events.push(newEvent);
+		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
+
+		const params = new URLSearchParams(newEvent).toString();
+
+		res.redirect(`/taskcreator?${params}`);
+	} catch (err) {
+		console.error('Event creation error:', err);
+		res.status(500).send('Server error during publish.');
+	}
 });
 
 app.post('/publish', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+
+	} catch (err) {
+
+	}
+	
+	/*
 	try {
 		const { name, location, description, priority, dateTime } = req.body;
 		let events = [];
@@ -244,7 +285,7 @@ app.post('/publish', express.urlencoded({ extended: true }), async (req, res) =>
 	} catch (err) {
 		console.error('Event creation error:', err);
 		res.status(500).send('Server error during publish.');
-	}
+	}*/
 });
 
 // http://localhost:8080/taskcreator
@@ -266,9 +307,9 @@ app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 			u_id = user.ID;
 		}
 
-		const event = getEvents().find(e => e.name === name);
+		const event = getEvents().find(e => e.eventId === eventId);
 		if (event) {
-			eventName = event.name;
+			eventName = event.eventId;
 		}
 	}
 	if (!u_id) {
