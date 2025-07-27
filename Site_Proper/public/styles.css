@@ -254,7 +254,7 @@ a:active {
 
 /* Task Creator ----------     ----------     ----------     ----------*/
 .form-group-task {
-    width: 450px;
+    width: 500px;
     height: 600px;
     background-color: #124E66;
     border-radius: 20px;
@@ -264,7 +264,6 @@ a:active {
     justify-content: center;
     align-items: center;
     color: #D3D9D4;
-    flex: 1;
 }
 
 .form-group-task label {
@@ -313,9 +312,9 @@ a:active {
 }
 
 .task-list {
-    width: 450px;
+    width: 500px;
     height: 450px;
-    background-color: #124E66;
+    background-color: #748D92;
     border-radius: 20px;
     margin: 40px auto;
     display: flex;

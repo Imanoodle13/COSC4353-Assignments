@@ -67,8 +67,11 @@ html
                 h3 Assigned Tasks
                 ul
                     each task in tasks
-                        li
-                            | #{task.name} - #{task.description} (Skills: #{task.skills && task.skills.join(', ')})
+                        li 
+                            p #[strong #{task.name}]
+                            p #[em #{task.description}] 
+                            p #[small (Skills: #{task.skills && task.skills.join(', ')})]     
+                            
         else
             div.task-list
                 p No tasks assigned yet.
