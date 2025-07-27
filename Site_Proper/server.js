@@ -217,6 +217,7 @@ app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
 
 app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
+		// Get data from body
 		const { name, location, description, priority, dateTime } = req.body;
 		let events = [];
 
@@ -227,6 +228,7 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 				: JSON.parse(data);
 		}
 
+		// Create a new event object
 		const newEvent = {
 			eventId: events.length + 1, // Simple ID generation
 			name,
@@ -234,12 +236,14 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 			description,
 			priority: parseInt(priority, 10) || 0,
 			date: dateTime,
-			tasks: {}
+			tasks: []
 		};
 
+		// Add the newEvent to the events array
 		events.push(newEvent);
 		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
-
+		
+		// Convert the newEvent to URL parameters to pass data to task creator
 		const params = new URLSearchParams(newEvent).toString();
 
 		res.redirect(`/taskcreator?${params}`);
@@ -249,14 +253,9 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 	}
 });
 
+/*
 app.post('/publish', express.urlencoded({ extended: true }), async (req, res) => {
-	try {
-
-	} catch (err) {
-
-	}
 	
-	/*
 	try {
 		const { name, location, description, priority, dateTime } = req.body;
 		let events = [];
@@ -285,7 +284,7 @@ app.post('/publish', express.urlencoded({ extended: true }), async (req, res) =>
 	} catch (err) {
 		console.error('Event creation error:', err);
 		res.status(500).send('Server error during publish.');
-	}*/
+	}
 });
 
 // http://localhost:8080/taskcreator
@@ -326,6 +325,68 @@ app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 		date,
 		listItems
 	});
+});*/
+
+app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
+	// Extract event data from query string
+const { name, location, description, priority, date, eventId } = req.query;
+let username = 'Guest';
+let u_id = null;
+let tasks = [];
+
+if (req.session.user) {
+	const user = getUsers().find(u => u.email === req.session.user.email);
+	if (user) {
+		username = user.username;
+		u_id = user.ID;
+	}
+}
+
+if (eventId) {
+	const events = getEvents();
+	const event = events.find(e => e.eventId === parseInt(eventId, 10));
+	if (event && Array.isArray(event.tasks)) {
+		tasks = event.tasks;
+	}
+}
+
+if (!u_id) {
+	return res.redirect('/login.html?error=1');
+}
+
+res.render('taskCreator', {
+	username,
+	u_id,
+	eventName: name,
+	eventId,
+	location,
+	description,
+	priority,
+	date,
+	tasks
+});
+});
+
+app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
+	try {
+		const { eventId, taskName, taskDescription, taskSkills } = req.body;
+		const events = getEvents();
+		const eventIndex = events.findIndex(e => e.eventId === parseInt(eventId, 10));
+		if (eventIndex === -1) {
+			return res.status(404).send('Event not found');
+		}
+		const newTask = {
+			name: taskName,
+			description: taskDescription,
+			skills: taskSkills ? taskSkills.split(',').map(skill => skill.trim()) : []
+		};
+		events[eventIndex].tasks.push(newTask);
+		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), 'utf-8');
+		res.redirect(`/taskCreator?eventId=${eventId}&name=${encodeURIComponent(events[eventIndex].name)}&location=${encodeURIComponent(events[eventIndex].location)}&description=${encodeURIComponent(events[eventIndex].description)}&priority=${events[eventIndex].priority}&date=${events[eventIndex].date}`);
+	} catch (err) {
+		console.error('Task addition error:', err);
+		res.status(500).send('Server error during task addition.');
+	}
 });
 
 // http://localhost:8080/eventconfirm

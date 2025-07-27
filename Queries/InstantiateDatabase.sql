@@ -69,6 +69,7 @@ CREATE TABLE TASK(
 	Event_ID	INT,
 		CONSTRAINT TASK_fk1 FOREIGN KEY (Event_ID)
 			REFERENCES EVENT(ID),
+	Name        TEXT,
 	Skill		TEXT[],
 	Description	TEXT
 );

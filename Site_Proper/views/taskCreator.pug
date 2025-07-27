@@ -53,24 +53,22 @@ html
                         li #{description ? `${description}` : ''}
                         li #{priority ? `Priority level ${priority}` : ''}
                         li #{date ? `${date}` : ''}
-                    
-                div 
-                    // Task Name
-                    label(for='taskName') Task Name 
-                    input#taskName(type='text', name='taskName', placeholder='New Task', required)
-                div
-                    // Skills Required
-                    label(for='skillsRequired') Skills Required
-                    input#skillsRequired(type='text', name='skillsRequired', placeholder='e.g., Cooking, Cleaning', required)
-                div
-                    // Task Description
-                    label(for='taskDescription') Task Description 
-                    input#description(type="text",name='description', placeholder='Optional but recommended.')
-                div.publish-buttons
-                    button(type='submit', onclick='appendChild()') Add Task
-                    button(type='button', onclick='publishAndConfirm()') Publish Event
+                form(action='/addTask', method='POST')
+                    input(type='hidden', name='eventId', value=eventId)
+                    label(for='taskName') Task Name
+                    input#taskName(type='text', name='taskName', required)
+                    label(for='taskSkills') Skills Required
+                    input#taskSkills(type='text', name='taskSkills', required)
+                    label(for='taskDescription') Task Description
+                    input#taskDescription(type='text', name='taskDescription')
+                    button(type='submit') Add Task
+        if tasks && tasks.length
             div.task-list
-                h2 Task List
-                ul#taskList
-                each item in listItems
-                    li= item
+                h3 Assigned Tasks
+                ul
+                    each task in tasks
+                        li
+                            | #{task.name} - #{task.description} (Skills: #{task.skills && task.skills.join(', ')})
+        else
+            div.task-list
+                p No tasks assigned yet.

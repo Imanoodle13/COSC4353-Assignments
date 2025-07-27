@@ -55,7 +55,7 @@ LEFT JOIN
 GROUP BY
     E.ID, E.name, V.Username, E.location, E.description, E.date
 HAVING 
-	'Communication' = ANY (ARRAY_AGG(DISTINCT s.skill))
+	'Coordination' = ANY (ARRAY_AGG(DISTINCT s.skill))
 ORDER BY
 	E.date;
 
@@ -68,3 +68,5 @@ ORDER BY
 SELECT
   ST_SetSRID(geomout, 4326)::geography AS location
 FROM geocode('1600 Pennsylvania Ave NW, Washington, DC 20500', 1) AS g;
+
+SELECT * FROM TASK;

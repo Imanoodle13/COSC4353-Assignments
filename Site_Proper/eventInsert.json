@@ -1,11 +1,30 @@
 [
   {
     "eventId": 1,
-    "name": "Triage Event",
-    "location": "1000 Bellaire Drive",
-    "description": "Assist patients.",
+    "name": "University of Houston Flea Market",
+    "location": "1000 Bellaire Drive, Houston, TX 77083",
+    "description": "Help set up marketplace.",
     "priority": 3,
-    "date": "2025-07-26T14:16",
-    "tasks": {}
+    "date": "2025-07-26T22:36",
+    "tasks": [
+      {
+        "name": "Supply Manager",
+        "description": "Assist with supplies",
+        "skills": [
+          "Leadership",
+          "Communication",
+          "First Aid"
+        ]
+      },
+      {
+        "name": "Promoter",
+        "description": "Encourage and facilitate the growth of products, services, or events.",
+        "skills": [
+          "Communication",
+          "Customer Service",
+          "Sales"
+        ]
+      }
+    ]
   }
 ]
