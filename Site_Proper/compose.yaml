@@ -7,18 +7,29 @@ services:
     restart: always
     ports:
 <<<<<<< HEAD
+<<<<<<< HEAD
       - "80:8080"
 =======
       - "8080:8080"
       - "8000:8000"
 >>>>>>> ad87fd3 (Many things were broken today, my spirit included)
+=======
+      - "80:8080"
+>>>>>>> 1ef8a52 (Help)
     healthcheck:
       test: curl -f http://localhost:8080/ || exit 1
       interval: 5s
       retries: 10
 <<<<<<< HEAD
+<<<<<<< HEAD
     working_dir: /home/node/app
 =======
+=======
+    working_dir: /home/node/app
+    volumes:
+      - ./app:./
+      - ./views:./views
+>>>>>>> 1ef8a52 (Help)
     depends_on:
       - db
   test:
@@ -30,6 +41,7 @@ services:
     command: sh -c "npm install && npm test"
     depends_on:
       - app
+<<<<<<< HEAD
   caddy:
     image: caddy:2
     container_name: rev_proxy
@@ -54,11 +66,14 @@ services:
     command: sh -c "npm install && npm test"
     depends_on:
       - app
+=======
+>>>>>>> 1ef8a52 (Help)
   db:
     image: postgres:18
     restart: always
     shm_size: 512mb
     env_file: ./.env
+<<<<<<< HEAD
 <<<<<<< HEAD
 volumes:
   caddy_data:
@@ -74,6 +89,11 @@ volumes:
   vol4_3/dbstorage:
     external: true
 >>>>>>> ad87fd3 (Many things were broken today, my spirit included)
+=======
+volumes:
+  caddy_data:
+  caddy_config:
+>>>>>>> 1ef8a52 (Help)
 networks:
   default:
     

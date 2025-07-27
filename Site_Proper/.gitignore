@@ -1,6 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /node_modules/*
 =======
 ./node_modules/*
 >>>>>>> a674f0b (Long overdue gitignore)
+=======
+/node_modules/*
+>>>>>>> 1ef8a52 (Help)
 
