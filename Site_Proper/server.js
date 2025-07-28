@@ -473,14 +473,17 @@ app.get('/notificationSystem', (req, res) => {
 	if(!req.session.user) {
 		return res.redirect('/login.html');
 	}
-
-	res.render('notificationSystem', {notifications: notifications});
+	const userEmail = req.session.user.email;
+  	const userNotes = notifications.filter(note => note.email === userEmail);
+	res.render('notificationSystem', { notifications: userNotes });
 });
 
 app.post('/send-notification', express.urlencoded({ extended: true }), (req, res) => {
 	if (!req.session.user) {
 		return res.redirect('/login.html');
 	}
-
+	const { email, message } = req.body;
+  	const newNote = { email, message };
+  	notifications.push(newNote);
 	res.redirect('/notificationSystem');
 });
