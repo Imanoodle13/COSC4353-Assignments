@@ -228,10 +228,20 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 				: JSON.parse(data);
 		}
 
+		// Find the user object to get the username
+		let moderator = 'Unknown';
+		if (req.session.user && req.session.user.email) {
+			const users = getUsers();
+			const userObj = users.find(u => u.email === req.session.user.email);
+			if (userObj && userObj.username) {
+				moderator = userObj.username;
+			}
+		}
 		// Create a new event object
 		const newEvent = {
 			eventId: events.length + 1, // Simple ID generation
 			name,
+			moderator,
 			location,
 			description,
 			priority: parseInt(priority, 10) || 0,
@@ -376,6 +386,7 @@ app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
 			return res.status(404).send('Event not found');
 		}
 		const newTask = {
+			taskId: events[eventIndex].tasks.length + 1, // Simple ID generation for tasks
 			name: taskName,
 			description: taskDescription,
 			skills: taskSkills ? taskSkills.split(',').map(skill => skill.trim()) : []
@@ -474,7 +485,7 @@ app.get('/notificationSystem', (req, res) => {
 		return res.redirect('/login.html');
 	}
 	const userEmail = req.session.user.email;
-  	const userNotes = notifications.filter(note => note.email === userEmail);
+	const userNotes = notifications.filter(note => note.email === userEmail);
 	res.render('notificationSystem', { notifications: userNotes });
 });
 
@@ -483,7 +494,7 @@ app.post('/send-notification', express.urlencoded({ extended: true }), (req, res
 		return res.redirect('/login.html');
 	}
 	const { email, message } = req.body;
-  	const newNote = { email, message };
-  	notifications.push(newNote);
+	const newNote = { email, message };
+	notifications.push(newNote);
 	res.redirect('/notificationSystem');
 });

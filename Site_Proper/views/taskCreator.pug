@@ -62,6 +62,7 @@ html
                     label(for='taskDescription') Task Description
                     input#taskDescription(type='text', name='taskDescription')
                     button(type='submit') Add Task
+                button(type='button', onclick="window.location.href='/homepage.html'") Submit Event
         if tasks && tasks.length
             div.task-list
                 h3 Assigned Tasks
@@ -70,8 +71,7 @@ html
                         li 
                             p #[strong #{task.name}]
                             p #[em #{task.description}] 
-                            p #[small (Skills: #{task.skills && task.skills.join(', ')})]     
-                            
+                            p #[small (Skills: #{task.skills && task.skills.join(', ')})]                             
         else
             div.task-list
                 p No tasks assigned yet.
