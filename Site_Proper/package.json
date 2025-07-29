@@ -1,7 +1,6 @@
 {
   "name": "v_central",
   "version": "1.0.0",
-  "description": "",
   "homepage": "https://github.com/TRD159/COSC4353-Assignments#readme",
   "bugs": {
     "url": "https://github.com/TRD159/COSC4353-Assignments/issues"
@@ -15,7 +14,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^2.2.0",
@@ -30,5 +30,6 @@
   },
   "optionalDependencies": {
     "@biomejs/biome": "2.1.2"
-  }
+  },
+  "description": ""
 }
