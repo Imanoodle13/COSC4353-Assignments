@@ -1,35 +1,45 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: server.Dockerfile
+    image: node:24
     container_name: server
     restart: always
     ports:
-      - "80:8080"
+      - "8080:8080"
+    expose:
+      - "8000"
     healthcheck:
       test: curl -f http://localhost:8080/ || exit 1
       interval: 5s
       retries: 10
-    working_dir: /home/node/app
     volumes:
-      - ./app:./
-      - ./views:./views
+      - ./app:/app
+      - ./views:/app/views
+      - ./public:/app/public
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM node:24
+        COPY ./package.json /app
+        CMD npm install && npm start
     depends_on:
       - db
   test:
+    image: node:24
+    container_name: test
     build:
       context: .
       dockerfile: test.Dockerfile
-    container_name: test
+    init: false
     restart: always
-    command: sh -c "npm install && npm test"
+    command: "npm init ava & npm install && npm test"
+    volumes:
+      - ./test_app:/test_app
     depends_on:
       - app
   db:
     image: postgres:latest
     restart: always
     shm_size: 512mb
-    env_file: ./.env
+    env_file: ./postgres.env
 networks:
   default:
