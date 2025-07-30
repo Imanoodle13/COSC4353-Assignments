@@ -473,7 +473,12 @@ app.get(['/databaseConnectionTest', '/databaseConnectionTest.html'], async (req,
 });
 
 const serv = app.listen(port, address, () => {
-	console.log("listening on", serv.address())
+    const addr = serv.address();
+    if (addr && typeof addr === 'object') {
+        console.log(`listening on http://${addr.address}:${addr.port}`);
+    } else {
+        console.log(`listening on port ${port}`);
+    }
 });
 
 
