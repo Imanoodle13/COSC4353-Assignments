@@ -12,15 +12,12 @@ services:
       interval: 5s
       retries: 10
     volumes:
-      - ./app:/app
-      - ./views:/app/views
-      - ./public:/app/public
+      - ./app:/home/node/app
+      - ./views:/home/node/app/views
+      - ./public:/home/node/app/public
     build:
       context: .
-      dockerfile_inline: |
-        FROM node:24
-        COPY ./package.json /app
-        CMD npm install && npm start
+      dockerfile: server.Dockerfile
     depends_on:
       - db
   test:
@@ -33,7 +30,7 @@ services:
     restart: always
     command: "npm init ava & npm install && npm test"
     volumes:
-      - ./test_app:/test_app
+      - ./test_app:/home/node/test_app
     depends_on:
       - app
   db:

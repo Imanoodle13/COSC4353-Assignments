@@ -15,7 +15,8 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "start": "node server.js"
   },
   "dependencies": {
     "body-parser": "^2.2.0",
