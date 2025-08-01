@@ -41,7 +41,7 @@ app.get('/homepage.html', function (req, res) {
 });
 
 // http://localhost:8080/login.html
-app.get(['/login','/login.html'], (req, res) => {
+app.get(['/login', '/login.html'], (req, res) => {
 	res.render('login');
 });
 
@@ -82,7 +82,7 @@ function getEvents() {
 	}
 }
 
-app.post(['/login','/login.html'], express.urlencoded({ extended: true }), (req, res) => {
+app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), (req, res) => {
 	try {
 		const { email, password } = req.body;
 		const users = getUsers();
@@ -100,12 +100,54 @@ app.post(['/login','/login.html'], express.urlencoded({ extended: true }), (req,
 	}
 });
 
+/*
+app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), (req, res) => {
+	const client;
+	try {
+		const { email, password } = req.body;
+
+		client = await pool.connect();
+		await client.query('BEGIN');
+		await result = client.query(
+		'SELECT id, email, password FROM volunteer WHERE email = $1',
+		[email]
+		);
+		
+		if (result.rows.length === 0)
+		{
+			return res.redirect('/login.html?error=1');
+		}
+
+		const user = result.rows[0];
+
+		if (user) {
+			req.session.user = {
+				id: user.id,
+				email: user.email
+		}
+		await client.query('COMMIT');
+		return res.redirect('/homepage.html');
+
+		res.redirect('/login.html?error=1');
+	} catch (err) {
+		if (client) {
+			await client.query('ROLLBACK');
+		}
+		console.error('Log In error:', err);
+		res.status(500).send('Server error during Log In');
+	} finally {
+		if (client) {
+				client.release();
+		}
+	}
+});
+*/
+
 app.get('/logout', (req, res) => {
 	// if the session doesnt exist then redirect to login
 	if (!req.session.user) {
 		return res.redirect('/login.html?error=2');
 	}
-
 	// Destroy session
 	req.session.destroy(err => {
 		if (err) console.error('Session destruction error:', err);
@@ -123,7 +165,27 @@ app.get('/logout', (req, res) => {
 app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
 		const { email, password, role } = req.body;
+		// Regex input validation
+		if (password.length < 8) {
+			return res.status(400).send("Password too short");
+		}
+		if (!/[A-Z]/.test(password)) {
+			return res.status(400).send("Password does not contain a capital letter");
+		}
+		if (!/[a-z]/.test(password)) {
+			return res.status(400).send("Password does not contain a lowercase letter");
+		}
+		if (!/\d/.test(password)) {
+			return res.status(400).send("Password does not contain a number");
+		}
+		if (!/[!@#$%^&*]/.test(password)) {
+			return res.status(400).send("Password does not contain a special character");
+		}
 
+
+		if (!email.includes('@') || !email.includes('.')) {
+			return res.status(400).send("Please enter a valid email")
+		}
 		// Reads the file and parses into json
 		const users = getUsers();
 
@@ -139,6 +201,7 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 		users.push({ email, password, isAdmin });
 		fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
+		//
 		res.redirect('/login.html?success=1')
 	} catch (err) {
 		console.error('Register error:', err);
@@ -252,7 +315,7 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 		// Add the newEvent to the events array
 		events.push(newEvent);
 		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
-		
+
 		// Convert the newEvent to URL parameters to pass data to task creator
 		const params = new URLSearchParams(newEvent).toString();
 
@@ -339,42 +402,42 @@ app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 
 app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 	// Extract event data from query string
-const { name, location, description, priority, date, eventId } = req.query;
-let username = 'Guest';
-let u_id = null;
-let tasks = [];
+	const { name, location, description, priority, date, eventId } = req.query;
+	let username = 'Guest';
+	let u_id = null;
+	let tasks = [];
 
-if (req.session.user) {
-	const user = getUsers().find(u => u.email === req.session.user.email);
-	if (user) {
-		username = user.username;
-		u_id = user.ID;
+	if (req.session.user) {
+		const user = getUsers().find(u => u.email === req.session.user.email);
+		if (user) {
+			username = user.username;
+			u_id = user.ID;
+		}
 	}
-}
 
-if (eventId) {
-	const events = getEvents();
-	const event = events.find(e => e.eventId === parseInt(eventId, 10));
-	if (event && Array.isArray(event.tasks)) {
-		tasks = event.tasks;
+	if (eventId) {
+		const events = getEvents();
+		const event = events.find(e => e.eventId === parseInt(eventId, 10));
+		if (event && Array.isArray(event.tasks)) {
+			tasks = event.tasks;
+		}
 	}
-}
 
-if (!u_id) {
-	return res.redirect('/login.html?error=1');
-}
+	if (!u_id) {
+		return res.redirect('/login.html?error=1');
+	}
 
-res.render('taskCreator', {
-	username,
-	u_id,
-	eventName: name,
-	eventId,
-	location,
-	description,
-	priority,
-	date,
-	tasks
-});
+	res.render('taskCreator', {
+		username,
+		u_id,
+		eventName: name,
+		eventId,
+		location,
+		description,
+		priority,
+		date,
+		tasks
+	});
 });
 
 app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
@@ -460,6 +523,44 @@ app.post('/complete-profile', express.urlencoded({ extended: true }), async (req
 	}
 });
 
+/*
+app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
+	const client;
+	try {
+		// If theres no session then redirect to login
+		if (!req.session.user) {
+			return res.redirect('/login.html?error=1');
+		}
+
+		// Get data from body
+		const { first_name, last_name, username, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
+		const address = 
+		// Connect to DB
+		client = await pool.connect();
+
+		client.query('BEGIN');
+		client.query(
+			'INSERT INTO volunteer (First_name, Last_name, Username, Skill, Preferences, Availability) VALUES ($1, $2, $3, $4, $5, $6)',
+			[first_name, last_name, username, skills, preferences, availability]
+		);
+		client.query('COMMIT')
+
+		res.redirect('/homepage.html');
+	} catch (err) {
+		if (client){
+			await client.query('ROLLBACK');
+		}
+		console.error('Profile update error:', err);
+		res.status(500).send('Server error during profile update.');
+	} finally {
+	// Release the client for reuse
+		if (client){
+			client.release();
+		}
+	}
+});
+*/
+
 /* ---------- Test Pages ------------------------*/
 // http://localhost:8080/databaseConnectionTest
 app.get(['/databaseConnectionTest', '/databaseConnectionTest.html'], async (req, res) => {
@@ -473,12 +574,12 @@ app.get(['/databaseConnectionTest', '/databaseConnectionTest.html'], async (req,
 });
 
 const serv = app.listen(port, address, () => {
-    const addr = serv.address();
-    if (addr && typeof addr === 'object') {
-        console.log(`listening on http://${addr.address}:${addr.port}`);
-    } else {
-        console.log(`listening on port ${port}`);
-    }
+	const addr = serv.address();
+	if (addr && typeof addr === 'object') {
+		console.log(`listening on http://${addr.address}:${addr.port}`);
+	} else {
+		console.log(`listening on port ${port}`);
+	}
 });
 
 
@@ -486,7 +587,7 @@ const serv = app.listen(port, address, () => {
 let notifications = [];
 
 app.get('/notificationSystem', (req, res) => {
-	if(!req.session.user) {
+	if (!req.session.user) {
 		return res.redirect('/login.html');
 	}
 	const userEmail = req.session.user.email;

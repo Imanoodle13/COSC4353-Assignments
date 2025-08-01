@@ -22,13 +22,31 @@ html(lang="en")
 					h2(style="margin-bottom: 20px;") Complete Your Profile for #[strong #{email}]
 
 					div
-						label(for="fullname") Full Name
+						label(for="firstname") First Name:
 						input#fullname(
 							type="text", 
-							name="fullname", 
+							name="firstname", 
 							maxlength="50", 
-							value=profile.fullname || '',
-							 required)
+							value=profile.firstname || '',
+							required)
+
+					div
+						label(for="lastname") Last Name:
+						input#lastname(
+							type="text", 
+							name="lastname", 
+							maxlength="50", 
+							value=profile.lastname || '',
+							required)
+					
+					div
+						label(for="username") Username:
+						input#lastname(
+							type="text", 
+							name="username", 
+							maxlength="50", 
+							value=profile.username || '',
+							required)
 
 					div
 						label(for="address1") Address 1
