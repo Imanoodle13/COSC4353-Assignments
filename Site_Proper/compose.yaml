@@ -14,12 +14,5 @@ services:
     build:
       context: .
       dockerfile: server.Dockerfile
-    depends_on:
-      - db
-  db:
-    image: postgres:latest
-    restart: always
-    shm_size: 512mb
-    env_file: ./postgres.env
 networks:
   default:
