@@ -1,4 +1,5 @@
 const express = require('express');
+const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
@@ -10,9 +11,12 @@ const address = '0.0.0.0';
 const PORT = process.env.PORT || port;
 
 const app = express();
+exports.app = app;
 
 const USERS_FILE = path.join(__dirname, 'users.json');
 const EVENTS_FILE = path.join(__dirname, 'eventInsert.json');
+
+module.exports
 
 // Middleware setup
 app.use(session({
