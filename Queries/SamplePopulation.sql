@@ -1,61 +1,90 @@
 -- Insert roles
-INSERT INTO ROLE (Name) VALUES
-('Admin'),
-('Volunteer');
+INSERT INTO ROLE (Name) VALUES 
+    ('Admin'), ('Volunteer');
 
--- Insert volunteers (5 admins + 15 volunteers)
-INSERT INTO VOLUNTEER (Role_ID, First_name, Last_name, Username, Email, Password, Skill, Location, Availability) VALUES
--- Admins
-(1, 'Alice',   'Johnson', 'alicej',   'alice@example.com',   crypt('password1', gen_salt('bf')), ARRAY['Leadership', 'Organization'], ST_GeogFromText('SRID=4326;POINT(-95.3698 29.7604)'), ARRAY['Weekends']),
-(1, 'Bob',     'Smith',   'bobsmith', 'bob@example.com',     crypt('password2', gen_salt('bf')), ARRAY['Planning', 'Coordination'], ST_GeogFromText('SRID=4326;POINT(-95.4242 29.7609)'), ARRAY['Weekdays']),
-(1, 'Carla',   'Nguyen',  'cnguyen',  'carla@example.com',   crypt('password3', gen_salt('bf')), ARRAY['Budgeting', 'Scheduling'], ST_GeogFromText('SRID=4326;POINT(-95.3610 29.7499)'), ARRAY['Weekends']),
-(1, 'David',   'Lee',     'dlee',     'david@example.com',   crypt('password4', gen_salt('bf')), ARRAY['Logistics', 'Supervision'], ST_GeogFromText('SRID=4326;POINT(-95.4475 29.7370)'), ARRAY['Weekdays']),
-(1, 'Emily',   'Brown',   'ebrown',   'emily@example.com',   crypt('password5', gen_salt('bf')), ARRAY['Fundraising', 'Public Speaking'], ST_GeogFromText('SRID=4326;POINT(-95.3584 29.7520)'), ARRAY['Evenings']),
+-- Insert volunteers (5 Admins, 15 Regular Volunteers)
+INSERT INTO VOLUNTEER (Role_ID, First_name, Last_name, Username, Email, Password, Skill, Location, Availability)
+VALUES
+-- Admins (Role_ID = 1)
+(1, 'Alice', 'Wong', 'alicew', 'alice@example.com', crypt('password1', gen_salt('bf')), ARRAY['First Aid', 'Coordination'], ST_GeogFromText('SRID=4326;POINT(-95.3698 29.7604)'), ARRAY['Mon', 'Tue']),
+(1, 'Bob', 'Smith', 'bobsmith', 'bob@example.com', crypt('password2', gen_salt('bf')), ARRAY['Logistics', 'Scheduling'], ST_GeogFromText('SRID=4326;POINT(-95.3584 29.7499)'), ARRAY['Wed', 'Thu']),
+(1, 'Clara', 'Nguyen', 'claran', 'clara@example.com', crypt('password3', gen_salt('bf')), ARRAY['Communication', 'Event Planning'], ST_GeogFromText('SRID=4326;POINT(-95.3422 29.7520)'), ARRAY['Fri']),
+(1, 'Daniel', 'Lee', 'dlee', 'daniel@example.com', crypt('password4', gen_salt('bf')), ARRAY['Teamwork', 'Tech Support'], ST_GeogFromText('SRID=4326;POINT(-95.4102 29.7619)'), ARRAY['Sat', 'Sun']),
+(1, 'Eva', 'Lopez', 'eval', 'eva@example.com', crypt('password5', gen_salt('bf')), ARRAY['Cooking', 'First Aid'], ST_GeogFromText('SRID=4326;POINT(-95.3936 29.7440)'), ARRAY['Mon', 'Wed']),
 
--- Regular volunteers
-(2, 'Frank',   'Green',   'fgreen',   'frank@example.com',   crypt('vol123', gen_salt('bf')), ARRAY['Photography'], ST_GeogFromText('SRID=4326;POINT(-95.4698 29.7600)'), ARRAY['Weekends']),
-(2, 'Grace',   'Hill',    'ghill',    'grace@example.com',   crypt('vol234', gen_salt('bf')), ARRAY['Cooking'], ST_GeogFromText('SRID=4326;POINT(-95.3398 29.7501)'), ARRAY['Weekdays']),
-(2, 'Henry',   'Jones',   'hjones',   'henry@example.com',   crypt('vol345', gen_salt('bf')), ARRAY['First Aid'], ST_GeogFromText('SRID=4326;POINT(-95.3790 29.7354)'), ARRAY['Weekends']),
-(2, 'Isla',    'King',    'iking',    'isla@example.com',    crypt('vol456', gen_salt('bf')), ARRAY['Sign Language'], ST_GeogFromText('SRID=4326;POINT(-95.4099 29.7721)'), ARRAY['Weekends']),
-(2, 'Jack',    'Long',    'jlong',    'jack@example.com',    crypt('vol567', gen_salt('bf')), ARRAY['Driving'], ST_GeogFromText('SRID=4326;POINT(-95.3870 29.7812)'), ARRAY['Evenings']),
-(2, 'Karen',   'Moore',   'kmoore',   'karen@example.com',   crypt('vol678', gen_salt('bf')), ARRAY['Organization', 'Photography'], ST_GeogFromText('SRID=4326;POINT(-95.4090 29.7904)'), ARRAY['Weekdays']),
-(2, 'Leo',     'Nelson',  'lnelson',  'leo@example.com',     crypt('vol789', gen_salt('bf')), ARRAY['Teaching'], ST_GeogFromText('SRID=4326;POINT(-95.3200 29.7655)'), ARRAY['Mornings']),
-(2, 'Mona',    'Ortiz',   'mortiz',   'mona@example.com',    crypt('vol890', gen_salt('bf')), ARRAY['Child Care'], ST_GeogFromText('SRID=4326;POINT(-95.3100 29.7720)'), ARRAY['Weekends']),
-(2, 'Nina',    'Patel',   'npatel',   'nina@example.com',    crypt('vol901', gen_salt('bf')), ARRAY['Coordination'], ST_GeogFromText('SRID=4326;POINT(-95.4300 29.7400)'), ARRAY['Afternoons']),
-(2, 'Omar',    'Quinn',   'oquinn',   'omar@example.com',    crypt('vol012', gen_salt('bf')), ARRAY['Logistics'], ST_GeogFromText('SRID=4326;POINT(-95.3700 29.7550)'), ARRAY['Weekdays']),
-(2, 'Paula',   'Reed',    'preed',    'paula@example.com',   crypt('vol1234', gen_salt('bf')), ARRAY['Event Setup'], ST_GeogFromText('SRID=4326;POINT(-95.4000 29.7450)'), ARRAY['Weekends']),
-(2, 'Quinn',   'Stone',   'qstone',   'quinn@example.com',   crypt('vol2345', gen_salt('bf')), ARRAY['Fundraising'], ST_GeogFromText('SRID=4326;POINT(-95.3700 29.7650)'), ARRAY['Evenings']),
-(2, 'Rachel',  'Thomas',  'rthomas',  'rachel@example.com',  crypt('vol3456', gen_salt('bf')), ARRAY['Cooking', 'Driving'], ST_GeogFromText('SRID=4326;POINT(-95.3650 29.7500)'), ARRAY['Weekdays']);
+-- Volunteers (Role_ID = 2)
+(2, 'Frank', 'Hill', 'frankh', 'frank@example.com', crypt('password6', gen_salt('bf')), ARRAY['Cleaning', 'Tech Support'], ST_GeogFromText('SRID=4326;POINT(-95.3980 29.7561)'), ARRAY['Tue']),
+(2, 'Grace', 'Yu', 'gyu', 'grace@example.com', crypt('password7', gen_salt('bf')), ARRAY['Coordination', 'Logistics'], ST_GeogFromText('SRID=4326;POINT(-95.3822 29.7380)'), ARRAY['Wed']),
+(2, 'Henry', 'Zhao', 'hzhao', 'henry@example.com', crypt('password8', gen_salt('bf')), ARRAY['Cooking', 'Driving'], ST_GeogFromText('SRID=4326;POINT(-95.3571 29.7451)'), ARRAY['Thu']),
+(2, 'Ivy', 'Tran', 'itran', 'ivy@example.com', crypt('password9', gen_salt('bf')), ARRAY['Translation', 'Child Care'], ST_GeogFromText('SRID=4326;POINT(-95.3702 29.7605)'), ARRAY['Fri']),
+(2, 'Jack', 'King', 'jking', 'jack@example.com', crypt('password10', gen_salt('bf')), ARRAY['Tutoring', 'Cleaning'], ST_GeogFromText('SRID=4326;POINT(-95.3665 29.7435)'), ARRAY['Sat']),
+(2, 'Kelly', 'Brown', 'kbrown', 'kelly@example.com', crypt('password11', gen_salt('bf')), ARRAY['First Aid', 'Cooking'], ST_GeogFromText('SRID=4326;POINT(-95.3411 29.7490)'), ARRAY['Sun']),
+(2, 'Leo', 'Martinez', 'lmart', 'leo@example.com', crypt('password12', gen_salt('bf')), ARRAY['Logistics', 'Tech Support'], ST_GeogFromText('SRID=4326;POINT(-95.3521 29.7650)'), ARRAY['Mon']),
+(2, 'Mona', 'Davis', 'mdavis', 'mona@example.com', crypt('password13', gen_salt('bf')), ARRAY['Event Planning', 'Translation'], ST_GeogFromText('SRID=4326;POINT(-95.3911 29.7710)'), ARRAY['Tue']),
+(2, 'Nathan', 'Cruz', 'ncruz', 'nathan@example.com', crypt('password14', gen_salt('bf')), ARRAY['Driving', 'Child Care'], ST_GeogFromText('SRID=4326;POINT(-95.3883 29.7425)'), ARRAY['Wed']),
+(2, 'Olivia', 'Green', 'ogreen', 'olivia@example.com', crypt('password15', gen_salt('bf')), ARRAY['Tutoring', 'Tech Support'], ST_GeogFromText('SRID=4326;POINT(-95.4022 29.7505)'), ARRAY['Thu']),
+(2, 'Peter', 'White', 'pwhite', 'peter@example.com', crypt('password16', gen_salt('bf')), ARRAY['Coordination', 'Logistics'], ST_GeogFromText('SRID=4326;POINT(-95.3680 29.7721)'), ARRAY['Fri']),
+(2, 'Quinn', 'Harris', 'qharris', 'quinn@example.com', crypt('password17', gen_salt('bf')), ARRAY['First Aid', 'Child Care'], ST_GeogFromText('SRID=4326;POINT(-95.3860 29.7550)'), ARRAY['Sat']),
+(2, 'Rita', 'Young', 'ryoung', 'rita@example.com', crypt('password18', gen_salt('bf')), ARRAY['Translation', 'Tutoring'], ST_GeogFromText('SRID=4326;POINT(-95.3955 29.7590)'), ARRAY['Sun']),
+(2, 'Sam', 'Garcia', 'sgarcia', 'sam@example.com', crypt('password19', gen_salt('bf')), ARRAY['Cooking', 'Logistics'], ST_GeogFromText('SRID=4326;POINT(-95.3790 29.7412)'), ARRAY['Mon']),
+(2, 'Tina', 'Baker', 'tbaker', 'tina@example.com', crypt('password20', gen_salt('bf')), ARRAY['Driving', 'Event Planning'], ST_GeogFromText('SRID=4326;POINT(-95.3610 29.7485)'), ARRAY['Tue']);
 
+-- Insert events (ensure 1 admin has 4, another has 3, etc.)
+INSERT INTO EVENT (Name, Moderator, Location, Description, Priority, Date)
+VALUES
+('Food Drive', 1, ST_GeogFromText('SRID=4326;POINT(-95.3690 29.7580)'), 'Distribute food to the community.', 5, NOW()),
+('Tech Workshop', 1, ST_GeogFromText('SRID=4326;POINT(-95.3589 29.7511)'), 'Tech skills training.', 4, NOW() + interval '1 day'),
+('Neighborhood Cleanup', 1, ST_GeogFromText('SRID=4326;POINT(-95.3650 29.7420)'), 'Clean local parks.', 3, NOW() + interval '2 days'),
+('First Aid Camp', 1, ST_GeogFromText('SRID=4326;POINT(-95.3750 29.7620)'), 'Train community on first aid.', 4, NOW() + interval '3 days'),
 
--- Insert events created by some admins
-INSERT INTO EVENT (Name, Moderator, Location, Description, Priority, Date) VALUES
-('Cleanup Drive', 1, ST_GeogFromText('SRID=4326;POINT(-95.3584 29.7499)'), 'Neighborhood cleanup and waste collection', 3, '2025-08-05 10:00:00'),
-('Food Distribution', 1, ST_GeogFromText('SRID=4326;POINT(-95.3652 29.7516)'), 'Distributing meals to underserved areas', 5, '2025-08-10 12:00:00'),
-('Park Restoration', 1, ST_GeogFromText('SRID=4326;POINT(-95.3728 29.7489)'), 'Planting trees and painting benches in parks', 4, '2025-08-15 09:00:00'),
+('Cooking for Homeless', 2, ST_GeogFromText('SRID=4326;POINT(-95.3765 29.7499)'), 'Prepare meals.', 5, NOW()),
+('Tutoring Drive', 2, ST_GeogFromText('SRID=4326;POINT(-95.3875 29.7603)'), 'Provide tutoring.', 2, NOW() + interval '1 day'),
+('Childcare Event', 2, ST_GeogFromText('SRID=4326;POINT(-95.3995 29.7633)'), 'Babysitting during events.', 3, NOW() + interval '2 days'),
 
-('Blood Drive', 2, ST_GeogFromText('SRID=4326;POINT(-95.4241 29.7524)'), 'Organizing a local blood donation camp', 4, '2025-08-20 11:00:00'),
-('Youth Workshop', 2, ST_GeogFromText('SRID=4326;POINT(-95.4391 29.7452)'), 'Educating youth on career planning', 2, '2025-08-25 14:00:00'),
+('Logistics Training', 3, ST_GeogFromText('SRID=4326;POINT(-95.3730 29.7415)'), 'Train on event logistics.', 4, NOW() + interval '1 day'),
+('Translation Booth', 3, ST_GeogFromText('SRID=4326;POINT(-95.3780 29.7465)'), 'Language translation help.', 3, NOW() + interval '3 days'),
 
-('Community Potluck', 3, ST_GeogFromText('SRID=4326;POINT(-95.4100 29.7700)'), 'Residents come together to share meals', 3, '2025-09-01 18:00:00');
+('Coordination Meet', 4, ST_GeogFromText('SRID=4326;POINT(-95.3890 29.7444)'), 'Volunteer coordination.', 2, NOW() + interval '4 days');
 
+-- Insert tasks (ensure skill arrays are populated and varied)
+INSERT INTO TASK (Event_ID, Name, Skill, Description)
+VALUES
+(1, 'Pack Food Boxes', ARRAY['Packing', 'Coordination'], 'Organize and pack food.'),
+(1, 'Drive Supplies', ARRAY['Driving', 'Logistics'], 'Deliver food to pickup spots.'),
+(2, 'Setup Laptops', ARRAY['Tech Support', 'Logistics'], 'Prepare devices for training.'),
+(3, 'Clean Park Grounds', ARRAY['Cleaning', 'Teamwork'], 'Trash collection.'),
+(4, 'Demonstrate CPR', ARRAY['First Aid', 'Instruction'], 'Show proper CPR techniques.'),
+(5, 'Cook Meals', ARRAY['Cooking', 'Hygiene'], 'Prepare and serve meals.'),
+(6, 'Tutoring Math', ARRAY['Tutoring', 'Communication'], 'Teach basic math.'),
+(7, 'Babysit Toddlers', ARRAY['Child Care', 'Patience'], 'Watch over children.'),
+(8, 'Inventory Supplies', ARRAY['Logistics', 'Counting'], 'Track materials.'),
+(9, 'Translate Forms', ARRAY['Translation', 'Language'], 'Convert English forms.'),
+(10, 'Schedule Shifts', ARRAY['Coordination', 'Scheduling'], 'Manage volunteer times.');
 
--- Insert tasks linked to events
-INSERT INTO TASK (Event_ID, Name, Skill, Description) VALUES
-(1, 'Trash Collection', ARRAY['Driving', 'Organization'], 'Collect and transport trash to disposal sites'),
-(1, 'Team Lead', ARRAY['Leadership', 'Coordination'], 'Lead a cleanup team and assign zones'),
+-- Insert volunteer-task assignments
+INSERT INTO VOLUNTEER_TASK (Task_ID, Volunteer_ID, Date_accepted)
+VALUES
+(1, 6, NOW()),
+(2, 7, NOW()),
+(3, 8, NOW()),
+(4, 9, NOW()),
+(5, 10, NOW()),
+(6, 11, NOW()),
+(7, 12, NOW()),
+(8, 13, NOW()),
+(9, 14, NOW()),
+(10, 15, NOW());
 
-(2, 'Meal Packing', ARRAY['Cooking', 'Coordination'], 'Prepare and pack food for distribution'),
-(2, 'Logistics Coordination', ARRAY['Logistics', 'Driving'], 'Coordinate delivery routes and volunteers'),
-
-(3, 'Tree Planting', ARRAY['Physical Labor', 'Gardening'], 'Assist in planting trees in local parks'),
-(3, 'Bench Painting', ARRAY['Painting', 'Event Setup'], 'Paint benches and playground structures'),
-
-(4, 'Donor Assistance', ARRAY['First Aid', 'Coordination'], 'Assist and monitor donors at the site'),
-(4, 'Registration Desk', ARRAY['Organization', 'Public Speaking'], 'Register donors and provide information'),
-
-(5, 'Workshop Facilitation', ARRAY['Teaching', 'Public Speaking'], 'Conduct interactive sessions with youth'),
-(5, 'Setup and Breakdown', ARRAY['Event Setup', 'Logistics'], 'Manage the physical setup of the workshop'),
-
-(6, 'Food Coordination', ARRAY['Cooking', 'Organization'], 'Coordinate potluck dish assignments'),
-(6, 'Photography', ARRAY['Photography', 'Sign Language'], 'Document the event and assist with accessibility');
+-- Insert history of volunteers doing tasks
+INSERT INTO VOLUNTEER_HIST (V_task_ID, Start_time, End_time)
+VALUES
+(1, NOW() - interval '2 hours', NOW() - interval '1 hour'),
+(2, NOW() - interval '3 hours', NOW() - interval '2 hours'),
+(3, NOW() - interval '4 hours', NOW() - interval '3 hours'),
+(4, NOW() - interval '5 hours', NOW() - interval '4 hours'),
+(5, NOW() - interval '6 hours', NOW() - interval '5 hours'),
+(6, NOW() - interval '2 days', NOW() - interval '2 days' + interval '1 hour'),
+(7, NOW() - interval '1 day', NOW() - interval '1 day' + interval '2 hours'),
+(8, NOW() - interval '3 days', NOW() - interval '3 days' + interval '1.5 hours'),
+(9, NOW() - interval '4 days', NOW() - interval '4 days' + interval '1 hour'),
+(10, NOW() - interval '5 days', NOW() - interval '5 days' + interval '3 hours');
