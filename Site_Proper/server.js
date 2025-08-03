@@ -189,12 +189,10 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 		const isAdmin = role === "admin" ? 1 : 2;
 
 		// Inserting?
-		console.log("right before query")
 		await db.query(
-			'INSERT INTO volunteer (role_id, email, password) VALUES ($1, crypt($2, gen_salt("bf")), $3)',
+			'INSERT INTO volunteer (role_id, email, password) VALUES ($1, $2, crypt($3, gen_salt(\'bf\')))',
 			[isAdmin, email, password]
 		);
-		console.log("after query")
 		res.redirect('/login.html?success=1')
 	} catch (err) {
 		console.error('Register error:', err);
