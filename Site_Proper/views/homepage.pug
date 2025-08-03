@@ -16,6 +16,7 @@ header
 				if isAdmin
 					li: a(href='eventCreator') Create Event
 					li: a(href='userProfile') Complete Profile
+				if isLogged
 					li: a(href='/logout') Log Out
 				else 
 					li: a(href='login.html') Login

@@ -37,11 +37,24 @@ app.get('/', function (req, res) {
 });
 
 // http://localhost:8080/homepage.html
-app.get('/homepage.html', function (req, res) {
-	const isAdmin = req.session.user
-		? getUsers().find(u => u.email === req.session.user.email)?.isAdmin
-		: false;
-	res.render('homepage', { isAdmin });
+app.get('/homepage.html', async function (req, res) {
+	try {
+		let isAdmin = false;
+		let isLogged = false;
+		if (req.session.user && req.session.user.id && req.session.user.email) {
+			isLogged = true;
+			const email = req.session.user.email;
+			const result = await db.query(
+				'SELECT role_id FROM volunteer WHERE email = $1',
+				[email]
+			);
+			isAdmin = result.rows.length > 0 && result.rows[0].role_id === 1;
+		}
+		res.render('homepage', { isAdmin, isLogged });
+	} catch (err) {
+		console.error('Homepage error:', err);
+		res.status(500).send('Server error');
+	}
 });
 
 // http://localhost:8080/login.html
@@ -86,39 +99,16 @@ function getEvents() {
 	}
 }
 
-app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), (req, res) => {
-	try {
-		const { email, password } = req.body;
-		const users = getUsers();
-		const user = users.find(u => u.email === email && u.password === password);
-
-		if (user) {
-			req.session.user = { email };
-			return res.redirect('/homepage.html');
-		}
-
-		res.redirect('/login.html?error=1');
-	} catch (err) {
-		console.error('Log In error:', err);
-		res.status(500).send('Server error during Log In');
-	}
-});
-
-/*
-app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), (req, res) => {
-	const client;
+app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), async (req, res) => {
 	try {
 		const { email, password } = req.body;
 
-		client = await pool.connect();
-		await client.query('BEGIN');
-		await result = client.query(
-		'SELECT id, email, password FROM volunteer WHERE email = $1',
-		[email]
+		const result = await db.query(
+			'SELECT id, email FROM volunteer WHERE email = $1 AND password = crypt($2, password)',
+			[email, password]
 		);
-		
-		if (result.rows.length === 0)
-		{
+
+		if (result.rows.length === 0) {
 			return res.redirect('/login.html?error=1');
 		}
 
@@ -128,24 +118,16 @@ app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), (req
 			req.session.user = {
 				id: user.id,
 				email: user.email
+			};
 		}
-		await client.query('COMMIT');
-		return res.redirect('/homepage.html');
 
-		res.redirect('/login.html?error=1');
+		return res.redirect('/homepage.html');
 	} catch (err) {
-		if (client) {
-			await client.query('ROLLBACK');
-		}
 		console.error('Log In error:', err);
 		res.status(500).send('Server error during Log In');
-	} finally {
-		if (client) {
-				client.release();
-		}
 	}
 });
-*/
+
 
 app.get('/logout', (req, res) => {
 	// if the session doesnt exist then redirect to login
@@ -169,43 +151,50 @@ app.get('/logout', (req, res) => {
 app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
 		const { email, password, role } = req.body;
-		// Regex input validation
+
+		// Email Validation
+		if (!email.includes('@') || !(email.indexOf('@') > 0) || !email.includes('.') || !(email.indexOf(".") < email.length - 1)) {
+			return res.status(400).send("Enter a valid email");
+		}
+
+		// Password validations
 		if (password.length < 8) {
-			return res.status(400).send("Password too short");
+			return res.status(400).send("Password must be at least 8 characters long");
 		}
 		if (!/[A-Z]/.test(password)) {
-			return res.status(400).send("Password does not contain a capital letter");
+			return res.status(400).send("Password must include at least 1 capital letter");
 		}
 		if (!/[a-z]/.test(password)) {
-			return res.status(400).send("Password does not contain a lowercase letter");
+			return res.status(400).send("Password must include at least 1 lowercase letter");
 		}
 		if (!/\d/.test(password)) {
-			return res.status(400).send("Password does not contain a number");
+			return res.status(400).send("Password must include at least 1 number");
 		}
 		if (!/[!@#$%^&*]/.test(password)) {
-			return res.status(400).send("Password does not contain a special character");
+			return res.status(400).send("Password must include at least 1 special character");
 		}
 
-
-		if (!email.includes('@') || !email.includes('.')) {
-			return res.status(400).send("Please enter a valid email")
-		}
-		// Reads the file and parses into json
-		const users = getUsers();
+		// Check if it exists
+		const result = await db.query(
+			'SELECT FROM volunteer WHERE email = $1',
+			[email]
+		);
 
 		// If the email is found then error
-		if (users.some(u => u.email === email)) {
+		if (result.rows.length > 0) {
 			return res.redirect('/signup.html?error=1')
 		}
 
-		const isAdmin = false;
-		if (role == "admin") {
-			isAdmin = true;
-		}
+		// If role is admin then set isAdmin to 1 otherwise set to 2
+		const isAdmin = role === "admin" ? 1 : 2;
 
-		users.push({ email, password, isAdmin });
-		fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8');
-		//
+		// Inserting?
+		console.log("right before query")
+		await db.query(
+			'INSERT INTO volunteer (role_id, email, password) VALUES ($1, crypt($2, gen_salt("bf")), $3)',
+			[isAdmin, email, password]
+		);
+		console.log("after query")
 		res.redirect('/login.html?success=1')
 	} catch (err) {
 		console.error('Register error:', err);
