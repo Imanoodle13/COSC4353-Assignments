@@ -186,7 +186,7 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 		}
 
 		// If role is admin then set isAdmin to 1 otherwise set to 2
-		const isAdmin = role === "admin" ? 1 : 2;
+		const isAdmin = role === "Admin" ? 1 : 2;
 
 		// Inserting?
 		await db.query(
@@ -224,7 +224,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		GROUP BY
 			E.ID, E.name, V.Username, E.location, E.description, E.date
 		ORDER BY
-			priority;
+			priority DESC;
 		`;
 		const result = await db.query(query);
 		res.render('eventMatcher', { events: result && result.rows ? result.rows : [] });
