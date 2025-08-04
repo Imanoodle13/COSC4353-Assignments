@@ -273,6 +273,7 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 	try {
 		// Get data from body
 		const { name, location, description, priority, dateTime } = req.body;
+		/* JSON File Version
 		let events = [];
 
 		if (fs.existsSync(EVENTS_FILE)) {
@@ -306,6 +307,28 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 		// Add the newEvent to the events array
 		events.push(newEvent);
 		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
+		*/
+
+		/* Database Version */
+		let vol_id     = 'NULL'; // Should reference ID soon
+		let postgisLoc = 'NULL';
+
+		vol_id = await db.query(
+			`SELECT id FROM volunteer WHERE email = $1;`,
+			[req.session.user.email]
+		);
+
+		postgisLoc = await db.query(
+			`SELECT ST_GeogFromText('SRID=4326,POINT(' || g.lon || ' ' g.lat || ')')
+			FROM geocode($1, 1) AS g;`,
+			[location] // As address string
+		);
+
+		await db.query(
+			`INSERT INTO event (name, moderator, location, description, priority, dateTime) VALUES
+				($1, $2, $3, $4, $5, $6);`,
+			[name, vol_id, postgisLoc, description, priority, dateTime]
+		);
 
 		// Convert the newEvent to URL parameters to pass data to task creator
 		const params = new URLSearchParams(newEvent).toString();
