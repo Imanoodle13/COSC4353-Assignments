@@ -1,0 +1,4 @@
+on: push
+env:
+  PGPASSWORD: ${{ secrets.DBPASS }}
+  
