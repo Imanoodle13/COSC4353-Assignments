@@ -1,4 +1,13 @@
-on: push
-env:
-  PGPASSWORD: ${{ secrets.DBPASS }}
-  
+on:
+  push
+
+jobs:
+  get-pass:
+    runs-on: ubuntu-latest
+    steps:
+    - name: replace in files
+      uses: richardrigutins/replace-in-files@v2.1.13
+      with:
+        files: .env
+        search-text: (PASS)
+        replacement-text: ${{ secrets.DBPASS }}
