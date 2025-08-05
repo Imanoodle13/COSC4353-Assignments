@@ -7,9 +7,9 @@ const { url } = require('url')
 const pool = new Pool({
 	host: process.env.PGHOST,
 	port: Number(process.env.PGPORT || 5432),
-	// user:     process.env.PGUSER,
-	// password: process.env.PGPASSWORD,
-	// database: process.env.PGDATABASE,
+	user: process.env.PGUSER,
+	password: process.env.PGPASSWORD,
+	database: process.env.PGDATABASE,
 	ssl: { rejectUnauthorized: false },// set to `true` in prod with a valid CA
 	enableChannelBinding: true  // Only meaningful if Postgres offers SCRAM‑SHA‑256‑PLUS
 });
