@@ -102,11 +102,12 @@ function getEvents() {
 app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), async (req, res) => {
 	try {
 		const { email, password } = req.body;
-
+		console.log('Before query');
 		const result = await db.query(
 			'SELECT id, email FROM volunteer WHERE email = $1 AND password = crypt($2, password)',
 			[email, password]
 		);
+		console.log('After query');
 
 		if (result.rows.length === 0) {
 			return res.redirect('/login.html?error=1');
@@ -310,7 +311,7 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 		*/
 
 		/* Database Version */
-		let vol_id     = 'NULL'; // Should reference ID soon
+		let vol_id = 'NULL'; // Should reference ID soon
 		let postgisLoc = 'NULL';
 
 		vol_id = await db.query(
@@ -505,30 +506,10 @@ app.post('/complete-profile', express.urlencoded({ extended: true }), async (req
 			return res.redirect('/login.html?error=1');
 		}
 
+		console.log(req.body);
 		// Get data from body
 		const { fullname, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
-		const users = getUsers();
-		const userIndex = users.findIndex(u => u.email === req.session.user.email);
 
-		// Update information at index
-		users[userIndex] = {
-			...users[userIndex],
-			profile: {
-				fullname,
-				address: {
-					address1,
-					address2,
-					city,
-					state,
-					zipcode
-				},
-				skills: Array.isArray(skills) ? skills : [skills], // Array Edge cases
-				preferences,
-				availability: availability.filter(a => a) // remove empty dates
-			}
-		};
-
-		fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), 'utf-8')
 
 		res.redirect('/homepage.html');
 	} catch (err) {
@@ -539,7 +520,6 @@ app.post('/complete-profile', express.urlencoded({ extended: true }), async (req
 
 /*
 app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
-	const client;
 	try {
 		// If theres no session then redirect to login
 		if (!req.session.user) {
@@ -547,15 +527,13 @@ app.post('/complete-profile', express.urlencoded({ extended: true }), async (req
 		}
 
 		// Get data from body
-		const { first_name, last_name, username, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
-		const address = 
-		// Connect to DB
-		client = await pool.connect();
+		const { firstname, lastname, username, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
+		const address = '${address1} ${city}, ${state} ${zipcode}'
 
-		client.query('BEGIN');
-		client.query(
-			'INSERT INTO volunteer (First_name, Last_name, Username, Skill, Preferences, Availability) VALUES ($1, $2, $3, $4, $5, $6)',
-			[first_name, last_name, username, skills, preferences, availability]
+		db.query(
+			'UPDATE volunteer SET first_name = $1, last_name = $2, username = $3, location = $4, skills = $5, preferences = $6, availability = $7 WHERE email = req.session.user.email',
+			[firstname, lastname, username, address, skills, preferences, availability]
+
 		);
 		client.query('COMMIT')
 

@@ -23,7 +23,7 @@ html(lang="en")
 
 					div
 						label(for="firstname") First Name:
-						input#fullname(
+						input#firstname(
 							type="text", 
 							name="firstname", 
 							maxlength="50", 
@@ -41,7 +41,7 @@ html(lang="en")
 					
 					div
 						label(for="username") Username:
-						input#lastname(
+						input#username(
 							type="text", 
 							name="username", 
 							maxlength="50", 
@@ -136,13 +136,24 @@ html(lang="en")
 
 					div
 						label(for="skills") Skills
-						select#skills(name="skills[]" multiple required style="height: 100px; overflow-y: auto;")
-							option(value="teaching") Teaching
-							option(value="event_planning") Event Planning
-							option(value="first_aid") First Aid
-							option(value="cooking") Cooking
-							option(value="graphic_design") Graphic Design
-							option(value="technology") Technology
+						div
+							input(type="checkbox" id="teaching" name="skills[]" value="teaching")
+							label(for="teaching") Teaching
+						div
+							input(type="checkbox" id="event_planning" name="skills[]" value="event_planning")
+							label(for="event_planning") Event Planning
+						div
+							input(type="checkbox" id="first_aid" name="skills[]" value="first_aid")
+							label(for="first_aid") First Aid
+						div
+							input(type="checkbox" id="teaching" name="skills[]" value="teaching")
+							label(for="teaching") Cooking
+						div
+							input(type="checkbox" id="graphic_design" name="skills[]" value="graphic_design")
+							label(for="graphic_design") Graphic Design
+						div
+							input(type="checkbox" id="technology" name="skills[]" value="technology")
+							label(for="technology") Technology
 
 					div
 						label(for="preferences") Preferences
