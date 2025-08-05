@@ -8,6 +8,6 @@ jobs:
     - name: replace in files
       uses: richardrigutins/replace-in-files@v2.1.13
       with:
-        files: .env
+        files: Site_Proper/.env
         search-text: (PASS)
         replacement-text: ${{ secrets.DBPASS }}
