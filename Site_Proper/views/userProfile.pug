@@ -18,7 +18,7 @@ html(lang="en")
 
 		.form-container
 			form(method="POST", action="/complete-profile")
-				.form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 20px;")
+				.form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 150px;")
 					h2(style="margin-bottom: 20px;") Complete Your Profile for #[strong #{email}]
 
 					div
@@ -27,7 +27,7 @@ html(lang="en")
 							type="text", 
 							name="firstname", 
 							maxlength="50", 
-							value=profile.firstname || '',
+							value=  '',
 							required)
 
 					div
@@ -36,7 +36,7 @@ html(lang="en")
 							type="text", 
 							name="lastname", 
 							maxlength="50", 
-							value=profile.lastname || '',
+							value= '',
 							required)
 					
 					div
@@ -45,7 +45,7 @@ html(lang="en")
 							type="text", 
 							name="username", 
 							maxlength="50", 
-							value=profile.username || '',
+							value= '',
 							required)
 
 					div
@@ -54,7 +54,7 @@ html(lang="en")
 							type="text", 
 							name="address1", 
 							maxlength="100", 
-							value=profile.address ? profile.address.address1 : '',
+							value= '',
 							required)
 
 					div
@@ -63,11 +63,11 @@ html(lang="en")
 							type="text", 
 							name="address2", 
 							maxlength="100", 
-							value=profile.address ? profile.address.address2 : '')
+							value='')
 
 					div
 						label(for="city") City
-						input#city(type="text", name="city", maxlength="100", value=profile.address ? profile.address.city : '', required)
+						input#city(type="text", name="city", maxlength="100", value='', required)
 
 					div
 						label(for="state") State
@@ -131,7 +131,7 @@ html(lang="en")
 							name="zipcode",
 							minlength="5", 
 							maxlength="9", 
-							value=profile.address ? profile.address.zipcode : '',
+							value='',
 							required)
 
 					div
@@ -146,20 +146,20 @@ html(lang="en")
 
 					div
 						label(for="preferences") Preferences
-						textarea#preferences(name="preferences", rows="3", value=profile.preferences || '',)
+						textarea#preferences(name="preferences", rows="3", value='',)
 
 					div
 						label(for="availability1") Availability Date 1:
 						input#availability1(
 							type="date", 
 							name="availability[]", 
-							value=profile.availability ? profile.availability[0] : '', 
+							value='', 
 							required)
 						label(for="availability2") Availability Date 2:
 						input#availability2(
 							type="date", 
 							name="availability[]", 
-							value=profile.availability ? profile.availability[1] : '')
+							value='')
 
 					div(style="margin-top: 20px; display: flex; gap: 20px;")
 						button(type="submit") Submit
