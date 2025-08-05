@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: v-central-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: v-central
+  template:
+    metadata:
+      labels:
+        app: v-central
+    spec:
+      containers:
+        - name: server
+          image: node:24
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            failureThreshold: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      restartPolicy: Always
