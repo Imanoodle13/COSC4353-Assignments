@@ -7,7 +7,6 @@
 
 -- 2. Run the following queries:
 CREATE EXTENSION IF NOT EXISTS fuzzystrmatch; -- Offers functions to determine similarities and differences between strings, useful for approximate matching and handling misspellings.
-CREATE EXTENSION IF NOT EXISTS plpgsql;
 CREATE EXTENSION IF NOT EXISTS pgcrypto; -- For hashing passwords
 /* 
 DROP TABLE IF EXISTS ROLE				CASCADE;
@@ -39,21 +38,23 @@ CREATE TABLE IF NOT EXISTS VOLUNTEER(
 	Password		TEXT,
 	Skill			TEXT[],
 	Location		TEXT,
-	Availability	TEXT[]
+	Availability	TEXT[],
+	Date_enrolled   DATE
 );
 
 CREATE TABLE IF NOT EXISTS EVENT(
-	ID			SERIAL,
-		CONSTRAINT EVENT_pk PRIMARY KEY (ID),
-		CONSTRAINT EVENT_qu UNIQUE (ID),
-	Name		TEXT,
-	Moderator	INT,
-		CONSTRAINT EVENT_fk1 FOREIGN KEY (Moderator)
-			REFERENCES VOLUNTEER(ID),
-	Location	TEXT,
-	Description	TEXT,
-	Priority    INT, -- From 1 to 5
-	Date		TIMESTAMP
+    ID              SERIAL,
+        CONSTRAINT EVENT_pk PRIMARY KEY (ID),
+        CONSTRAINT EVENT_qu UNIQUE (ID),
+    Name            TEXT,
+    Moderator       INT,
+        CONSTRAINT EVENT_fk1 FOREIGN KEY (Moderator)
+            REFERENCES VOLUNTEER(ID),
+    Location        TEXT,
+    Description     TEXT,
+    Priority        INT, -- From 1 to 5
+    Date            TIMESTAMP,
+    Date_published  TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS TASK(
