@@ -5,8 +5,6 @@ const path = require('path');
 const pug = require('pug');
 const db = require('./database');
 const session = require('express-session');
-const jq = require('jquery');
-const poll = require('poll');
 const querystring = require('querystring')
 
 const port = 8080;
