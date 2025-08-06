@@ -5,8 +5,8 @@ const path = require('path');
 const pug = require('pug');
 const db = require('./database');
 const session = require('express-session');
-const jq = require('jquery')
-const poll = require('poll')
+const jq = require('jquery');
+const poll = require('poll');
 
 const port = 8080;
 const address = '0.0.0.0';
@@ -235,24 +235,6 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		console.error('Database query error:', err);
 		res.status(500).send('Database connection failed.');
 	}
-
-	/*
-	let username = 'Guest';
-	let u_id = null;
-	let events = []
-	if (req.session.user) {
-		const user = getUsers().find(u => u.email === req.session.user.email);
-		if (user) {
-			username = user.username;
-			u_id = user.ID;
-			events = JSON.parse(fs.readFileSync(EVENTS_FILE, 'utf-8')) ?? []
-		}
-	}
-	if (!u_id) {
-		return res.redirect('/login.html?error=1');
-	}
-	res.render('eventMatcher', { username, u_id , events});
-	*/
 });
 
 // http://localhost:8080/eventcreator
@@ -275,54 +257,48 @@ app.get(['/eventCreator', '/eventCreator.html'], async (req, res) => {
 
 app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		// Get data from body
 		const { name, location, description, priority, dateTime } = req.body;
 
-		/* Database Version */
-		let vol_id = 'NULL'; // Should reference ID soon
-		let postgisLoc = 'NULL';
-
-		vol_id = await db.query(
+		// Get the volunteer ID
+		const volResult = await db.query(
 			`SELECT id FROM volunteer WHERE email = $1;`,
 			[req.session.user.email]
 		);
 
-		postgisLoc = await db.query(
-			`SELECT ST_GeogFromText('SRID=4326,POINT(' || g.lon || ' ' g.lat || ')')
-			FROM geocode($1, 1) AS g;`,
-			[location] // As address string
-		);
+		if (volResult.rows.length === 0) {
+			return res.status(400).send('User not found');
+		}
+
+		const vol_id = volResult.rows[0].id; // Extract the actual ID
+
+		// Convert dateTime to a proper format for PostgreSQL
+		const date = new Date(dateTime).toISOString();
+		const publishedDate = new Date().toISOString();
 
 		await db.query(
-			`INSERT INTO event (name, moderator, location, description, priority, dateTime) VALUES
-				($1, $2, $3, $4, $5, $6);`,
-			[name, vol_id, postgisLoc, description, priority, dateTime]
+			`INSERT INTO event (name, moderator, location, description, priority, date, date_published) VALUES
+				($1, $2, $3, $4, $5, $6, $7);`,
+			[name, vol_id, location, description, priority, date, publishedDate]
 		);
 
-		// Convert the newEvent to URL parameters to pass data to task creator
-		const params = new URLSearchParams(newEvent).toString();
-
-		res.redirect(`/taskcreator?${params}`);
+		res.redirect(`/taskcreator`);
 	} catch (err) {
 		console.error('Event creation error:', err);
 		res.status(500).send('Server error during publish.');
 	}
 });
 
-app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
+app.get(['/taskCreator', '/taskCreator.html'], async (req, res) => {
 	// Extract event data from query string
 	const { name, location, description, priority, date, eventId } = req.query;
 	let username = 'Guest';
 	let u_id = null;
 	let tasks = [];
 
-	if (req.session.user) {
-		const user = getUsers().find(u => u.email === req.session.user.email);
-		if (user) {
-			username = user.username;
-			u_id = user.ID;
-		}
-	}
+	vol_id = await db.query(
+			`SELECT id FROM volunteer WHERE email = $1;`,
+			[req.session.user.email]
+		);
 
 	if (eventId) {
 		const events = getEvents();
@@ -490,21 +466,36 @@ const serv = app.listen(port, address, () => {
 //notification system
 let notifications = [];
 
-app.get('/notificationSystem', (req, res) => {
+app.get('/notificationSystem', async (req, res) => {
 	if (!req.session.user) {
 		return res.redirect('/login.html');
 	}
-	const userEmail = req.session.user.email;
-	const userNotes = notifications.filter(note => note.email === userEmail);
-	res.render('notificationSystem', { notifications: userNotes });
+	try {
+		const userEmail = req.session.user.email;
+		const result = await db.query(
+			'SELECT message FROM notification WHERE email = $1',
+			[userEmail]
+		);
+		res.render('notificationSystem', { notifications: result.rows });
+	} catch (err) {
+		console.error('Notification Error:', err);
+		res.status(500).send('Notification Error.');
+	}
 });
 
-app.post('/send-notification', express.urlencoded({ extended: true }), (req, res) => {
+app.post('/send-notification', express.urlencoded({ extended: true }), async (req, res) => {
 	if (!req.session.user) {
 		return res.redirect('/login.html');
 	}
-	const { email, message } = req.body;
-	const newNote = { email, message };
-	notifications.push(newNote);
-	res.redirect('/notificationSystem');
+	try {
+		const { email, message } = req.body;
+		await db.query(
+			'INSERT INTO notification (email, message) VALUES ($1, $2)',
+			[email, message]
+		);
+		res.redirect('/notificationSystem');
+	} catch (err) {
+		console.error('Notification Error:', err);
+		res.status(500).send('Notification Error.');
+	}
 });
