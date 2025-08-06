@@ -38,7 +38,7 @@ html(lang="en")
 							type="text", 
 							name="firstname", 
 							maxlength="50", 
-							value=  '',
+							value= firstname || '',
 							required)
 
 					div
@@ -47,7 +47,7 @@ html(lang="en")
 							type="text", 
 							name="lastname", 
 							maxlength="50", 
-							value= '',
+							value= lastname || '',
 							required)
 					
 					div
@@ -56,7 +56,7 @@ html(lang="en")
 							type="text", 
 							name="username", 
 							maxlength="50", 
-							value= '',
+							value= username || '',
 							required)
 
 					div
@@ -65,67 +65,67 @@ html(lang="en")
 							type="text", 
 							name="address", 
 							maxlength="100", 
-							value= '',
+							value= address || '',
 							required)
 
 					div
 						label(for="city") City:
-						input#city(type="text", name="city", maxlength="100", value='', required)
+						input#city(type="text", name="city", maxlength="100", value=city || '', required)
 
 					div
 						label(for="state") State:
 						select#state(name="state", required)
 							option(value="") Select a state
-							option(value="AL") Alabama
-							option(value="AK") Alaska
-							option(value="AZ") Arizona
-							option(value="AR") Arkansas
-							option(value="CA") California
-							option(value="CO") Colorado
-							option(value="CT") Connecticut
-							option(value="DE") Delaware
-							option(value="FL") Florida
-							option(value="GA") Georgia
-							option(value="HI") Hawaii
-							option(value="ID") Idaho
-							option(value="IL") Illinois
-							option(value="IN") Indiana
-							option(value="IA") Iowa
-							option(value="KS") Kansas
-							option(value="KY") Kentucky
-							option(value="LA") Louisiana
-							option(value="ME") Maine
-							option(value="MD") Maryland
-							option(value="MA") Massachusetts
-							option(value="MI") Michigan
-							option(value="MN") Minnesota
-							option(value="MS") Mississippi
-							option(value="MO") Missouri
-							option(value="MT") Montana
-							option(value="NE") Nebraska
-							option(value="NV") Nevada
-							option(value="NH") New Hampshire
-							option(value="NJ") New Jersey
-							option(value="NM") New Mexico
-							option(value="NY") New York
-							option(value="NC") North Carolina
-							option(value="ND") North Dakota
-							option(value="OH") Ohio
-							option(value="OK") Oklahoma
-							option(value="OR") Oregon
-							option(value="PA") Pennsylvania
-							option(value="RI") Rhode Island
-							option(value="SC") South Carolina
-							option(value="SD") South Dakota
-							option(value="TN") Tennessee
-							option(value="TX") Texas
-							option(value="UT") Utah
-							option(value="VT") Vermont
-							option(value="VA") Virginia
-							option(value="WA") Washington
-							option(value="WV") West Virginia
-							option(value="WI") Wisconsin
-							option(value="WY") Wyoming
+							option(value="AL" selected=(state === 'AL')) Alabama
+							option(value="AK" selected=(state === 'AK')) Alaska
+							option(value="AZ" selected=(state === 'AZ')) Arizona
+							option(value="AR" selected=(state === 'AR')) Arkansas
+							option(value="CA" selected=(state === 'CA')) California
+							option(value="CO" selected=(state === 'CO')) Colorado
+							option(value="CT" selected=(state === 'CT')) Connecticut
+							option(value="DE" selected=(state === 'DE')) Delaware
+							option(value="FL" selected=(state === 'FL')) Florida
+							option(value="GA" selected=(state === 'GA')) Georgia
+							option(value="HI" selected=(state === 'HI')) Hawaii
+							option(value="ID" selected=(state === 'ID')) Idaho
+							option(value="IL" selected=(state === 'IL')) Illinois
+							option(value="IN" selected=(state === 'IN')) Indiana
+							option(value="IA" selected=(state === 'IA')) Iowa
+							option(value="KS" selected=(state === 'KS')) Kansas
+							option(value="KY" selected=(state === 'KY')) Kentucky
+							option(value="LA" selected=(state === 'LA')) Louisiana
+							option(value="ME" selected=(state === 'ME')) Maine
+							option(value="MD" selected=(state === 'MD')) Maryland
+							option(value="MA" selected=(state === 'MA')) Massachusetts
+							option(value="MI" selected=(state === 'MI')) Michigan
+							option(value="MN" selected=(state === 'MN')) Minnesota
+							option(value="MS" selected=(state === 'MS')) Mississippi
+							option(value="MO" selected=(state === 'MO')) Missouri
+							option(value="MT" selected=(state === 'MT')) Montana
+							option(value="NE" selected=(state === 'NE')) Nebraska
+							option(value="NV" selected=(state === 'NV')) Nevada
+							option(value="NH" selected=(state === 'NH')) New Hampshire
+							option(value="NJ" selected=(state === 'NJ')) New Jersey
+							option(value="NM" selected=(state === 'NM')) New Mexico
+							option(value="NY" selected=(state === 'NY')) New York
+							option(value="NC" selected=(state === 'NC')) North Carolina
+							option(value="ND" selected=(state === 'ND')) North Dakota
+							option(value="OH" selected=(state === 'OH')) Ohio
+							option(value="OK" selected=(state === 'OK')) Oklahoma
+							option(value="OR" selected=(state === 'OR')) Oregon
+							option(value="PA" selected=(state === 'PA')) Pennsylvania
+							option(value="RI" selected=(state === 'RI')) Rhode Island
+							option(value="SC" selected=(state === 'SC')) South Carolina
+							option(value="SD" selected=(state === 'SD')) South Dakota
+							option(value="TN" selected=(state === 'TN')) Tennessee
+							option(value="TX" selected=(state === 'TX')) Texas
+							option(value="UT" selected=(state === 'UT')) Utah
+							option(value="VT" selected=(state === 'VT')) Vermont
+							option(value="VA" selected=(state === 'VA')) Virginia
+							option(value="WA" selected=(state === 'WA')) Washington
+							option(value="WV" selected=(state === 'WV')) West Virginia
+							option(value="WI" selected=(state === 'WI')) Wisconsin
+							option(value="WY" selected=(state === 'WY')) Wyoming
 
 					div
 						label(for="zipcode") Zip Code:
@@ -134,7 +134,7 @@ html(lang="en")
 							name="zipcode",
 							minlength="5", 
 							maxlength="9", 
-							value='',
+							value= zipcode || '',
 							required)
 
 					#skillsDropdown.dropdown-check-list(tabindex="100")
