@@ -466,21 +466,36 @@ const serv = app.listen(port, address, () => {
 //notification system
 let notifications = [];
 
-app.get('/notificationSystem', (req, res) => {
+app.get('/notificationSystem', async (req, res) => {
 	if (!req.session.user) {
 		return res.redirect('/login.html');
 	}
-	const userEmail = req.session.user.email;
-	const userNotes = notifications.filter(note => note.email === userEmail);
-	res.render('notificationSystem', { notifications: userNotes });
+	try {
+		const userEmail = req.session.user.email;
+		const result = await db.query(
+			'SELECT message FROM notification WHERE email = $1',
+			[userEmail]
+		);
+		res.render('notificationSystem', { notifications: result.rows });
+	} catch (err) {
+		console.error('Notification Error:', err);
+		res.status(500).send('Notification Error.');
+	}
 });
 
-app.post('/send-notification', express.urlencoded({ extended: true }), (req, res) => {
+app.post('/send-notification', express.urlencoded({ extended: true }), async (req, res) => {
 	if (!req.session.user) {
 		return res.redirect('/login.html');
 	}
-	const { email, message } = req.body;
-	const newNote = { email, message };
-	notifications.push(newNote);
-	res.redirect('/notificationSystem');
+	try {
+		const { email, message } = req.body;
+		await db.query(
+			'INSERT INTO notification (email, message) VALUES ($1, $2)',
+			[email, message]
+		);
+		res.redirect('/notificationSystem');
+	} catch (err) {
+		console.error('Notification Error:', err);
+		res.status(500).send('Notification Error.');
+	}
 });
