@@ -6,6 +6,17 @@ html(lang="en")
 		title User Profile Management
 		link(href="https://fonts.googleapis.com/css?family=Work+Sans:400", rel="stylesheet")
 		link(rel="stylesheet", href="styles.css")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+		script.
+			$(function() {
+				$('.dropdown-check-list').on('click', 'span.anchor', function(e) {
+					e.stopPropagation();
+					$(this).closest('.dropdown-check-list').toggleClass('visible');
+				});
+				$(document).click(function() {
+					$('.dropdown-check-list').removeClass('visible');
+				});
+			});
 
 	body
 		header
@@ -18,7 +29,7 @@ html(lang="en")
 
 		.form-container
 			form(method="POST", action="/complete-profile")
-				.form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 150px;")
+				.form-group(style="height: auto; width: auto; padding: 10px; position: relative; top: 100px;")
 					h2(style="margin-bottom: 20px;") Complete Your Profile for #[strong #{email}]
 
 					div
@@ -126,27 +137,43 @@ html(lang="en")
 							value='',
 							required)
 
-					div.checkbox-group
-						label(for="skills") Skills
-						div.checkbox-item
-							input(type="checkbox" id="teaching" name="skills[]" value="teaching")
-							label(for="teaching") Teaching
-						div.checkbox-item
-							input(type="checkbox" id="event_planning" name="skills[]" value="event_planning")
-							label(for="event_planning") Event Planning
-						div.checkbox-item
-							input(type="checkbox" id="first_aid" name="skills[]" value="first_aid")
-							label(for="first_aid") First Aid
-						div.checkbox-item
-							input(type="checkbox" id="cooking" name="skills[]" value="cooking")
-							label(for="cooking") Cooking
-						div.checkbox-item
-							input(type="checkbox" id="graphic_design" name="skills[]" value="graphic_design")
-							label(for="graphic_design") Graphic Design
-						div.checkbox-item
-							input(type="checkbox" id="technology" name="skills[]" value="technology")
-							label(for="technology") Technology
-							
+					#skillsDropdown.dropdown-check-list(tabindex="100")
+						span.anchor Select Your Skills 
+							ul.items
+								li 	
+									input(type="checkbox" id="teaching" name="skills[]" value="teaching")
+									label(for="teaching") First Aid
+								li 	
+									input(type="checkbox" id="coordination" name="skills[]" value="coordination")
+									label(for="coordination") Coordination
+								li 	
+									input(type="checkbox" id="logistics" name="skills[]" value="logistics")
+									label(for="logistics") Logistics
+								li 	
+									input(type="checkbox" id="scheduling" name="skills[]" value="scheduling")
+									label(for="scheduling") Scheduling
+								li 	
+									input(type="checkbox" id="communication" name="skills[]" value="communication")
+									label(for="communication") Communication
+								li 	
+									input(type="checkbox" id="event_planning" name="skills[]" value="event_planning")
+									label(for="event_planning") Event Planning
+								li 	
+									input(type="checkbox" id="teamwork" name="skills[]" value="teamwork")
+									label(for="teamwork") Teamwork
+								li 	
+									input(type="checkbox" id="tech_support" name="skills[]" value="tech_support")
+									label(for="tech_support") Tech Support
+								li 	
+									input(type="checkbox" id="cleaning" name="skills[]" value="cleaning")
+									label(for="cleaning") Cleaning
+								li 	
+									input(type="checkbox" id="driving" name="skills[]" value="driving")
+									label(for="driving") Driving
+								li 	
+									input(type="checkbox" id="translation" name="skills[]" value="translation")
+									label(for="translation") Translation
+
 					div
 						label(for="availability1") Availability Date 1:
 						input#availability1(

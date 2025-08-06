@@ -501,12 +501,72 @@ a:active {
 }
 
 /* Profile updating */
-input[type='checkbox']+label {
+.dropdown-check-list {
+    margin-top: 5px;
+    position: relative;
     display: inline-block;
-    vertical-align: middle;
+    width: 50%;
+    margin-bottom: 15px;
 }
 
-input[type='checkbox'] {
-    display: inline-block;
-    margin-right: 4px;
+.dropdown-check-list .anchor {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    padding: 8px 15px;
+    border: 1px solid #748D92;
+    border-radius: 5px;
+    background: white;
+    color: #2E3944;
+}
+
+.dropdown-check-list .anchor:after {
+    position: absolute;
+    content: "";
+    border-left: 2px solid #2E3944;
+    border-top: 2px solid #2E3944;
+    padding: 4px;
+    right: 15px;
+    top: 45%;
+    transform: rotate(-135deg);
+    transition: all 0.3s;
+}
+
+.dropdown-check-list.visible .anchor:after {
+    transform: rotate(45deg);
+    top: 35%;
+}
+
+.dropdown-check-list ul.items {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    display: none;
+    margin: 5px 0 0 0;
+    border: 1px solid #748D92;
+    border-radius: 0 0 5px 5px;
+    background: white;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-check-list.visible ul.items {
+    display: block;
+}
+
+.dropdown-check-list ul.items li {
+    list-style: none;
+    padding: 8px 15px;
+    border-bottom: 1px solid #748D92;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-check-list ul.items li:last-child {
+    border-bottom: none;
+}
+
+.dropdown-check-list ul.items li:hover {
+    background-color: #b8c5c9;
 }

@@ -438,14 +438,12 @@ app.post('/complete-profile', express.urlencoded({ extended: true }), async (req
 		const fullAddress = `${address}, ${city}, ${state} ${zipcode}`;
 
 		let postgisLoc = 'NULL';
-		console.log("postgis before");
+
 		postgisLoc = await db.query(
 			`SELECT ST_GeogFromText('SRID=4326,POINT(' || g.lon || ' ' g.lat || ')')
             FROM geocode($1, 1) AS g;`,
 			[fullAddress] // As address string
 		);
-		console.log("postgis after");
-		console.log("update before");
 		await db.query(
 			'UPDATE volunteer SET first_name = $1, last_name = $2, username = $3, location = $4, skill = $5, availability = $6 WHERE email = $8',
 			[firstname, lastname, username, postgisLoc, skills, availability, req.session.user.email]
