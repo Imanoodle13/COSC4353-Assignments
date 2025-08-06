@@ -138,54 +138,69 @@ html(lang="en")
 							required)
 
 					#skillsDropdown.dropdown-check-list(tabindex="100")
+						label Skills:
 						span.anchor Select Your Skills 
 							ul.items
 								li 	
-									input(type="checkbox" id="teaching" name="skills[]" value="teaching")
+									input(type="checkbox" id="teaching" name="skills[]" value="teaching" checked=(skills && skills.includes('teaching')))
 									label(for="teaching") First Aid
 								li 	
-									input(type="checkbox" id="coordination" name="skills[]" value="coordination")
+									input(type="checkbox" id="coordination" name="skills[]" value="coordination" checked=(skills && skills.includes('coordination')))
 									label(for="coordination") Coordination
 								li 	
-									input(type="checkbox" id="logistics" name="skills[]" value="logistics")
+									input(type="checkbox" id="logistics" name="skills[]" value="logistics" checked=(skills && skills.includes('logistics')))
 									label(for="logistics") Logistics
 								li 	
-									input(type="checkbox" id="scheduling" name="skills[]" value="scheduling")
+									input(type="checkbox" id="scheduling" name="skills[]" value="scheduling" checked=(skills && skills.includes('scheduling')))
 									label(for="scheduling") Scheduling
 								li 	
-									input(type="checkbox" id="communication" name="skills[]" value="communication")
+									input(type="checkbox" id="communication" name="skills[]" value="communication" checked=(skills && skills.includes('communication')))
 									label(for="communication") Communication
 								li 	
-									input(type="checkbox" id="event_planning" name="skills[]" value="event_planning")
+									input(type="checkbox" id="event_planning" name="skills[]" value="event_planning" checked=(skills && skills.includes('event_planning')))
 									label(for="event_planning") Event Planning
 								li 	
-									input(type="checkbox" id="teamwork" name="skills[]" value="teamwork")
+									input(type="checkbox" id="teamwork" name="skills[]" value="teamwork" checked=(skills && skills.includes('teamwork')))
 									label(for="teamwork") Teamwork
 								li 	
-									input(type="checkbox" id="tech_support" name="skills[]" value="tech_support")
+									input(type="checkbox" id="tech_support" name="skills[]" value="tech_support" checked=(skills && skills.includes('tech_support')))
 									label(for="tech_support") Tech Support
 								li 	
-									input(type="checkbox" id="cleaning" name="skills[]" value="cleaning")
+									input(type="checkbox" id="cleaning" name="skills[]" value="cleaning" checked=(skills && skills.includes('cleaning')))
 									label(for="cleaning") Cleaning
 								li 	
-									input(type="checkbox" id="driving" name="skills[]" value="driving")
+									input(type="checkbox" id="driving" name="skills[]" value="driving" checked=(skills && skills.includes('driving')))
 									label(for="driving") Driving
 								li 	
-									input(type="checkbox" id="translation" name="skills[]" value="translation")
+									input(type="checkbox" id="translation" name="skills[]" value="translation" checked=(skills && skills.includes('translation')))
 									label(for="translation") Translation
 
 					div
-						label(for="availability1") Availability Date 1:
-						input#availability1(
-							type="date", 
-							name="availability[]", 
-							value='', 
-							required)
-						label(for="availability2") Availability Date 2:
-						input#availability2(
-							type="date", 
-							name="availability[]", 
-							value='')
+						label Availability:
+						#skillsDropdown.dropdown-check-list(tabindex="100")
+							span.anchor Select Your Availability
+								ul.items
+									li 	
+										input(type="checkbox" id="monday" name="availability[]" value="monday" selected=(skills && skills.includes('monday')))
+										label(for="monday") Monday
+									li 	
+										input(type="checkbox" id="tuesday" name="availability[]" value="tuesday" selected=(skills && skills.includes('tuesday')))
+										label(for="tuesday") Tuesday
+									li 	
+										input(type="checkbox" id="wednesday" name="availability[]" value="wednesday" selected=(skills && skills.includes('wednesday')))
+										label(for="wednesday") Wednesday
+									li 	
+										input(type="checkbox" id="thursday" name="availability[]" value="thursday" selected=(skills && skills.includes('thursday')))
+										label(for="thursday") Thursday
+									li 	
+										input(type="checkbox" id="friday" name="availability[]" value="friday" selected=(skills && skills.includes('friday')))
+										label(for="friday") Friday
+									li 	
+										input(type="checkbox" id="saturday" name="availability[]" value="saturday" selected=(skills && skills.includes('saturday')))
+										label(for="saturday") Saturday
+									li 	
+										input(type="checkbox" id="sunday" name="availability[]" value="sunday" selected=(skills && skills.includes('sunday')))
+										label(for="sunday") Sunday
 
 					div(style="margin-top: 20px; display: flex; gap: 20px;")
 						button(type="submit") Submit
