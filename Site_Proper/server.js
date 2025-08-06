@@ -119,6 +119,7 @@ app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), asyn
 				email: user.email
 			};
 		}
+		await req.session.save();
 
 		return res.redirect('/homepage.html');
 	} catch (err) {
@@ -424,19 +425,11 @@ app.post('/complete-profile', express.urlencoded({ extended: true }), async (req
 		// Get data from body
 		const { firstname, lastname, username, address, city, state, zipcode, skills, availability } = req.body;
 		const fullAddress = `${address}, ${city}, ${state} ${zipcode}`;
-
-		let postgisLoc = 'NULL';
-
-		postgisLoc = await db.query(
-			`SELECT ST_GeogFromText('SRID=4326,POINT(' || g.lon || ' ' g.lat || ')')
-            FROM geocode($1, 1) AS g;`,
-			[fullAddress] // As address string
-		);
+		console.log(fullAddress);
 		await db.query(
-			'UPDATE volunteer SET first_name = $1, last_name = $2, username = $3, location = $4, skill = $5, availability = $6 WHERE email = $8',
-			[firstname, lastname, username, postgisLoc, skills, availability, req.session.user.email]
+			'UPDATE volunteer SET first_name = $1, last_name = $2, username = $3, location = $4, skill = $5::text[], availability = $6::text[] WHERE email = $7',
+			[firstname, lastname, username, fullAddress, skills, availability, req.session.user.email]
 		);
-		console.log("update after");
 
 		res.redirect('/homepage.html');
 	} catch (err) {
