@@ -6,16 +6,9 @@
 --		Linux:		`sudo apt install postgis postgresql-14-postgis-3`
 
 -- 2. Run the following queries:
-CREATE EXTENSION IF NOT EXISTS postgis;                -- Adds spatial capabilities to PostgreSQL, enabling it to store, query, and analyze geographic and geometric data.
-CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;          -- Offers functions to determine similarities and differences between strings, useful for approximate matching and handling misspellings.
-CREATE EXTENSION IF NOT EXISTS postgis_tiger_geocoder; -- Provides geocoding capabilities by converting textual addresses into geographic coordinates using U.S. Census TIGER/Line data.
-
-SELECT postgis_full_version();
-
--- The `GEOGRAPHY(POINT,4326)` datatype should work.
-
--- For hashing passwords
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch; -- Offers functions to determine similarities and differences between strings, useful for approximate matching and handling misspellings.
+CREATE EXTENSION IF NOT EXISTS plpgsql;
+CREATE EXTENSION IF NOT EXISTS pgcrypto; -- For hashing passwords
 /* 
 DROP TABLE IF EXISTS ROLE				CASCADE;
 DROP TABLE IF EXISTS VOLUNTEER			CASCADE;
@@ -45,7 +38,7 @@ CREATE TABLE IF NOT EXISTS VOLUNTEER(
 	Email			TEXT,
 	Password		TEXT,
 	Skill			TEXT[],
-	Location		GEOGRAPHY(POINT,4326),
+	Location		TEXT,
 	Availability	TEXT[]
 );
 
@@ -57,7 +50,7 @@ CREATE TABLE IF NOT EXISTS EVENT(
 	Moderator	INT,
 		CONSTRAINT EVENT_fk1 FOREIGN KEY (Moderator)
 			REFERENCES VOLUNTEER(ID),
-	Location	GEOGRAPHY(POINT,4326),
+	Location	TEXT,
 	Description	TEXT,
 	Priority    INT, -- From 1 to 5
 	Date		TIMESTAMP

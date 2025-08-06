@@ -207,7 +207,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		SELECT 
 			E.name,
 			V.Username AS moderator,
-			ST_AsText(E.location) AS location,
+			E.location,
 			ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
 			E.description,
 			E.priority,
@@ -266,18 +266,6 @@ app.get(['/eventCreator', '/eventCreator.html'], async (req, res) => {
 	} else {
 		return res.redirect('/login.html?error=1');
 	}
-	/* 
-	if (req.session.user) {
-		const user = getUsers().find(u => u.email === req.session.user.email);
-		if (user) {
-			username = user.username;
-			u_id = user.ID;
-		}
-	}
-	if (!u_id) {
-		return res.redirect('/login.html?error=1');
-	}
-	*/
 	res.render('eventCreator', { username, u_id }); // { username, u_id } to remind the user who is currently logged in/moderating the event.
 });
 
