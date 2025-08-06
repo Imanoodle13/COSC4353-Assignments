@@ -5,6 +5,8 @@ const path = require('path');
 const pug = require('pug');
 const db = require('./database');
 const session = require('express-session');
+const jq = require('jquery')
+const poll = require('poll')
 
 const port = 8080;
 const address = '0.0.0.0';
@@ -32,12 +34,12 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
 	res.render('index')
 });
 
 // http://localhost:8080/homepage.html
-app.get('/homepage.html', async function (req, res) {
+app.get('/homepage.html', async function(req, res) {
 	try {
 		let isAdmin = false;
 		let isLogged = false;
@@ -305,7 +307,7 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 	}
 });
 
-app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
+app.get(['/taskCreator', '/taskCreator.html'], function(req, res) {
 	// Extract event data from query string
 	const { name, location, description, priority, date, eventId } = req.query;
 	let username = 'Guest';
@@ -369,12 +371,12 @@ app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
 });
 
 // http://localhost:8080/eventconfirm
-app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
+app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
 	const { name, location, description, priority, date } = req.query;
 	res.render('eventConfirm', { name, location, description, priority, date });
 });
 
-app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
+app.get(['/userProfile', '/userProfile.html'], async function(req, res) {
 
 	res.render('userProfile', {
 		email: req.session.user.email,

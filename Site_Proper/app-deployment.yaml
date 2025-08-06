@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: node:24
+          image: localhost/server
           livenessProbe:
             httpGet:
               path: /
@@ -29,5 +29,6 @@ spec:
             periodSeconds: 5
           ports:
             - containerPort: 8080
+              hostPort: 8080
               protocol: TCP
       restartPolicy: Always
