@@ -38,6 +38,7 @@ html
 							th Description 
 							th Priority
 							th Date
+							th Published
 					tbody
 						// events - All rows.
 						// event  - One row.
@@ -51,10 +52,12 @@ html
 									td= event.description
 									td= event.priority
 									td= event.date
+									td= event.published
 						else 
 							tr 
-								td(colspan="7") No events found.
+								td(colspan="8") No events found.
 							tr
+								td ...
 								td ...
 								td ...
 								td ...
