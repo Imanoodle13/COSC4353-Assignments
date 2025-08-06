@@ -252,9 +252,21 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 });
 
 // http://localhost:8080/eventcreator
-app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
+app.get(['/eventCreator', '/eventCreator.html'], async (req, res) => {
 	let username = 'Guest';
 	let u_id = null;
+	// Using the SQL database to get the user information
+	const user = await db.query(
+		'SELECT id, username FROM volunteer WHERE email = $1',
+		[req.session.user.email]
+	);
+	if (user.rows.length > 0) {
+		username = user.rows[0].username || 'Guest';
+		u_id = user.rows[0].id;
+	} else {
+		return res.redirect('/login.html?error=1');
+	}
+	/* 
 	if (req.session.user) {
 		const user = getUsers().find(u => u.email === req.session.user.email);
 		if (user) {
@@ -265,6 +277,7 @@ app.get(['/eventCreator', '/eventCreator.html'], function (req, res) {
 	if (!u_id) {
 		return res.redirect('/login.html?error=1');
 	}
+	*/
 	res.render('eventCreator', { username, u_id }); // { username, u_id } to remind the user who is currently logged in/moderating the event.
 });
 
@@ -272,41 +285,6 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 	try {
 		// Get data from body
 		const { name, location, description, priority, dateTime } = req.body;
-		/* JSON File Version
-		let events = [];
-
-		if (fs.existsSync(EVENTS_FILE)) {
-			const data = fs.readFileSync(EVENTS_FILE, `utf-8`);
-			events = data.trim() === ''
-				? []
-				: JSON.parse(data);
-		}
-
-		// Find the user object to get the username
-		let moderator = 'Unknown';
-		if (req.session.user && req.session.user.email) {
-			const users = getUsers();
-			const userObj = users.find(u => u.email === req.session.user.email);
-			if (userObj && userObj.username) {
-				moderator = userObj.username;
-			}
-		}
-		// Create a new event object
-		const newEvent = {
-			eventId: events.length + 1, // Simple ID generation
-			name,
-			moderator,
-			location,
-			description,
-			priority: parseInt(priority, 10) || 0,
-			date: dateTime,
-			tasks: []
-		};
-
-		// Add the newEvent to the events array
-		events.push(newEvent);
-		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
-		*/
 
 		/* Database Version */
 		let vol_id = 'NULL'; // Should reference ID soon
@@ -338,80 +316,6 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 		res.status(500).send('Server error during publish.');
 	}
 });
-
-/*
-app.post('/publish', express.urlencoded({ extended: true }), async (req, res) => {
-	
-	try {
-		const { name, location, description, priority, dateTime } = req.body;
-		let events = [];
-
-		if (fs.existsSync(EVENTS_FILE)) {
-			const data = fs.readFileSync(EVENTS_FILE, `utf-8`);
-			events = data.trim() === ''
-				? []
-				: JSON.parse(data);
-		}
-
-		const newEvent = {
-			name,
-			location,
-			description,
-			priority: parseInt(priority, 10) || 0, // Ensure priority is a number
-			date: dateTime
-		};
-
-		events.push(newEvent);
-		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), `utf-8`);
-
-		const params = new URLSearchParams(newEvent).toString();
-
-		res.redirect(`/taskcreator?${params}`);
-	} catch (err) {
-		console.error('Event creation error:', err);
-		res.status(500).send('Server error during publish.');
-	}
-});
-
-// http://localhost:8080/taskcreator
-app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
-	// Extract event data from query string FIRST
-	const { name, location, description, priority, date, eventId } = req.query;
-	const listItems = [];
-
-	let username = 'Guest';
-	let u_id = null;
-	let eventName = '';
-	let eventLocation = '';
-	let eventDate = '';
-
-	if (req.session.user) {
-		const user = getUsers().find(u => u.email === req.session.user.email);
-		if (user) {
-			username = user.username;
-			u_id = user.ID;
-		}
-
-		const event = getEvents().find(e => e.eventId === eventId);
-		if (event) {
-			eventName = event.eventId;
-		}
-	}
-	if (!u_id) {
-		return res.redirect('/login.html?error=1');
-	}
-	res.render('taskCreator', {
-		username,
-		u_id,
-		eventName: name,
-		eventId,
-		location,
-		description,
-		priority,
-		date,
-		listItems
-	});
-});*/
 
 app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 	// Extract event data from query string
