@@ -7,6 +7,7 @@ const db = require('./database');
 const session = require('express-session');
 const jq = require('jquery');
 const poll = require('poll');
+const querystring = require('querystring')
 
 const port = 8080;
 const address = '0.0.0.0';
@@ -34,12 +35,12 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
 	res.render('index')
 });
 
 // http://localhost:8080/homepage.html
-app.get('/homepage.html', async function (req, res) {
+app.get('/homepage.html', async function(req, res) {
 	try {
 		let isAdmin = false;
 		let isLogged = false;
@@ -275,13 +276,15 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 		const date = new Date(dateTime).toISOString();
 		const publishedDate = new Date().toISOString();
 
-		await db.query(
+		var event_id = await db.query(
 			`INSERT INTO event (name, moderator, location, description, priority, date, date_published) VALUES
-				($1, $2, $3, $4, $5, $6, $7);`,
+				($1, $2, $3, $4, $5, $6, $7) RETURNING id;`,
 			[name, vol_id, location, description, priority, date, publishedDate]
 		);
 
-		res.redirect(`/taskcreator`);
+		var eventDetails = { eventId: event_id, eventName: name, u_id: vol_id, description: description, priority: priority, date: date, location: location }
+
+		res.redirect('/taskCreator?' + querystring.stringify(eventDetails))
 	} catch (err) {
 		console.error('Event creation error:', err);
 		res.status(500).send('Server error during publish.');
@@ -290,22 +293,17 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 
 app.get(['/taskCreator', '/taskCreator.html'], async (req, res) => {
 	// Extract event data from query string
-	const { name, location, description, priority, date, eventId } = req.query;
-	let username = 'Guest';
-	let u_id = null;
+	const eventInfo = querystring.parse(req.query);
 	let tasks = [];
 
-	vol_id = await db.query(
-			`SELECT id FROM volunteer WHERE email = $1;`,
-			[req.session.user.email]
-		);
+	vol_info = await db.query(
+		`SELECT id, username FROM volunteer WHERE email = $1;`,
+		[req.session.user.email]
+	).rows;
 
-	if (eventId) {
-		const events = getEvents();
-		const event = events.find(e => e.eventId === parseInt(eventId, 10));
-		if (event && Array.isArray(event.tasks)) {
-			tasks = event.tasks;
-		}
+	if (eventInfo.eventId) {
+		tasks = await db.query('SELECT id FROM task WHERE event_id = $1;',
+			[eventInfo.eventId]).rows
 	}
 
 	if (!u_id) {
@@ -313,19 +311,25 @@ app.get(['/taskCreator', '/taskCreator.html'], async (req, res) => {
 	}
 
 	res.render('taskCreator', {
-		username,
-		u_id,
-		eventName: name,
-		eventId,
-		location,
-		description,
-		priority,
-		date,
-		tasks
+		username: vol_info.username,
+		u_id: vol_info.id,
+		eventName: eventInfo.eventName,
+		eventId: eventInfo.eventId,
+		location: eventInfo.location,
+		description: eventInfo.description,
+		priority: eventInfo.priority,
+		date: eventInfo.date,
+		tasks: tasks
 	});
 });
 
 app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
+	try {
+
+	} catch (err) {
+		console.error('Task addition error:', err);
+		res.status(500).send('Server error during task addition.');
+	}
 	try {
 		const { eventId, taskName, taskDescription, taskSkills } = req.body;
 		const events = getEvents();
@@ -349,12 +353,12 @@ app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
 });
 
 // http://localhost:8080/eventconfirm
-app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
+app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
 	const { name, location, description, priority, date } = req.query;
 	res.render('eventConfirm', { name, location, description, priority, date });
 });
 
-app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
+app.get(['/userProfile', '/userProfile.html'], async function(req, res) {
 
 	// Query to retrieve all data
 	const result = await db.query(
