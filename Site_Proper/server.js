@@ -34,12 +34,12 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.render('index')
 });
 
 // http://localhost:8080/homepage.html
-app.get('/homepage.html', async function(req, res) {
+app.get('/homepage.html', async function (req, res) {
 	try {
 		let isAdmin = false;
 		let isLogged = false;
@@ -309,7 +309,7 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 	}
 });
 
-app.get(['/taskCreator', '/taskCreator.html'], function(req, res) {
+app.get(['/taskCreator', '/taskCreator.html'], function (req, res) {
 	// Extract event data from query string
 	const { name, location, description, priority, date, eventId } = req.query;
 	let username = 'Guest';
@@ -373,15 +373,38 @@ app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
 });
 
 // http://localhost:8080/eventconfirm
-app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
+app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
 	const { name, location, description, priority, date } = req.query;
 	res.render('eventConfirm', { name, location, description, priority, date });
 });
 
-app.get(['/userProfile', '/userProfile.html'], async function(req, res) {
+app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
+
+	// Query to retrieve all data
+	const result = await db.query(
+		'SELECT first_name, last_name, username, skill, location, availability FROM volunteer WHERE email = $1',
+		[req.session.user.email]
+	);
+
+	const userData = result.rows[0] || {};
+
+	// Separate by comma
+	const parts = userData.location.split(',').map(part => part.trim());
+	const address = parts[0];
+	const city = parts[1];
+	const [state, zipcode] = parts[2].split(' ');
 
 	res.render('userProfile', {
 		email: req.session.user.email,
+		firstname: userData.first_name || "",
+		lastname: userData.last_name || "",
+		username: userData.username || "",
+		address: address || "",
+		city: city || "",
+		state: state || "",
+		zipcode: zipcode || "",
+		skills: userData.skills || [],
+		availability: userData.availability || []
 	});
 });
 /*
