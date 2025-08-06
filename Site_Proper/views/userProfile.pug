@@ -49,7 +49,7 @@ html(lang="en")
 							required)
 
 					div
-						label(for="address1") Address 1
+						label(for="address") Address:
 						input#address1(
 							type="text", 
 							name="address1", 
@@ -58,19 +58,11 @@ html(lang="en")
 							required)
 
 					div
-						label(for="address2") Address 2
-						input#address2(
-							type="text", 
-							name="address2", 
-							maxlength="100", 
-							value='')
-
-					div
-						label(for="city") City
+						label(for="city") City:
 						input#city(type="text", name="city", maxlength="100", value='', required)
 
 					div
-						label(for="state") State
+						label(for="state") State:
 						select#state(name="state", required)
 							option(value="") Select a state
 							option(value="AL") Alabama
@@ -125,7 +117,7 @@ html(lang="en")
 							option(value="WY") Wyoming
 
 					div
-						label(for="zipcode") Zip Code
+						label(for="zipcode") Zip Code:
 						input#zipcode(
 							type="text",
 							name="zipcode",
@@ -134,31 +126,27 @@ html(lang="en")
 							value='',
 							required)
 
-					div
+					div.checkbox-group
 						label(for="skills") Skills
-						div
+						div.checkbox-item
 							input(type="checkbox" id="teaching" name="skills[]" value="teaching")
 							label(for="teaching") Teaching
-						div
+						div.checkbox-item
 							input(type="checkbox" id="event_planning" name="skills[]" value="event_planning")
 							label(for="event_planning") Event Planning
-						div
+						div.checkbox-item
 							input(type="checkbox" id="first_aid" name="skills[]" value="first_aid")
 							label(for="first_aid") First Aid
-						div
-							input(type="checkbox" id="teaching" name="skills[]" value="teaching")
-							label(for="teaching") Cooking
-						div
+						div.checkbox-item
+							input(type="checkbox" id="cooking" name="skills[]" value="cooking")
+							label(for="cooking") Cooking
+						div.checkbox-item
 							input(type="checkbox" id="graphic_design" name="skills[]" value="graphic_design")
 							label(for="graphic_design") Graphic Design
-						div
+						div.checkbox-item
 							input(type="checkbox" id="technology" name="skills[]" value="technology")
 							label(for="technology") Technology
-
-					div
-						label(for="preferences") Preferences
-						textarea#preferences(name="preferences", rows="3", value='',)
-
+							
 					div
 						label(for="availability1") Availability Date 1:
 						input#availability1(

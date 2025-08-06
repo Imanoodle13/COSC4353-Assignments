@@ -102,12 +102,10 @@ function getEvents() {
 app.post(['/login', '/login.html'], express.urlencoded({ extended: true }), async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		console.log('Before query');
 		const result = await db.query(
 			'SELECT id, email FROM volunteer WHERE email = $1 AND password = crypt($2, password)',
 			[email, password]
 		);
-		console.log('After query');
 
 		if (result.rows.length === 0) {
 			return res.redirect('/login.html?error=1');
@@ -484,74 +482,79 @@ app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
 	res.render('eventConfirm', { name, location, description, priority, date });
 });
 
-app.get(['/userProfile', '/userProfile.html'], function (req, res) {
-	if (!req.session.user) {
-		return res.redirect('/login.html?error=1');
-	}
+app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
 
-	const user = getUsers().find(u => u.email === req.session.user.email)
-
-	if (!user) {
-		return res.redirect('/login.html?error=1');
-	}
-
-	// Passes through the profile information
-	res.render('userProfile', { email: req.session.user.email, profile: user.profile || {} });
+	res.render('userProfile', {
+		email: req.session.user.email,
+	});
 });
+/*
+app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
 
+	// Query to retrieve all data
+	const result = await db.query(
+		'SELECT first_name, last_name, username, skill, location, availability FROM volunteer WHERE email = $1',
+		[email]
+	);
+
+	const userData = result.rows[0] || {};
+
+	res.render('userProfile', {
+		email: req.session.user.email,
+		firstname: userData.first_name || "",
+		lastname: userData.last_name || "",
+		username: userData.username || "",
+		skills: userData.skills || [],
+		availability: userData.availability || []
+	});
+});
+*/
+
+/*
 app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		// If theres no session then redirect to login
-		if (!req.session.user) {
-			return res.redirect('/login.html?error=1');
-		}
-
 		console.log(req.body);
 		// Get data from body
 		const { fullname, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
 
 
+
 		res.redirect('/homepage.html');
 	} catch (err) {
 		console.error('Profile update error:', err);
 		res.status(500).send('Server error during profile update.');
-	}
-});
-
-/*
-app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
-	try {
-		// If theres no session then redirect to login
-		if (!req.session.user) {
-			return res.redirect('/login.html?error=1');
-		}
-
-		// Get data from body
-		const { firstname, lastname, username, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
-		const address = '${address1} ${city}, ${state} ${zipcode}'
-
-		db.query(
-			'UPDATE volunteer SET first_name = $1, last_name = $2, username = $3, location = $4, skills = $5, preferences = $6, availability = $7 WHERE email = req.session.user.email',
-			[firstname, lastname, username, address, skills, preferences, availability]
-
-		);
-		client.query('COMMIT')
-
-		res.redirect('/homepage.html');
-	} catch (err) {
-		if (client){
-			await client.query('ROLLBACK');
-		}
-		console.error('Profile update error:', err);
-		res.status(500).send('Server error during profile update.');
-	} finally {
-	// Release the client for reuse
-		if (client){
-			client.release();
-		}
 	}
 });
 */
+
+app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		// Get data from body
+		const { firstname, lastname, username, address, city, state, zipcode, skills, availability } = req.body;
+		const fullAddress = `${address}, ${city}, ${state} ${zipcode}`;
+
+		let postgisLoc = 'NULL';
+		console.log("postgis before");
+		postgisLoc = await db.query(
+			`SELECT ST_GeogFromText('SRID=4326,POINT(' || g.lon || ' ' g.lat || ')')
+            FROM geocode($1, 1) AS g;`,
+			[fullAddress] // As address string
+		);
+		console.log("postgis after");
+		console.log("update before");
+		await db.query(
+			'UPDATE volunteer SET first_name = $1, last_name = $2, username = $3, location = $4, skill = $5, availability = $6 WHERE email = $8',
+			[firstname, lastname, username, postgisLoc, skills, availability, req.session.user.email]
+		);
+		console.log("update after");
+
+		res.redirect('/homepage.html');
+	} catch (err) {
+		console.error('Profile update error:', err);
+		res.status(500).send('Server error during profile update.');
+	}
+});
+
 
 /* ---------- Test Pages ------------------------*/
 // http://localhost:8080/databaseConnectionTest
