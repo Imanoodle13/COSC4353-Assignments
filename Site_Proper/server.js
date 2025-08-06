@@ -190,11 +190,12 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 		// If role is admin then set isAdmin to 1 otherwise set to 2
 		const isAdmin = role === "Admin" ? 1 : 2;
+		const dateEnrolled = new Date().toISOString();
 
 		// Inserting?
 		await db.query(
-			'INSERT INTO volunteer (role_id, email, password) VALUES ($1, $2, crypt($3, gen_salt(\'bf\')))',
-			[isAdmin, email, password]
+			'INSERT INTO volunteer (role_id, email, password, date_enrolled) VALUES ($1, $2, crypt($3, gen_salt(\'bf\')), $4)',
+			[isAdmin, email, password, dateEnrolled]
 		);
 		res.redirect('/login.html?success=1')
 	} catch (err) {
@@ -209,6 +210,7 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		const query =
 			`
 			SELECT 
+				E.id,
 				E.name,
 				V.Username AS moderator,
 				E.location,
@@ -237,6 +239,25 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 		res.status(500).send('Database connection failed.');
 	}
 });
+
+// http://localhost:8080/eventDetails
+// Pug implement pending
+app.get('/eventDetails/:id', async (req, res) => {
+	const eventId = req.params.id;
+	console.log("Fetching event with ID:", eventId);
+	try {
+		const result = await db.query('SELECT * FROM event WHERE id = $1', [eventId]);
+		if (result.rows.length === 0) {
+			return res.status(404).send('Event not found');
+		}
+		const event = result.rows[0];
+		res.render('eventDetails', { event });
+	} catch (err) {
+		console.error(err);
+		res.status(500).send('Server error');
+  }
+});
+
 
 // http://localhost:8080/eventcreator
 app.get(['/eventCreator', '/eventCreator.html'], async (req, res) => {
@@ -369,10 +390,13 @@ app.get(['/userProfile', '/userProfile.html'], async function(req, res) {
 	const userData = result.rows[0] || {};
 
 	// Separate by comma
-	const parts = userData.location.split(',').map(part => part.trim());
-	const address = parts[0];
-	const city = parts[1];
-	const [state, zipcode] = parts[2].split(' ');
+	const locationString = userData?.location ?? '';
+	const parts = locationString.split(',').map(part => part.trim());
+
+	const address = parts[0] ?? '';
+	const city = parts[1] ?? '';
+	const [state, zipcode] = (parts[2] ?? '').split(' ');
+
 
 	res.render('userProfile', {
 		email: req.session.user.email,

@@ -45,7 +45,7 @@ html
 						// event  - One row.
 						if events && events.length 
 							each event in events 
-								tr 
+								tr(onclick=`window.location='/eventDetails/${event.id}'`, style='cursor:pointer;')
 									td= event.name 
 									td= event.moderator 
 									td= event.location
