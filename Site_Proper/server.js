@@ -5,6 +5,8 @@ const path = require('path');
 const pug = require('pug');
 const db = require('./database');
 const session = require('express-session');
+const jq = require('jquery');
+const poll = require('poll');
 const querystring = require('querystring')
 
 const port = 8080;
@@ -40,18 +42,20 @@ app.get('/', function(req, res) {
 // http://localhost:8080/homepage.html
 app.get('/homepage.html', async function(req, res) {
 	try {
-		let isAdmin = false;
+		let isAdmin  = false;
 		let isLogged = false;
+		let user_name = 'Guest';
 		if (req.session.user && req.session.user.id && req.session.user.email) {
 			isLogged = true;
 			const email = req.session.user.email;
 			const result = await db.query(
-				'SELECT role_id FROM volunteer WHERE email = $1',
+				'SELECT role_id, username FROM volunteer WHERE email = $1',
 				[email]
 			);
 			isAdmin = result.rows.length > 0 && result.rows[0].role_id === 1;
+			user_name = result.rows.length > 0 ? result.rows[0].username : 'Guest';
 		}
-		res.render('homepage', { isAdmin, isLogged });
+		res.render('homepage', { isAdmin, isLogged, user_name });
 	} catch (err) {
 		console.error('Homepage error:', err);
 		res.status(500).send('Server error');
