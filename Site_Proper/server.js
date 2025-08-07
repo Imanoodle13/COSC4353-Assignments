@@ -208,6 +208,7 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
+	// Displays table of (selectable) events in the database
 	try {
 		const query =
 			`
