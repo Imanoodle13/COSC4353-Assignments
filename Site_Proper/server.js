@@ -208,40 +208,108 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 
 // http://localhost:8080/eventmatcher
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
-	// Displays table of (selectable) events in the database
 	try {
-		const query =
-			`
-			SELECT 
-				E.id,
-				E.name,
-				V.Username AS moderator,
-				E.location,
-				ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
-				E.description,
-				E.priority,
-				to_char(E.date, 'Day YYYY-MM-DD') AS date,
-				to_char(E.Date_published, 'Day YYYY-MM-DD HH24:MI:SS') AS published
-			FROM 
-				EVENT AS E
-			LEFT JOIN
-				VOLUNTEER AS V ON E.moderator = V.id
-			LEFT JOIN
-				TASK AS T ON T.Event_ID = E.ID
-			LEFT JOIN
-				LATERAL unnest(T.Skill) AS s(skill) ON TRUE
-			GROUP BY
-				E.ID, E.name, V.Username, E.location, E.description, E.date
-			ORDER BY
-				priority DESC;
-		`;
-		const result = await db.query(query);
-		res.render('eventMatcher', { events: result && result.rows ? result.rows : [] });
+		let userId = null;
+
+		// If the user is logged in, get their ID
+		if (req.session.user && req.session.user.email) {
+			const userResult = await db.query(
+				'SELECT id FROM volunteer WHERE email = $1',
+				[req.session.user.email]
+			);
+			if (userResult.rows.length > 0) {
+				userId = userResult.rows[0].id;
+			}
+		}
+
+		let result;
+
+		// If "Order by skill" is selected and user is logged in,
+		if (req.query.orderby === 'skill' && userId !== null) {
+			result = await db.query(`
+				WITH user_skills AS (
+					SELECT unnest(Skill) AS skill
+					FROM VOLUNTEER
+					WHERE ID = $1
+				),
+				event_skills AS (
+					SELECT 
+						E.ID AS event_id,
+						E.name,
+						V.Username AS moderator,
+						E.location,
+						E.description,
+						E.priority,
+						E.date,
+						E.Date_published,
+						ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
+						COUNT(DISTINCT s.skill) FILTER (WHERE s.skill IN (SELECT skill FROM user_skills)) AS match_count
+					FROM 
+						EVENT AS E
+					LEFT JOIN
+						VOLUNTEER AS V ON E.moderator = V.id
+					LEFT JOIN
+						TASK AS T ON T.Event_ID = E.ID
+					LEFT JOIN
+						LATERAL unnest(T.Skill) AS s(skill) ON TRUE
+					GROUP BY
+						E.ID, E.name, V.Username, E.location, E.description, E.priority, E.date, E.Date_published
+				)
+				SELECT
+					event_id AS id,
+					name,
+					moderator,
+					location,
+					skills,
+					description,
+					priority,
+					to_char(date, 'Day YYYY-MM-DD') AS date,
+					to_char(Date_published, 'Day YYYY-MM-DD HH24:MI:SS') AS published
+				FROM
+					event_skills
+				ORDER BY
+					match_count DESC,
+					priority DESC,
+					date ASC;
+			`, [userId]);
+		} else {
+			// Default: Order by priority
+			result = await db.query(`
+				SELECT 
+					E.id,
+					E.name,
+					V.Username AS moderator,
+					E.location,
+					ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
+					E.description,
+					E.priority,
+					to_char(E.date, 'Day YYYY-MM-DD') AS date,
+					to_char(E.Date_published, 'Day YYYY-MM-DD HH24:MI:SS') AS published
+				FROM 
+					EVENT AS E
+				LEFT JOIN
+					VOLUNTEER AS V ON E.moderator = V.id
+				LEFT JOIN
+					TASK AS T ON T.Event_ID = E.ID
+				LEFT JOIN
+					LATERAL unnest(T.Skill) AS s(skill) ON TRUE
+				GROUP BY
+					E.ID, E.name, V.Username, E.location, E.description, E.date
+				ORDER BY
+					priority DESC;
+			`);
+		}
+
+		res.render('eventMatcher', {
+			events: result && result.rows ? result.rows : [],
+			orderbySkill: req.query.orderby === 'skill'
+		});
 	} catch (err) {
 		console.error('Database query error:', err);
 		res.status(500).send('Database connection failed.');
 	}
 });
+
 
 // http://localhost:8080/eventDetails
 // Pug implement pending
