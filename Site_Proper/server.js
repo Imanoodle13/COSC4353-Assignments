@@ -401,6 +401,8 @@ app.post('/enrollTask', express.urlencoded({ extended: true }), async (req, res)
 			[taskId, volunteerId]
 		);
 
+
+
 		if (exists.rows.length > 0) {
 			return res.redirect(`/taskEnrollConfirm/${taskId}?error=already_enrolled`);
 		}
