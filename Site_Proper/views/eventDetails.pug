@@ -11,6 +11,31 @@ html
 			span Volunteer Central
 			nav
 				ul
-				li: a(href='../homepage.html') Home
+					li: a(href='../homepage.html') Home
 					li: a(href='../login.html') Login
 	body
+		div.form-group-ET
+			h3(style='margin-top: 40px') Event Details
+			h1 #[strong #{event.name}]
+			div
+				p Level #[strong #{event.priority}] priority
+				p At #[strong #{event.location}]
+				p #{event.description || 'No description provided.'}
+				p Date and Time: #[strong #{new Date(event.date).toLocaleString()}]
+				p Created by: #{event.moderator}
+			p Enrolling as #[strong #{user.username}] #[small #[i (ID: #{user.id})]]
+		div.task-list(style='color: #333; width: 450px; height: 300px; justify-content: top; background-color: #9fbcc1ff;')
+			h2 Tasks
+			p Select a task to enroll.
+			if task && task.length > 0
+				ul
+					// task - Array of tasks.
+					// t - One task.
+					each t in task
+						li(onclick=`window.location=/taskEnrollConfirm/${t.id}'`, style='list-style-type: none; padding: 0; cursor: pointer;')
+							div.task-item(style='color: #333; background-color: #748D92; padding: 10px; margin-bottom: 10px; border-radius: 5px;')
+								h1 #[strong #{t.name}]
+								p Skills: #[strong #{t.skill}]
+								p #{t.description || 'No description provided.'}
+			else
+				p No tasks available for this event.
