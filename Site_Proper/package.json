@@ -18,13 +18,17 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "@thi.ng/arrays": "^2.13.9",
+    "blob-stream": "^0.1.3",
     "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "jquery": "^3.7.1",
+    "pdfkit": "^0.17.1",
     "pg": "^8.16.3",
+    "pg-format": "^1.0.4",
     "poll": "^3.2.2",
     "pug": "^3.0.3",
     "url": "^0.11.4"
