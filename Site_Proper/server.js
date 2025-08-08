@@ -629,6 +629,13 @@ app.post('/send-notification', express.urlencoded({ extended: true }), async (re
 		return res.redirect('/login.html');
 	}
 	try {
+		const check = await db.query(
+			'SELECT role_id FROM volunteer WHERE email = $1',
+			[req.session.user.email]
+		);
+		if (check.rows[0].role_id !== 1) {
+			return res.status(403).send('Admins only');
+		}
 		const { email, message } = req.body;
 		await db.query(
 			'INSERT INTO notification (email, message) VALUES ($1, $2)',
