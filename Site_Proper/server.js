@@ -391,27 +391,33 @@ app.post('/enrollTask', express.urlencoded({ extended: true }), async (req, res)
 
 		const volunteerId = userRes.rows[0].id;
 
+		// Check if volunteer is already enrolled in this task
 		const exists = await db.query(
 			'SELECT id FROM volunteer_task WHERE task_id = $1 AND volunteer_id = $2',
 			[taskId, volunteerId]
 		);
+		
 		if (exists.rows.length > 0) {
 			return res.redirect(`/taskEnrollConfirm/${taskId}?error=already_enrolled`);
 		}
 
-		// Insert into VOLUNTEER_TASK
-		await db.query(
+		// Insert into VOLUNTEER_TASK and get the new record ID
+		const insertResult = await db.query(
 			`INSERT INTO volunteer_task (task_id, volunteer_id, date_accepted)
-			 VALUES ($1, $2, NOW())`,
+			 VALUES ($1, $2, NOW()) RETURNING id`,
 			[taskId, volunteerId]
 		);
 
-		const volTaskId = await db.query(
-			`SELECT id FROM volunteer_task WHERE task_id = $1 AND volunteer_id = $2`,
-			[taskId, volunteerId]
+		const volTaskId = insertResult.rows[0].id;
+
+		// Insert into VOLUNTEER_HIST using the correct volunteer_task ID
+		await db.query(
+			`INSERT INTO volunteer_hist (V_task_ID, Start_time, End_Time) 
+			 VALUES ($1, NOW(), NULL)`,
+			[volTaskId]
 		);
 
-		res.redirect(`/taskEnrollConfirm/${taskId}?success=1&volTaskId=${volTaskId.rows[0].id}`);
+		res.redirect(`/taskEnrollConfirm/${taskId}?success=1&volTaskId=${volTaskId}`);
 	} catch (err) {
 		console.error('Task enrollment error:', err);
 		res.status(500).send('Server error during task enrollment.');
