@@ -23,4 +23,5 @@ module.exports = {
 		return q
 	},
 	connect: () => pool.connect(),
+	release: (client) => pool.release(client)
 };

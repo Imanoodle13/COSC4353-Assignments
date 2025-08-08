@@ -637,23 +637,79 @@ app.post('/addTask', express.urlencoded({ extended: true }), async (req, res) =>
 
 app.get('/userReport', async (req, res) => {
 
+	const cli = await db.connect()
 
-	let vol_id = []
+	let event = []
 
-	db.query(
-		`SELECT volunteer_id FROM reports`, []).then(
+	cli.query(
+		`
+			CREATE TEMP TABLE t_events AS
+			(
+				SELECT DISTINCT event_id, event_name
+				INTO TEMP t_events
+				FROM reports
+			);
+			SELECT event_name
+			FROM t_events;
+		`, []).then(
 			returned => {
-				vol_id = returned.rows
-				for (let i in returned.rows) {
-					vol_id.push(returned.rows[i].volunteer_id)
-				}
+				console.log(returned.rows)
+				event = returned.rows
 			},
-			error => console.log(error.message)
+			error => console.error(error.message)
 		)
 
-	let vol_info = []
+	let task = []
+	for (let i in event) {
+		cli.query(
+			`
+				CREATE TEMP TABLE t_tasks AS
+				(
+					SELECT DISTINCT task_id, task_name
+					INTO TEMP t_tasks
+					FROM reports;
+				);
+				SELECT task_name
+				FROM t_tasks;
+			`, []).then(
+				returned => {
+					console.log(returned)
+				},
+				error => console.error(error.message)
+			)
+	}
 
+	let vol = []
+	for (let i in task) {
+		cli.query(
+			`
+				CREATE TEMP TABLE t_vol AS
+					(
+						SELECT DISTINCT volunteer_id, first_name, last_name
+						INTO TEMP t_vol
+						FROM reports;
+					)
+				SELECT first_name, last_name
+				FROM t_vol;
+			`, []).then(
+				returned => {
+					console.log(returned.rows)
+				},
+				error => console.error(error.message)
+			)
+	}
 
+	for (let i in event) {
+		console.log(event[i])
+		for (let j in task) {
+			console.log(task[j])
+			for (let k in vol) {
+				console.log(vol[k])
+			}
+		}
+	}
+
+	cli.release()
 })
 app.post('/deleteTask', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
