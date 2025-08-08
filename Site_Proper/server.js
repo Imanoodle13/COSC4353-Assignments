@@ -595,22 +595,20 @@ app.get(['/taskCreator', '/taskCreator.html'], async (req, res) => {
 
 app.post('/addTask', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		const { eventId, taskName, taskDescription, taskSkills } = req.body;
+		const { eventId, taskName, taskDescription, skills } = req.body; // Changed from 'taskSkills' to 'skills'
 
-		// Convert comma-separated skills into an array or null
+		// Convert skills array or null (skills comes as an array from checkboxes)
 		let skillsArray = null;
-		if (taskSkills && taskSkills.trim() !== '') {
-			skillsArray = taskSkills.split(',').map(s => s.trim());
+		if (skills && Array.isArray(skills) && skills.length > 0) {
+			skillsArray = skills;
 		}
 
-		// Insert into TASK table
 		await db.transact(
 			`INSERT INTO task (event_id, name, skill, description)
 			 VALUES ($1, $2, $3, $4);`,
 			[eventId, taskName, skillsArray, taskDescription]
 		);
 
-		// Retrieve event details for redirect
 		const eventRes = await db.query(
 			`SELECT id, name, location, description, priority, date
 			 FROM event WHERE id = $1;`,
@@ -623,7 +621,6 @@ app.post('/addTask', express.urlencoded({ extended: true }), async (req, res) =>
 
 		const e = eventRes.rows[0];
 
-		// Redirect back to taskCreator with the full querystring
 		res.redirect('/taskCreator?' + querystring.stringify({
 			eventId: e.id,
 			eventName: e.name,

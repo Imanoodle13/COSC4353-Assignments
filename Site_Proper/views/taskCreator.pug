@@ -6,8 +6,6 @@ html
 		link(href='https://fonts.googleapis.com/css?family=Work+Sans:400', rel='stylesheet')
 		link(href='/styles.css', rel='stylesheet', type='text/css')
 		title VC | Task Creator
-<<<<<<< HEAD
-=======
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
 		script.
 			$(function() {
@@ -19,7 +17,6 @@ html
 					$('.dropdown-check-list').removeClass('visible');
 				});
 			});
->>>>>>> 755366083ec7c1cb5eb6473a64c08c4f1f291cde
 	body
 		header
 			div.navbar
@@ -47,75 +44,44 @@ html
 				div
 					label(for='taskDescription') Task Description
 					input#taskDescription(type='text', name='taskDescription', placeholder='Describe the task')
-<<<<<<< HEAD
-				div
-					label(for='taskSkills') Required Skills (comma-separated)
-					input#taskSkills(type='text', name='taskSkills', placeholder='e.g., First Aid, Heavy Lifting')
-				div
-					button(type='submit') Add Task
-					button(type='button',onclick="window.location.href='/homepage.html") Complete and Exit 
-			div(style='margin-top: 20px; background-color: #f0f0f0; color: #000000ff; padding: 10px; border-radius: 5px;')
-				// Existing tasks
-				if tasks.length
-					h3 Existing Tasks
-					ul
-						each task in tasks
-							li(style='list-style-type: none; padding: 0;')
-								strong #{task.name}
-								if task.description
-									|  - #{task.description}
-								if task.skill && task.skill.length
-									br
-									small Skills: #{task.skill.join(', ')}
 
-								br
-								// Delete button
-								form(action='/deleteTask', method='POST', style='display:inline')
-									input(type='hidden', name='taskId', value=task.id)
-									input(type='hidden', name='eventId', value=eventId)
-									button(type='submit', style='margin-left:10px;color:red; background-color: #9f9f9fff') Delete
-				else
-					p No tasks yet. Add one below!
-=======
-
-				// Skills dropdown styled like userProfile.pug
 				#skillsDropdown.dropdown-check-list(tabindex="100")
 					label(for='taskSkills') Required Skills
-					span.anchor Select Skills for Event
-						ul.items
-							li 	
-								input(type="checkbox" id="teaching" name="skills[]" value="teaching" checked=(skills && skills.includes('teaching')))
-								label(for="teaching") First Aid
-							li 	
-								input(type="checkbox" id="coordination" name="skills[]" value="coordination" checked=(skills && skills.includes('coordination')))
-								label(for="coordination") Coordination
-							li 	
-								input(type="checkbox" id="logistics" name="skills[]" value="logistics" checked=(skills && skills.includes('logistics')))
-								label(for="logistics") Logistics
-							li 	
-								input(type="checkbox" id="scheduling" name="skills[]" value="scheduling" checked=(skills && skills.includes('scheduling')))
-								label(for="scheduling") Scheduling
-							li 	
-								input(type="checkbox" id="communication" name="skills[]" value="communication" checked=(skills && skills.includes('communication')))
-								label(for="communication") Communication
-							li 	
-								input(type="checkbox" id="event_planning" name="skills[]" value="event_planning" checked=(skills && skills.includes('event_planning')))
-								label(for="event_planning") Event Planning
-							li 	
-								input(type="checkbox" id="teamwork" name="skills[]" value="teamwork" checked=(skills && skills.includes('teamwork')))
-								label(for="teamwork") Teamwork
-							li 	
-								input(type="checkbox" id="tech_support" name="skills[]" value="tech_support" checked=(skills && skills.includes('tech_support')))
-								label(for="tech_support") Tech Support
-							li 	
-								input(type="checkbox" id="cleaning" name="skills[]" value="cleaning" checked=(skills && skills.includes('cleaning')))
-								label(for="cleaning") Cleaning
-							li 	
-								input(type="checkbox" id="driving" name="skills[]" value="driving" checked=(skills && skills.includes('driving')))
-								label(for="driving") Driving
-							li 	
-								input(type="checkbox" id="translation" name="skills[]" value="translation" checked=(skills && skills.includes('translation')))
-								label(for="translation") Translation
+					span.anchor Select Required Skills
+					ul.items
+						li 	
+							input(type="checkbox" id="first_aid" name="skills[]" value="first_aid")
+							label(for="first_aid") First Aid
+						li 	
+							input(type="checkbox" id="coordination" name="skills[]" value="coordination")
+							label(for="coordination") Coordination
+						li 	
+							input(type="checkbox" id="logistics" name="skills[]" value="logistics")
+							label(for="logistics") Logistics
+						li 	
+							input(type="checkbox" id="scheduling" name="skills[]" value="scheduling")
+							label(for="scheduling") Scheduling
+						li 	
+							input(type="checkbox" id="communication" name="skills[]" value="communication")
+							label(for="communication") Communication
+						li 	
+							input(type="checkbox" id="event_planning" name="skills[]" value="event_planning")
+							label(for="event_planning") Event Planning
+						li 	
+							input(type="checkbox" id="teamwork" name="skills[]" value="teamwork")
+							label(for="teamwork") Teamwork
+						li 	
+							input(type="checkbox" id="tech_support" name="skills[]" value="tech_support")
+							label(for="tech_support") Tech Support
+						li 	
+							input(type="checkbox" id="cleaning" name="skills[]" value="cleaning")
+							label(for="cleaning") Cleaning
+						li 	
+							input(type="checkbox" id="driving" name="skills[]" value="driving")
+							label(for="driving") Driving
+						li 	
+							input(type="checkbox" id="translation" name="skills[]" value="translation")
+							label(for="translation") Translation
 
 				div
 					button(type='submit') Add Task
@@ -142,4 +108,3 @@ html
 										style='background-color: #748D92; color: #ff0000ff;margin-top: 20px; margin-bottom: 20px; width: 150px;height: 40px;border-radius: 20px;transform: all 300ms ease;border: none;cursor: pointer;') Delete
 			else
 				p No tasks yet. Add one below!
->>>>>>> 755366083ec7c1cb5eb6473a64c08c4f1f291cde
