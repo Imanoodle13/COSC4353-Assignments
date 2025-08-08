@@ -589,43 +589,43 @@ app.get(['/taskCreator', '/taskCreator.html'], async (req, res) => {
 
 app.post('/addTask', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
-		const { eventId, taskName, taskDescription, taskSkills } = req.body;
-
-		// Convert comma-separated skills into an array or null
-		let skillsArray = null;
-		if (taskSkills && taskSkills.trim() !== '') {
-			skillsArray = taskSkills.split(',').map(s => s.trim());
+		const { eventId, taskName, taskDescription } = req.body;
+		// Handle array from checkboxes (name="skills[]")
+		let taskSkills = req.body.skills || [];
+		if (!Array.isArray(taskSkills)) {
+			taskSkills = [taskSkills];
 		}
 
 		// Insert into TASK table
 		await db.query(
 			`INSERT INTO task (event_id, name, skill, description)
 			 VALUES ($1, $2, $3, $4);`,
-			[eventId, taskName, skillsArray, taskDescription]
+			[eventId, taskName, taskSkills, taskDescription]
 		);
 
-		// Retrieve event details for redirect
-		const eventRes = await db.query(
-			`SELECT id, name, location, description, priority, date
+		// Redirect back to taskCreator with all event details in query string
+		const eventResult = await db.query(
+			`SELECT name, location, description, priority, date
 			 FROM event WHERE id = $1;`,
 			[eventId]
 		);
 
-		if (eventRes.rows.length === 0) {
+		if (eventResult.rows.length === 0) {
 			return res.status(404).send('Event not found');
 		}
 
-		const e = eventRes.rows[0];
-
-		// Redirect back to taskCreator with the full querystring
-		res.redirect('/taskCreator?' + querystring.stringify({
-			eventId: e.id,
+		const e = eventResult.rows[0];
+		const eventDetails = {
+			eventId,
 			eventName: e.name,
 			location: e.location,
 			description: e.description,
 			priority: e.priority,
 			date: e.date
-		}));
+		};
+
+		res.redirect('/taskCreator?' + querystring.stringify(eventDetails));
+
 	} catch (err) {
 		console.error('Task addition error:', err);
 		res.status(500).send('Server error during task addition.');
