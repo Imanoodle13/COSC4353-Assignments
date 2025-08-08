@@ -210,15 +210,17 @@ app.post('/signup', express.urlencoded({ extended: true }), async (req, res) => 
 app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 	try {
 		let userId = null;
+		let skillArr = 'None';
 
 		// If the user is logged in, get their ID
 		if (req.session.user && req.session.user.email) {
 			const userResult = await db.query(
-				'SELECT id FROM volunteer WHERE email = $1',
+				'SELECT id,skill FROM volunteer WHERE email = $1',
 				[req.session.user.email]
 			);
 			if (userResult.rows.length > 0) {
 				userId = userResult.rows[0].id;
+				skillArr = userResult.rows[0].skill ? userResult.rows[0].skill.join(', ') : 'None';
 			}
 		}
 
@@ -302,7 +304,8 @@ app.get(['/eventMatcher', '/eventMatcher.html'], async (req, res) => {
 
 		res.render('eventMatcher', {
 			events: result && result.rows ? result.rows : [],
-			orderbySkill: req.query.orderby === 'skill'
+			orderbySkill: req.query.orderby === 'skill',
+			userSkill: skillArr
 		});
 	} catch (err) {
 		console.error('Database query error:', err);
@@ -317,12 +320,51 @@ app.get('/eventDetails/:id', async (req, res) => {
 	const eventId = req.params.id;
 	console.log("Fetching event with ID:", eventId);
 	try {
-		const result = await db.query('SELECT * FROM event WHERE id = $1', [eventId]);
-		if (result.rows.length === 0) {
+		const eventDetails = await db.query(
+			`
+			SELECT 
+				E.id,
+				E.name,
+				V.Username AS moderator,
+				E.location,
+				ARRAY_AGG(DISTINCT s.skill ORDER BY s.skill) AS skills,
+				E.description,
+				E.priority,
+				to_char(E.date, 'Day YYYY-MM-DD') AS date,
+				to_char(E.Date_published, 'Day YYYY-MM-DD HH24:MI:SS') AS published
+			FROM 
+				EVENT AS E
+			LEFT JOIN
+				VOLUNTEER AS V ON E.moderator = V.id
+			LEFT JOIN
+				TASK AS T ON T.Event_ID = E.ID
+			LEFT JOIN
+				LATERAL unnest(T.Skill) AS s(skill) ON TRUE
+			WHERE E.id = $1
+			GROUP BY
+				E.ID, E.name, V.Username, E.location, E.description, E.date;
+			`, [eventId]);
+		if (eventDetails.rows.length === 0) {
 			return res.status(404).send('Event not found');
 		}
-		const event = result.rows[0];
-		res.render('eventDetails', { event });
+		const userDetails = await db.query(
+			'SELECT id, username, email, availability FROM volunteer WHERE email = $1',
+			[req.session.user.email]
+		);
+		const taskDetails = await db.query(
+			`
+			SELECT
+				id,
+				name,
+				skill,
+				description
+			FROM task WHERE event_id = $1;
+			`, [eventId]);
+
+		res.render('eventDetails', { 
+			event: eventDetails.rows[0], 
+			user: userDetails.rows[0] || {} ,
+			task: taskDetails.rows || []});
 	} catch (err) {
 		console.error(err);
 		res.status(500).send('Server error');

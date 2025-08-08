@@ -462,6 +462,63 @@ a:active {
     background-color: #f2f6f8;
 }
 
+/* Event-Task Enrollment ----------     ----------     ----------     ----------*/
+.form-group-ET {
+    width: 450px;
+    height: 300px;
+    background-color: #124E66;
+    border-radius: 20px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    color: #D3D9D4;
+    flex: 1;
+}
+
+.form-group-ET label {
+    display: block;
+    margin: 2px;
+}
+
+.form-group-ET input[type="text"] {
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.form-group-ET input[id="description"] {
+    height: 120px;
+    align-items: flex-start;
+    align-content: flex-start;
+    align-self: flex-start;
+}
+
+.form-group-ET button {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    transform: all 300ms ease;
+    border: none;
+    cursor: pointer;
+}
+
+.form-group-ET button:hover {
+    background-color: #748D92;
+}
+
+.form-group-ET select {
+    border-radius: 10px;
+}
+
+.form-group-ET select:hover {
+    background-color: #748D92;
+    color: white;
+}
+
 /* Event Tasks ----------     ----------     ----------     ----------*/
 .eTasks-table-container {
     display: flex;

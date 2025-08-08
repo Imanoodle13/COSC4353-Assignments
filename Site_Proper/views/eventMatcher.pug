@@ -35,6 +35,13 @@ html
 					button 🔍
 					input#checkbox(type='checkbox', checked=(orderbySkill ? true : false), style='margin-left: 16px;')
 					label.switch(for='checkbox', style='margin-bottom: 0; margin-left: 4px;',) Order by skill
+				if orderbySkill
+					p(style='color: #000000ff;')
+						| Events are sorted by skills:
+						| #{userSkill}
+				else
+					p(style='color: #000000ff;')
+						| Events are not sorted by skills.
 				table.eventTable
 					thead
 						tr
