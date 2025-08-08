@@ -88,23 +88,24 @@ html
 					button(type='submit') Add Task
 					button(type='button',onclick="window.location.href='/homepage.html'") Complete and Exit 
 
-			// Existing tasks list
-			div(style='margin-top: 20px; background-color: #f0f0f0; color: #000000ff; padding: 10px; border-radius: 5px;')
-				if tasks.length
-					h3 Existing Tasks
-					ul
-						each task in tasks
-							li(style='list-style-type: none; padding: 0;')
-								strong #{task.name}
-								if task.description
-									|  - #{task.description}
-								if task.skill && task.skill.length
-									br
-									small Skills: #{task.skill.join(', ')}
+		// Existing tasks list
+		div(style='margin-top: 20px; background-color: #f0f0f0; color: #000000ff; padding: 10px; border-radius: 5px;')
+			if tasks.length
+				h3 Existing Tasks
+				ul
+					each task in tasks
+						li(style='list-style-type: none; padding: 0;')
+							strong #{task.name}
+							if task.description
+								|  - #{task.description}
+							if task.skill && task.skill.length
 								br
-								form(action='/deleteTask', method='POST', style='display:inline', onsubmit="return confirm('Are you sure you want to delete this task?');")
-									input(type='hidden', name='taskId', value=task.id)
-									input(type='hidden', name='eventId', value=eventId)
-									button(type='submit', style='margin-left:10px;color:red; background-color: #9f9f9fff') Delete
-				else
-					p No tasks yet. Add one below!
+								small Skills: #{task.skill.join(', ')}
+							br
+							form(action='/deleteTask', method='POST', style='display:inline', onsubmit="return confirm('Are you sure you want to delete this task?');")
+								input(type='hidden', name='taskId', value=task.id)
+								input(type='hidden', name='eventId', value=eventId)
+								button(type='submit', 
+										style='background-color: #748D92; color: #ff0000ff;margin-top: 20px; margin-bottom: 20px; width: 150px;height: 40px;border-radius: 20px;transform: all 300ms ease;border: none;cursor: pointer;') Delete
+			else
+				p No tasks yet. Add one below!
