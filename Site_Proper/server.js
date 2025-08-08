@@ -371,6 +371,86 @@ app.get('/eventDetails/:id', async (req, res) => {
   }
 });
 
+app.post('/enrollTask', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		if (!req.session.user) {
+			return res.redirect('/login.html?error=2');
+		}
+
+		const { taskId } = req.body;
+
+		// Get current user ID from session
+		const userRes = await db.query(
+			'SELECT id FROM volunteer WHERE email = $1',
+			[req.session.user.email]
+		);
+
+		if (userRes.rows.length === 0) {
+			return res.status(400).send('User not found');
+		}
+
+		const volunteerId = userRes.rows[0].id;
+
+		const exists = await db.query(
+			'SELECT id FROM volunteer_task WHERE task_id = $1 AND volunteer_id = $2',
+			[taskId, volunteerId]
+		);
+		if (exists.rows.length > 0) {
+			return res.redirect(`/taskEnrollConfirm/${taskId}?error=already_enrolled`);
+		}
+
+		// Insert into VOLUNTEER_TASK
+		await db.query(
+			`INSERT INTO volunteer_task (task_id, volunteer_id, date_accepted)
+			 VALUES ($1, $2, NOW())`,
+			[taskId, volunteerId]
+		);
+
+		const volTaskId = await db.query(
+			`SELECT id FROM volunteer_task WHERE task_id = $1 AND volunteer_id = $2`,
+			[taskId, volunteerId]
+		);
+
+		res.redirect(`/taskEnrollConfirm/${taskId}?success=1&volTaskId=${volTaskId.rows[0].id}`);
+	} catch (err) {
+		console.error('Task enrollment error:', err);
+		res.status(500).send('Server error during task enrollment.');
+	}
+});
+
+// http://localhost:8080/taskEnrollConfirm/:taskId
+app.get('/taskEnrollConfirm/:taskId', async (req, res) => {
+	const taskId = req.params.taskId;
+	try {
+		const taskId = req.params.taskId;
+		const volTaskId = req.query.volTaskId;
+
+		const volTaskDetails = await db.query(
+			`
+			SELECT
+				V.username AS enrollee,
+				T.name AS task_name,
+				E.name AS event_name
+			FROM volunteer_task AS VT
+			LEFT JOIN task AS T ON VT.task_id = T.id
+			LEFT JOIN event AS E ON T.event_id = E.id
+			LEFT JOIN volunteer AS V ON VT.volunteer_id = V.id
+			WHERE VT.id = $1;
+			`,
+			[volTaskId]
+		);
+		if (volTaskDetails.rows.length === 0) {
+			return res.status(404).send('Task enrollment not found');
+		}
+
+		res.render('taskEnrollConfirm', {
+			volTask: volTaskDetails.rows[0]
+		});
+	} catch (err) {
+		console.error('Task enrollment confirmation error:', err);
+		res.status(500).send('Server error during task enrollment confirmation.');
+	}
+});
 
 // http://localhost:8080/eventcreator
 app.get(['/eventCreator', '/eventCreator.html'], async (req, res) => {

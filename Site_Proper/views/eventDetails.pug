@@ -32,10 +32,14 @@ html
 					// task - Array of tasks.
 					// t - One task.
 					each t in task
-						li(onclick=`window.location=/taskEnrollConfirm/${t.id}'`, style='list-style-type: none; padding: 0; cursor: pointer;')
-							div.task-item(style='color: #333; background-color: #748D92; padding: 10px; margin-bottom: 10px; border-radius: 5px;')
-								h1 #[strong #{t.name}]
-								p Skills: #[strong #{t.skill}]
-								p #{t.description || 'No description provided.'}
+						li(style='list-style-type: none; padding: 0;')
+							form(action='/enrollTask', method='POST', style='margin: 0;')
+								input(type='hidden', name='taskId', value=t.id)
+								button(type='submit', style='all: unset; cursor: pointer; display: block;')
+									div.task-item(style='color: #333; background-color: #748D92; padding: 10px; margin-bottom: 10px; border-radius: 5px;')
+										h1 #[strong #{t.name}]
+										p Skills: #[strong #{t.skill}]
+										p #{t.description || 'No description provided.'}
+
 			else
 				p No tasks available for this event.
