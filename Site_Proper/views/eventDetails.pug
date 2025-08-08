@@ -24,13 +24,16 @@ html
 				p Date and Time: #[strong #{new Date(event.date).toLocaleString()}]
 				p Created by: #{event.moderator}
 			p Enrolling as #[strong #{user.username}] #[small #[i (ID: #{user.id})]]
-		div.task-list(style='width: 450px; height: 300px; justify-content: top;')
+		div.task-list(style='color: #333; width: 450px; height: 300px; justify-content: top; background-color: #9fbcc1ff;')
+			h2 Tasks
+			p Select a task to enroll.
 			if task && task.length > 0
-				h2 Tasks
-				ul(style='list-style-type: none; padding: 0; color: #333;')
+				ul
+					// task - Array of tasks.
+					// t - One task.
 					each t in task
-						li
-							div.task-item(style='background-color: #9fbcc1ff; padding: 10px; margin-bottom: 10px; border-radius: 5px;')
+						li(onclick=`window.location=/taskEnrollConfirm/${t.id}'`, style='list-style-type: none; padding: 0; cursor: pointer;')
+							div.task-item(style='color: #333; background-color: #748D92; padding: 10px; margin-bottom: 10px; border-radius: 5px;')
 								h1 #[strong #{t.name}]
 								p Skills: #[strong #{t.skill}]
 								p #{t.description || 'No description provided.'}
