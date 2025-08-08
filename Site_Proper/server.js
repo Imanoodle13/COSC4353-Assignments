@@ -490,87 +490,182 @@ app.post('/publishEvent', express.urlencoded({ extended: true }), async (req, re
 			return res.status(400).send('User not found');
 		}
 
-		const vol_id = volResult.rows[0].id; // Extract the actual ID
+		const vol_id = volResult.rows[0].id;
 
-		// Convert dateTime to a proper format for PostgreSQL
+		// Convert dateTime to ISO for PostgreSQL
 		const date = new Date(dateTime).toISOString();
 		const publishedDate = new Date().toISOString();
 
-		var event_id = await db.query(
-			`INSERT INTO event (name, moderator, location, description, priority, date, date_published) VALUES
-				($1, $2, $3, $4, $5, $6, $7) RETURNING id;`,
+		// Insert new event and get numeric event_id
+		const eventInsertResult = await db.query(
+			`INSERT INTO event 
+				(name, moderator, location, description, priority, date, date_published) 
+			 VALUES ($1, $2, $3, $4, $5, $6, $7) 
+			 RETURNING id;`,
 			[name, vol_id, location, description, priority, date, publishedDate]
 		);
 
-		var eventDetails = { eventId: event_id, eventName: name, u_id: vol_id, description: description, priority: priority, date: date, location: location }
+		const event_id = eventInsertResult.rows[0].id; // ✅ Extract the number
 
-		res.redirect('/taskCreator?' + querystring.stringify(eventDetails))
+		// Build query string for redirect
+		const eventDetails = {
+			eventId: event_id,
+			eventName: name,
+			location,
+			description,
+			priority,
+			date
+		};
+
+		res.redirect('/taskCreator?' + querystring.stringify(eventDetails));
 	} catch (err) {
 		console.error('Event creation error:', err);
 		res.status(500).send('Server error during publish.');
 	}
 });
 
+
 app.get(['/taskCreator', '/taskCreator.html'], async (req, res) => {
-	// Extract event data from query string
-	const eventInfo = querystring.parse(req.query);
-	let tasks = [];
-
-	vol_info = await db.query(
-		`SELECT id, username FROM volunteer WHERE email = $1;`,
-		[req.session.user.email]
-	).rows;
-
-	if (eventInfo.eventId) {
-		tasks = await db.query('SELECT id FROM task WHERE event_id = $1;',
-			[eventInfo.eventId]).rows
-	}
-
-	if (!u_id) {
-		return res.redirect('/login.html?error=1');
-	}
-
-	res.render('taskCreator', {
-		username: vol_info.username,
-		u_id: vol_info.id,
-		eventName: eventInfo.eventName,
-		eventId: eventInfo.eventId,
-		location: eventInfo.location,
-		description: eventInfo.description,
-		priority: eventInfo.priority,
-		date: eventInfo.date,
-		tasks: tasks
-	});
-});
-
-app.post('/addTask', express.urlencoded({ extended: true }), (req, res) => {
 	try {
+		const { eventId } = req.query;
+		let tasks = [];
 
-	} catch (err) {
-		console.error('Task addition error:', err);
-		res.status(500).send('Server error during task addition.');
-	}
-	try {
-		const { eventId, taskName, taskDescription, taskSkills } = req.body;
-		const events = getEvents();
-		const eventIndex = events.findIndex(e => e.eventId === parseInt(eventId, 10));
-		if (eventIndex === -1) {
+		// Ensure we have an eventId
+		if (!eventId) {
+			return res.status(400).send('Missing eventId');
+		}
+
+		// Get user info from DB
+		const vol_info_result = await db.query(
+			`SELECT id, username FROM volunteer WHERE email = $1;`,
+			[req.session.user.email]
+		);
+
+		if (vol_info_result.rows.length === 0) {
+			return res.redirect('/login.html?error=1');
+		}
+
+		const vol_info = vol_info_result.rows[0];
+
+		// Get event details from DB
+		const eventResult = await db.query(
+			`SELECT id, name, location, description, priority, date 
+			 FROM event WHERE id = $1;`,
+			[eventId]
+		);
+
+		if (eventResult.rows.length === 0) {
 			return res.status(404).send('Event not found');
 		}
-		const newTask = {
-			taskId: events[eventIndex].tasks.length + 1, // Simple ID generation for tasks
-			name: taskName,
-			description: taskDescription,
-			skills: taskSkills ? taskSkills.split(',').map(skill => skill.trim()) : []
-		};
-		events[eventIndex].tasks.push(newTask);
-		fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2), 'utf-8');
-		res.redirect(`/taskCreator?eventId=${eventId}&name=${encodeURIComponent(events[eventIndex].name)}&location=${encodeURIComponent(events[eventIndex].location)}&description=${encodeURIComponent(events[eventIndex].description)}&priority=${events[eventIndex].priority}&date=${events[eventIndex].date}`);
+
+		const eventData = eventResult.rows[0];
+
+		// Get tasks for this event
+		const taskResult = await db.query(
+			`SELECT id, name, description, skill 
+			 FROM task WHERE event_id = $1;`,
+			[eventId]
+		);
+		tasks = taskResult.rows;
+
+		// Render page with DB-verified data
+		res.render('taskCreator', {
+			username: vol_info.username,
+			u_id: vol_info.id,
+			eventName: eventData.name,
+			eventId: eventData.id,
+			location: eventData.location,
+			description: eventData.description,
+			priority: eventData.priority,
+			date: eventData.date,
+			tasks: tasks
+		});
+
+	} catch (err) {
+		console.error('Task creator error:', err);
+		res.status(500).send('Server error loading task creator.');
+	}
+});
+
+app.post('/addTask', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		const { eventId, taskName, taskDescription, taskSkills } = req.body;
+
+		// Convert comma-separated skills into an array or null
+		let skillsArray = null;
+		if (taskSkills && taskSkills.trim() !== '') {
+			skillsArray = taskSkills.split(',').map(s => s.trim());
+		}
+
+		// Insert into TASK table
+		await db.query(
+			`INSERT INTO task (event_id, name, skill, description)
+			 VALUES ($1, $2, $3, $4);`,
+			[eventId, taskName, skillsArray, taskDescription]
+		);
+
+		// Retrieve event details for redirect
+		const eventRes = await db.query(
+			`SELECT id, name, location, description, priority, date
+			 FROM event WHERE id = $1;`,
+			[eventId]
+		);
+
+		if (eventRes.rows.length === 0) {
+			return res.status(404).send('Event not found');
+		}
+
+		const e = eventRes.rows[0];
+
+		// Redirect back to taskCreator with the full querystring
+		res.redirect('/taskCreator?' + querystring.stringify({
+			eventId: e.id,
+			eventName: e.name,
+			location: e.location,
+			description: e.description,
+			priority: e.priority,
+			date: e.date
+		}));
 	} catch (err) {
 		console.error('Task addition error:', err);
 		res.status(500).send('Server error during task addition.');
 	}
 });
+
+app.post('/deleteTask', express.urlencoded({ extended: true }), async (req, res) => {
+	try {
+		const { taskId, eventId } = req.body;
+
+		// Delete the task (PostgreSQL will cascade delete any volunteer-task relations)
+		await db.query(`DELETE FROM task WHERE id = $1;`, [taskId]);
+
+		// Get event details for redirect
+		const eventRes = await db.query(
+			`SELECT id, name, location, description, priority, date
+			 FROM event WHERE id = $1;`,
+			[eventId]
+		);
+
+		if (eventRes.rows.length === 0) {
+			return res.status(404).send('Event not found');
+		}
+
+		const e = eventRes.rows[0];
+
+		res.redirect('/taskCreator?' + querystring.stringify({
+			eventId: e.id,
+			eventName: e.name,
+			location: e.location,
+			description: e.description,
+			priority: e.priority,
+			date: e.date
+		}));
+	} catch (err) {
+		console.error('Task deletion error:', err);
+		res.status(500).send('Server error during task deletion.');
+	}
+});
+
 
 // http://localhost:8080/eventconfirm
 app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
@@ -688,7 +783,6 @@ const serv = app.listen(port, address, () => {
 		console.log(`listening on port ${port}`);
 	}
 });
-
 
 //notification system
 let notifications = [];
