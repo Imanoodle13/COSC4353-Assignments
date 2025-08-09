@@ -11,6 +11,8 @@ const querystring = require('querystring')
 const pdfkit = require('pdfkit')
 const bs = require('blob-stream')
 const arrays = require('@thi.ng/arrays')
+const { createObjectCsvWriter: createCsvWriter } = require('csv-writer');
+const PDFDocument = require('pdfkit');
 
 const port = 8080;
 const address = '0.0.0.0';
@@ -38,12 +40,12 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.render('index')
 });
 
 // http://localhost:8080/homepage.html
-app.get('/homepage.html', async function(req, res) {
+app.get('/homepage.html', async function (req, res) {
 	try {
 		let isAdmin = false;
 		let isLogged = false;
@@ -747,12 +749,12 @@ app.post('/deleteTask', express.urlencoded({ extended: true }), async (req, res)
 
 
 // http://localhost:8080/eventconfirm
-app.get(['/eventconfirm', '/eventconfirm.html'], function(req, res) {
+app.get(['/eventconfirm', '/eventconfirm.html'], function (req, res) {
 	const { name, location, description, priority, date } = req.query;
 	res.render('eventConfirm', { name, location, description, priority, date });
 });
 
-app.get(['/userProfile', '/userProfile.html'], async function(req, res) {
+app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
 
 	// Query to retrieve all data
 	const result = await db.query(
@@ -904,5 +906,107 @@ app.post('/send-notification', express.urlencoded({ extended: true }), async (re
 	} catch (err) {
 		console.error('Notification Error:', err);
 		res.status(500).send('Notification Error.');
+	}
+});
+
+
+// Report page
+app.get(['/report', '/report.html'], async (req, res) => {
+	let username = 'Guest';
+	let u_id = null;
+	// Using the SQL database to get the user information
+	const user = await db.query(
+		'SELECT id, username FROM volunteer WHERE email = $1',
+		[req.session.user.email]
+	);
+	if (user.rows.length > 0) {
+		username = user.rows[0].username || 'Guest';
+		u_id = user.rows[0].id;
+	} else {
+		return res.redirect('/login.html?error=1');
+	}
+	res.render('report', { username, u_id });
+});
+
+app.get('/reports/csv', async (req, res) => {
+	try {
+		// Gets data
+		const result = await db.query('SELECT * FROM reports ORDER BY id');
+
+		// Sets up the CSV Writer
+		const csvWriter = createCsvWriter({
+			path: 'adminReport.csv',
+			header: [
+				{ id: 'id', title: 'ID' },
+				{ id: 'volunteer_id', title: 'Volunteer ID' },
+				{ id: 'first_name', title: 'First Name' },
+				{ id: 'last_name', title: 'Last Name' },
+				{ id: 'task_id', title: 'Task ID' },
+				{ id: 'date_accepted', title: 'Date Accepted' },
+				{ id: 'start_time', title: 'Start Time' },
+				{ id: 'task_name', title: 'Task Name' },
+				{ id: 'event_id', title: 'Event ID' },
+				{ id: 'event_name', title: 'Event Name' },
+				{ id: 'date', title: 'Date' },
+				{ id: 'location', title: 'Location' }
+			]
+		});
+
+		// Generate CSV and send
+		await csvWriter.writeRecords(result.rows);
+		res.redirect('/homepage.html');
+	} catch (err) {
+		console.error('Report generation error:', err);
+		res.status(500).send('Error generating CSV report');
+	}
+});
+
+app.get('/reports/pdf', async (req, res) => {
+	try {
+		const result = await db.query('SELECT * FROM reports ORDER BY id');
+
+		// Creates doc
+		const doc = new PDFDocument();
+
+		// Force download
+		res.setHeader('Content-Type', 'application/pdf');
+		res.setHeader('Content-Disposition', 'attachment; filename=adminReport.pdf');
+		doc.pipe(res);
+
+		// Header row
+		const headers = [
+			'ID', 'Volunteer ID', 'First Name', 'Last Name',
+			'Task ID', 'Date Accepted', 'Start Time', 'Task Name',
+			'Event ID', 'Event Name', 'Date', 'Location'
+		].join(',');
+
+		doc.text(headers);
+		doc.moveDown(1);
+
+		// Add each data row as CSV line
+		result.rows.forEach(row => {
+			const values = [
+				row.id,
+				row.volunteer_id,
+				row.first_name,
+				row.last_name,
+				row.task_id,
+				new Date(row.date_accepted).toString(),
+				new Date(row.start_time).toString(),
+				row.task_name,
+				row.event_id,
+				row.event_name,
+				new Date(row.date).toString(),
+				row.location
+			].join(',');
+
+			doc.text(values);
+			doc.moveDown(1);
+		});
+		doc.end();
+
+	} catch (err) {
+		console.error('Report generation error:', err);
+		res.status(500).send('Error generating PDF report');
 	}
 });
