@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const { Pool } = require('pg');
 const fs = require('fs');
 const path = require('path');
@@ -24,8 +25,6 @@ exports.app = app;
 const USERS_FILE = path.join(__dirname, 'users.json');
 const EVENTS_FILE = path.join(__dirname, 'eventInsert.json');
 
-module.exports
-
 // Middleware setup
 app.use(session({
 	secret: 'your_secret_key',
@@ -39,6 +38,8 @@ app.use(session({
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
 	res.render('index')
@@ -77,6 +78,7 @@ app.get('/signup.html', (req, res) => {
 	res.render('signup');
 });
 
+// !!! Utilized JSON files before we switched to SQL
 function getUsers() {
 	try {
 		// If the file is empty it will return empty array
@@ -94,6 +96,7 @@ function getUsers() {
 	}
 }
 
+// !!! Utilized JSON files before we switched to SQL
 function getEvents() {
 	try {
 		if (!fs.existsSync(EVENTS_FILE)) {
@@ -786,44 +789,6 @@ app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
 		availability: userData.availability || []
 	});
 });
-/*
-app.get(['/userProfile', '/userProfile.html'], async function (req, res) {
-
-	// Query to retrieve all data
-	const result = await db.query(
-		'SELECT first_name, last_name, username, skill, location, availability FROM volunteer WHERE email = $1',
-		[email]
-	);
-
-	const userData = result.rows[0] || {};
-
-	res.render('userProfile', {
-		email: req.session.user.email,
-		firstname: userData.first_name || "",
-		lastname: userData.last_name || "",
-		username: userData.username || "",
-		skills: userData.skills || [],
-		availability: userData.availability || []
-	});
-});
-*/
-
-/*
-app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
-	try {
-		console.log(req.body);
-		// Get data from body
-		const { fullname, address1, address2, city, state, zipcode, skills, preferences, availability } = req.body;
-
-
-
-		res.redirect('/homepage.html');
-	} catch (err) {
-		console.error('Profile update error:', err);
-		res.status(500).send('Server error during profile update.');
-	}
-});
-*/
 
 app.post('/complete-profile', express.urlencoded({ extended: true }), async (req, res) => {
 	try {
@@ -1010,3 +975,5 @@ app.get('/reports/pdf', async (req, res) => {
 		res.status(500).send('Error generating PDF report');
 	}
 });
+
+module.exports = { app };
